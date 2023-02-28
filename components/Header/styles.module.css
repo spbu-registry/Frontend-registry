@@ -36,7 +36,7 @@
   top: 0;
   right: 0;
   bottom: 0;
-  width: 50%;
+  width: calc(100% - 120px);
   background: #9f2d20;
   z-index: -1;
 }
@@ -46,11 +46,18 @@
   justify-content: space-around;
   color: #fff;
   margin: 20px 10px 0px 60px;
+
 }
 
 .headerMenu li {
   cursor: pointer;
+
 }
+.headerMenu li:hover{
+  cursor: pointer;
+  color: rgb(209, 209, 209); 
+}
+
 
 @media (max-width: 850px) {
   .headerImage {
