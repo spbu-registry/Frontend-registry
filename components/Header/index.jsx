@@ -8,12 +8,7 @@ const Header = () => {
   return (
     <header className={styles.header}>
       <div className={styles.headerImage}>
-        <Image
-          alt="Логотип СПбГУ"
-          src={logo}
-          objectFit={"contain"}
-          layout={"fill"}
-        />
+        <Image alt="Логотип СПбГУ" src={logo} />
       </div>
       <div className={styles.headerInner}>
         <nav className={styles.headerMenuContainer}>
