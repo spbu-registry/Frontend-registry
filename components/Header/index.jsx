@@ -13,7 +13,7 @@ const Header = () => {
       <div className={styles.headerInner}>
         <nav className={styles.headerMenuContainer}>
           <ul className={styles.headerMenu}>
-            <li>Клиники</li>
+            <li><a href="https://spbu.ru/universitet/klinika-spbgu">Клиники</a></li>
             <li>Проекты</li>
             <li>Заказчикам</li>
             <li>Войти</li>
