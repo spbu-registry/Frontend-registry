@@ -8,12 +8,19 @@ const Header = () => {
   return (
     <header className={styles.header}>
       <div className={styles.headerImage}>
-        <Image src={logo} objectFit={"contain"} layout={"fill"} />
+        <Image
+          alt="Логотип СПбГУ"
+          src={logo}
+          objectFit={"contain"}
+          layout={"fill"}
+        />
       </div>
       <div className={styles.headerInner}>
         <nav className={styles.headerMenuContainer}>
           <ul className={styles.headerMenu}>
-            <li><a href="https://spbu.ru/universitet/klinika-spbgu">Клиники</a></li>
+            <li>
+              <a href="https://spbu.ru/universitet/klinika-spbgu">Клиники</a>
+            </li>
             <li>Проекты</li>
             <li>Заказчикам</li>
             <li>Войти</li>
