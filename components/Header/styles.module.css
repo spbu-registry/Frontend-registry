@@ -1,0 +1,108 @@
+.header {
+  border-top: 1px solid transparent;
+  font-size: 20px;
+}
+
+.headerImage {
+  position: relative;
+  width: 50%;
+  margin-top: 50px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.headerImage img {
+  cursor: pointer;
+}
+
+.headerInner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: calc(60% + 20px);
+  height: 200px;
+  background: url("../../public/red-bg-2.svg") no-repeat;
+  background-size: contain;
+  background-position-y: center;
+  background-position-x: left;
+  z-index: 100;
+}
+
+.headerInner::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 50%;
+  background: #9f2d20;
+  z-index: -1;
+}
+
+.headerMenu {
+  display: flex;
+  justify-content: space-around;
+  color: #fff;
+  margin: 20px 10px 0px 60px;
+}
+
+.headerMenu li {
+  cursor: pointer;
+}
+
+@media (max-width: 850px) {
+  .headerImage {
+    height: 120px;
+    width: 65%;
+    margin-top: 40px;
+  }
+
+  .headerInner {
+    background-size: cover;
+    width: 50%;
+  }
+
+  .headerMenu {
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: right;
+    height: 150px;
+    margin-right: 40px;
+  }
+}
+
+@media (max-width: 550px) {
+  .headerInner {
+    position: relative;
+    width: 100%;
+    background: #9f2d20;
+    height: auto;
+    font-size: 16px;
+  }
+
+  .headerMenu {
+    padding: 20px;
+    flex-direction: row;
+    justify-content: space-around;
+    height: auto;
+    margin: 0;
+  }
+
+  .headerImage {
+    width: 100%;
+  }
+}
+
+@media (max-width: 400px) {
+  .headerMenu {
+    flex-direction: column;
+    text-align: center;
+    font-size: 20px;
+  }
+
+  .headerMenu > li {
+    margin-bottom: 10px;
+  }
+}

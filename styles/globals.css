@@ -1,9 +1,46 @@
+@font-face {
+  font-family: "OpenSans";
+  font-weight: 400;
+  src: url("../public/fonts/OpenSans/Opensans-Regular.ttf") format("ttf");
+}
+
+@font-face {
+  font-family: "OpenSans";
+  font-weight: 500;
+  src: url("../public/fonts/OpenSans/Opensans-Medium.ttf") format("ttf");
+}
+
+@font-face {
+  font-family: "OpenSans";
+  font-weight: 600;
+  src: url("../public/fonts/OpenSans/Opensans-SemiBold.ttf") format("ttf");
+}
+
+@font-face {
+  font-family: "OpenSans";
+  font-weight: 800;
+  src: url("../public/fonts/OpenSans/Opensans-Bold.ttf") format("ttf");
+}
+
+@font-face {
+  font-family: "OpenSans";
+  font-weight: 900;
+  src: url("../public/fonts/OpenSans/Opensans-ExtraBold.ttf") format("ttf");
+}
+
 html,
-body {
+body,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: "OpenSans";
 }
 
 a {
@@ -13,6 +50,11 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+ul {
+  text-decoration: none;
+  list-style: none;
 }
 
 @media (prefers-color-scheme: dark) {

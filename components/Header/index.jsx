@@ -1,0 +1,27 @@
+import React from "react";
+import Image from "next/image";
+import styles from "./styles.module.css";
+
+import logo from "../../public/logo.svg";
+
+const Header = () => {
+  return (
+    <header className={styles.header}>
+      <div className={styles.headerImage}>
+        <Image src={logo} objectFit={"contain"} layout={"fill"} />
+      </div>
+      <div className={styles.headerInner}>
+        <nav className={styles.headerMenuContainer}>
+          <ul className={styles.headerMenu}>
+            <li>Клиники</li>
+            <li>Проекты</li>
+            <li>Заказчикам</li>
+            <li>Войти</li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+  );
+};
+
+export default Header;
