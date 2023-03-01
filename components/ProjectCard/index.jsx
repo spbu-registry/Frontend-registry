@@ -6,7 +6,7 @@ import clinicPic from "../../public/examplesOfClinicPic/1.jpg";
 
 
 
-const FistInfo = () => {
+const ProjectCard = () => {
   return(
   <div className={styles.ProjectCard}>
       <h1>Музейно-архитектурная клиника</h1>
@@ -20,4 +20,4 @@ const FistInfo = () => {
   </div>
   );
 }
-export default FistInfo;
+export default ProjectCard;

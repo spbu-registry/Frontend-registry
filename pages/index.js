@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Header from "../components/Header/index";
-import FistInfo from "../components/FistInfo/index";
+import FirstInfo from "../components/FirstInfo/index";
 import ProjectCard from "../components/ProjectCard/index";
 
 export default function Home() {
@@ -13,7 +13,7 @@ export default function Home() {
       </Head>
       <Header />
       
-      <FistInfo/>
+      <FirstInfo/>
       <ProjectCard/>
     </div>
   );

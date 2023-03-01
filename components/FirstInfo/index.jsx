@@ -5,7 +5,7 @@ import styles from "./styles.module.css";
 // import logo from "../../public/logo.svg";
 
 
-const FistInfo = () => {
+const FirstInfo = () => {
   return(
   <div className={styles.FistInfoInner}>
       <h1>Практика по модели клиники в СПбГУ</h1>
@@ -15,4 +15,4 @@ const FistInfo = () => {
   </div>
   );
 }
-export default FistInfo;
+export default FirstInfo;
