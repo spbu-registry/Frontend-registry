@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Header from "../components/Header/index";
 import FirstInfo from "../components/FirstInfo/index";
-import ProjectCard from "../components/ProjectCard/index";
+import ClinicCard from "../components/ClinicCard/index";
 
 export default function Home() {
   return (
@@ -14,7 +14,7 @@ export default function Home() {
       <Header />
       
       <FirstInfo/>
-      <ProjectCard/>
+      <ClinicCard/>
     </div>
   );
 }

@@ -1,0 +1,62 @@
+.ClinicCard{
+  /* border-style: solid; */
+  
+  background-color: rgb(194, 39, 181);
+  border-radius: 10%;
+  /* color: aqua; */
+  
+  position: relative ;
+  /* top: 40px; left: 40px; */
+  width: 200px; /*временые параметры, после создание слайдера должен быть процент от размера слайдера*/
+  height: 233px;
+  /* margin-top: auto; */
+  margin-left: auto;
+  margin-right: auto; 
+  /* margin-bottom: auto; */
+  
+}
+.workingArea{
+  position: relative;
+  width: 80%; 
+  height:80%;
+  top: 10%;
+  left: 10%;
+  /* right: 10%;  */
+  /* margin-top: 10%;
+  margin-bottom: 10%; */
+}
+
+.ClinicCard h1{
+  /* margin-top: 5%; */
+  text-align: left;
+  /* font-size: 20px; */
+  font-size: 10px ; 
+  height:20%;
+
+  /* margin-bottom: 20px; */
+
+}
+
+
+.ClinicCardImages{
+  overflow:hidden;
+  border:  solid yellow; 
+  /* position: relative; */
+  border-radius: 5px; 
+  width:auto;
+  height:50%;
+  margin-top: 5%;
+  /* margin-top: 5%; */
+}
+
+.ClinicCardImages img {width: 100%; height: 100%; object-fit: cover}
+
+.ClinicCardLinks{
+  margin-top: 5%;
+  font-size: 10px;
+
+}
+.ClinicCardLinks li{
+  list-style-type:disc ;
+  margin-left: 10%; 
+}
