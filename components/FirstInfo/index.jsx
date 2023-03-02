@@ -1,6 +1,6 @@
 import React from "react";
 // import Image from "next/image";
-import styles from "./FirstInfo.module.css";
+import styles from "./FirstInfo.module.sass";
 
 // import logo from "../../public/logo.svg";
 

@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import styles from "./ClinicCard.module.css";
+import styles from "./ClinicCard.module.sass";
 
 import clinicPic from "../../public/examplesOfClinicPic/1.jpg";
 
