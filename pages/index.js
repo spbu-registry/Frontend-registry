@@ -1,5 +1,7 @@
 import Head from "next/head";
 import Header from "../components/Header/index";
+import FirstInfo from "../components/FirstInfo/index";
+import ClinicCard from "../components/ClinicCard/index";
 
 export default function Home() {
   return (
@@ -10,6 +12,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
+      
+      <FirstInfo/>
+      <ClinicCard/>
     </div>
   );
 }
