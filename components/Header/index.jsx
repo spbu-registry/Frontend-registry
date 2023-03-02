@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import styles from "./styles.module.css";
+import styles from "./Header.module.css";
 
 import logo from "../../public/logo.svg";
 
@@ -26,8 +26,4 @@ const Header = () => {
   );
 };
 
-
-
 export default Header;
-
-
