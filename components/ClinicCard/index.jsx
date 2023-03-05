@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import styles from "./ClinicCard.module.sass";
 
-import clinicPic from "../../public/examplesOfClinicPic/1.jpg";
+import clinicPic from "../../public/ClinicImage/1.jpg";
 
 const ClinicCard = () => {
   return (
@@ -14,7 +14,7 @@ const ClinicCard = () => {
         </div>
         <ul className={styles.ClinicCardLinks}>
           <li>
-            <a href="https://spbu.ru/universitet/klinika-spbgu">Подробнее</a>
+            <a href="https://spbu.ru/universitet/klinika-spbgu"><u>Подробнее</u></a>
           </li>
           <li>К проектам клиники</li>
         </ul>
