@@ -4,6 +4,8 @@ import FirstInfo from "../components/FirstInfo/";
 import ClinicCard from "../components/ClinicCard/";
 import Taglist from "../components/Taglist";
 import Container from "../components/Container";
+import ForClient from "../components/ForClient"
+import Footer from "../components/Footer"
 
 export default function Home() {
   return (
@@ -19,6 +21,8 @@ export default function Home() {
       </Container>
       <FirstInfo />
       <ClinicCard />
+        <ForClient />
+        <Footer />
     </div>
   );
 }
