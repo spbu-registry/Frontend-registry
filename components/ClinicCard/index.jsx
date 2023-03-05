@@ -14,7 +14,7 @@ const ClinicCard = () => {
         </div>
         <ul className={styles.ClinicCardLinks}>
           <li>
-            <a href="https://spbu.ru/universitet/klinika-spbgu">Подробнее</a>
+            <a href="https://spbu.ru/universitet/klinika-spbgu"><u>Подробнее</u></a>
           </li>
           <li>К проектам клиники</li>
         </ul>
