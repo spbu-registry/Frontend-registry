@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import styles from "./styles.module.css";
 
-import clinicPic from "../../public/examplesOfClinicPic/1.jpg";
+import clinicPic from "../../public/ClinicImage/1.jpg";
 
 
 
