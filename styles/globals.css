@@ -2,32 +2,28 @@
   font-family: "OpenSans";
   font-weight: 400;
   src: url("../public/fonts/OpenSans/OpenSans-Regular.woff") format("woff"),
-    url("../public/fonts/OpenSans/OpenSans-Regular.eot") format("eot"),
-    url("../public/fonts/OpenSans/Opensans-Regular.ttf") format("ttf");
+    url("../public/fonts/OpenSans/OpenSans-Regular.eot") format("eot");
 }
 
 @font-face {
   font-family: "OpenSans";
   font-weight: 600;
   src: url("../public/fonts/OpenSans/OpenSans-SemiBold.woff") format("woff"),
-    url("../public/fonts/OpenSans/OpenSans-SemiBold.eot") format("eot"),
-    url("../public/fonts/OpenSans/Opensans-SemiBold.ttf") format("ttf");
+    url("../public/fonts/OpenSans/OpenSans-SemiBold.eot") format("eot");
 }
 
 @font-face {
   font-family: "OpenSans";
   font-weight: 800;
   src: url("../public/fonts/OpenSans/OpenSans-Bold.woff") format("woff"),
-    url("../public/fonts/OpenSans/OpenSans-Bold.eot") format("eot"),
-    url("../public/fonts/OpenSans/Opensans-Bold.ttf") format("ttf");
+    url("../public/fonts/OpenSans/OpenSans-Bold.eot") format("eot");
 }
 
 @font-face {
   font-family: "OpenSans";
   font-weight: 900;
   src: url("../public/fonts/OpenSans/OpenSans-ExtraBold.woff") format("woff"),
-    url("../public/fonts/OpenSans/OpenSans-ExtraBold.eot") format("eot"),
-    url("../public/fonts/OpenSans/Opensans-ExtraBold.ttf") format("ttf");
+    url("../public/fonts/OpenSans/OpenSans-ExtraBold.eot") format("eot");
 }
 
 html,
