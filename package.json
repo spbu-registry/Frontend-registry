@@ -16,6 +16,6 @@
   "devDependencies": {
     "eslint": "8.35.0",
     "eslint-config-next": "13.2.1",
-    "styled-components": "^5.3.6"
+    "sass": "^1.58.3"
   }
 }

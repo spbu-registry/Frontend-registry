@@ -1,18 +1,18 @@
 import React from "react";
 import Image from "next/image";
-import styles from "./styles.module.css";
+import styles from "./Header.module.sass";
 
 import logo from "../../public/logo.svg";
 
 const Header = () => {
   return (
-    <header className={styles.header}>
-      <div className={styles.headerImage}>
+    <header className={styles.container}>
+      <div className={styles.image}>
         <Image alt="Логотип СПбГУ" src={logo} />
       </div>
-      <div className={styles.headerInner}>
-        <nav className={styles.headerMenuContainer}>
-          <ul className={styles.headerMenu}>
+      <div className={styles.inner}>
+        <nav>
+          <ul className={styles.menu}>
             <li>
               <a href="https://spbu.ru/universitet/klinika-spbgu">Клиники</a>
             </li>
@@ -26,8 +26,4 @@ const Header = () => {
   );
 };
 
-
-
 export default Header;
-
-
