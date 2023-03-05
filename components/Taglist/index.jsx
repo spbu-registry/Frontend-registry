@@ -89,6 +89,7 @@ const Taglist = () => {
     Чтобы перестать крутить, как только мышка ушла за пределы видимой части
     */
     addEventListener("onmouseup", handleMouseUp);
+    window.addEventListener("resize", handleResize);
 
     return () => {
       /*
