@@ -1,15 +1,8 @@
 .container
     position: relative
-
-.slider
-    overflow: hidden
-    user-select: none
-
-.inner
     display: flex
     justify-content: space-between
     flex-wrap: wrap
-    width: 200%
 
     &:after 
         content: ''
@@ -33,18 +26,3 @@
 
     &:nth-child(3n - 2)
         border-color: #FCAF39
-
-.arrowLeft, .arrowRight
-    position: absolute
-    height: 30px
-    width: 30px
-    top: calc(50% - 25px)  // отнимаем половину высоты (15px) и половину от margin-bottom последнего ряда тегов (10px)
-    background: url('/tag-list-arrow.svg') no-repeat
-    background-size: contain
-
-.arrowLeft
-    left: -40px
-
-.arrowRight
-    right: -40px
-    transform: rotate(180deg)
