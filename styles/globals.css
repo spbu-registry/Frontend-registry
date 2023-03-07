@@ -54,3 +54,24 @@ ul {
   text-decoration: none;
   list-style: none;
 }
+
+.clinic-slider-main .slick-track {
+  display: flex !important;
+}
+
+.clinic-slider-main .slick-slide {
+  padding: 0px 20px;
+  height: inherit !important;
+}
+
+.clinic-slider-main .slick-slide > div {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 800px) {
+  .clinic-slider-main .slick-slide {
+    padding: 0px 10px;
+  }
+}
