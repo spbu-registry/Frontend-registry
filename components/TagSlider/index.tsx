@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, FC } from "react";
 import styles from "./Taglist.module.sass";
 import { tags } from "./tags.js";
 
@@ -9,7 +9,9 @@ widthPercent - ширина в процентах всего слайдера о
 */
 const widthPercent = 150;
 
-const Taglist = () => {
+interface TagSliderProps {}
+
+const TagSlider: FC<TagSliderProps> = () => {
   /*
   offset - то, насколько сейчас сдвинут слайдер
   */
@@ -20,9 +22,9 @@ const Taglist = () => {
   */
   const [urlClicked, setUrlClicked] = useState("");
 
-  const sliderRef = useRef(null);
+  const sliderRef: React.RefObject<HTMLDivElement> = useRef(null);
 
-  const changeOffset = (newOffset) => {
+  const changeOffset = (newOffset: number) => {
     /*
     Если нам разница между newOffset и шириной всего слайдера меньше ширины видимой части,
     то перестаём крутить, потому что крутить уже нечего
@@ -41,15 +43,23 @@ const Taglist = () => {
 
   const [isMouseDown, setMouseDown] = useState(false);
 
-  const handleMouseDown = (e) => {
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!(e.target instanceof HTMLDivElement)) {
+      return;
+    }
+
     setMouseDown(true);
 
-    if (e.target.parentNode.parentNode == sliderRef.current) {
+    if (!e.target.parentNode) return;
+    if (
+      e.target.dataset.url &&
+      e.target.parentNode.parentNode == sliderRef.current
+    ) {
       setUrlClicked(e.target.dataset.url);
     }
   };
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (isMouseDown) changeOffset(offset - e.movementX);
     setUrlClicked("");
   };
@@ -67,6 +77,7 @@ const Taglist = () => {
   // Мышка End
 
   const handleResize = () => {
+    if (!sliderRef.current) return;
     /*
     Если слайдер был откручен максимально вправо и пользователь начал уменьшать экран
     (повернул телефон), то offset будет слишком большим и видимая часть
@@ -104,6 +115,7 @@ const Taglist = () => {
   // Стрелки
 
   const handleClickLeft = () => {
+    if (!sliderRef.current) return;
     /*
     Если можем прокрутить влево на один экран, то так и делаем
     Если не можем, то просто возвращаем слайдер в начало
@@ -118,6 +130,7 @@ const Taglist = () => {
   };
 
   const handleClickRight = () => {
+    if (!sliderRef.current) return;
     /*
     Если можем прокрутить вправо на один экран, то так и делаем
     Если не можем, то просто возвращаем слайдер в конец
@@ -171,4 +184,4 @@ const Taglist = () => {
   );
 };
 
-export default Taglist;
+export default TagSlider;

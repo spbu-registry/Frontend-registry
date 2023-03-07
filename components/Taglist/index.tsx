@@ -1,8 +1,10 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, FC } from "react";
 import styles from "./Taglist.module.sass";
 import { tags } from "./tags.js";
 
-const Taglist = () => {
+interface TagListProps {}
+
+const TagList: FC<TagListProps> = () => {
   return (
     <div className={styles.container}>
       {tags.map((tag) => (
@@ -14,4 +16,4 @@ const Taglist = () => {
   );
 };
 
-export default Taglist;
+export default TagList;

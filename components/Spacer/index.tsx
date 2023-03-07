@@ -1,5 +1,12 @@
-import React from "react";
-const Spacer = ({ size, axis, style = {} }) => {
+import React, { FC } from "react";
+
+interface SpacerProps {
+  size: number;
+  axis?: "vertical" | "horizontal";
+  style?: any;
+}
+
+const Spacer: FC<SpacerProps> = ({ size, axis, style = {} }) => {
   const width = axis === "vertical" ? 1 : size;
   const height = axis === "horizontal" ? 1 : size;
   return (
@@ -14,4 +21,5 @@ const Spacer = ({ size, axis, style = {} }) => {
     />
   );
 };
+
 export default Spacer;

@@ -1,10 +1,12 @@
-import React from "react";
+import React, { FC } from "react";
 // import Image from "next/image";
 import styles from "./FirstInfo.module.sass";
 
 // import logo from "../../public/logo.svg";
 
-const FirstInfo = () => {
+interface FirstInfoProps {}
+
+const FirstInfo: FC<FirstInfoProps> = () => {
   return (
     <div className={styles.FistInfoInner}>
       <h1>Практика по модели клиники в СПбГУ</h1>
@@ -17,4 +19,5 @@ const FirstInfo = () => {
     </div>
   );
 };
+
 export default FirstInfo;

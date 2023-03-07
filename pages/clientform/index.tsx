@@ -2,10 +2,13 @@ import Head from "next/head";
 import Header from "../../components/Header";
 import Container from "../../components/Container";
 import Footer from "../../components/Footer";
-import ProjectList from "../../components/ProjectList";
+import FormForClient from "../../components/FormForClient";
 import Spacer from "../../components/Spacer";
+import { NextPage } from "next";
 
-export default function Projects() {
+interface ClientFormProps {}
+
+const ClientForm: NextPage<ClientFormProps> = () => {
   return (
     <div>
       <Head>
@@ -16,9 +19,11 @@ export default function Projects() {
       <Header />
       <Spacer axis="vertical" size={50} />
       <Container>
-        <ProjectList />
+        <FormForClient stylesProp={{ width: "100%", height: "80vh" }} />
       </Container>
       <Footer />
     </div>
   );
-}
+};
+
+export default ClientForm;

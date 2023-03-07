@@ -1,10 +1,12 @@
-import React from "react";
+import React, { FC } from "react";
 import Image from "next/image";
 import styles from "./Header.module.sass";
 
 import logo from "../../public/logo.svg";
 
-const Header = () => {
+interface HeaderProps {}
+
+const Header: FC<HeaderProps> = () => {
   return (
     <header className={styles.container}>
       <div className={styles.image}>

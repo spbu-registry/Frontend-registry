@@ -1,10 +1,12 @@
-import React from "react";
+import React, { FC } from "react";
 import Image from "next/image";
 import styles from "./ClinicCard.module.sass";
 
 import clinicPic from "../../public/ClinicImage/1.jpg";
 
-const ClinicCard = () => {
+interface ClinicCardProps {}
+
+const ClinicCard: FC<ClinicCardProps> = () => {
   return (
     <div className={styles.ClinicCard}>
       <div className={styles.workingArea}>
@@ -12,7 +14,7 @@ const ClinicCard = () => {
           <h1>Музейно-архитектурная клиника</h1>
         </div>
         <div className={styles.ClinicCardImages}>
-          <Image src={clinicPic} />
+          <Image src={clinicPic} alt="" />
         </div>
         <ul className={styles.ClinicCardLinks}>
           <li>
@@ -26,4 +28,5 @@ const ClinicCard = () => {
     </div>
   );
 };
+
 export default ClinicCard;

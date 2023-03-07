@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import styles from "./ClinicSlider.module.sass";
 import Slider from "react-slick";
 import ClinicCard from "../ClinicCard";
@@ -25,7 +25,9 @@ const settings = {
   ],
 };
 
-const ClinicSlider = () => {
+interface ClinicSliderProps {}
+
+const ClinicSlider: FC<ClinicSliderProps> = () => {
   return (
     <div className={styles.container}>
       <Slider {...settings} className={"clinic-slider-main"}>
