@@ -12,6 +12,7 @@ import TextInputFormComponent, {
 import FormForClient from "../components/FormForClient";
 import ProjectList from "../components/ProjectList";
 import ClinicSlider from "../components/ClinicSlider";
+import Spacer from "../components/Spacer";
 
 export default function Home() {
   return (
@@ -22,10 +23,14 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
+      <Spacer axis="vertical" size={50} />
       <Container>
         <FirstInfo />
+        <Spacer axis="vertical" size={50} />
         <ClinicSlider />
+        <Spacer axis="vertical" size={50} />
         <Taglist />
+        <Spacer axis="vertical" size={50} />
         <ForClient />
       </Container>
       <Footer />
