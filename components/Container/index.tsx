@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import styles from "./Container.module.sass";
 
 interface ContainerProps {
-  children: React.ReactElement;
+  children: React.ReactElement | React.ReactElement[];
 }
 
 const Container: FC<ContainerProps> = ({ children }) => {
