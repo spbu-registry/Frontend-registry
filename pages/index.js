@@ -23,14 +23,11 @@ export default function Home() {
       </Head>
       <Header />
       <Container>
+        <FirstInfo />
         <ClinicSlider />
-      </Container>
-      <Container>
         <Taglist />
+        <ForClient />
       </Container>
-      <FirstInfo />
-      <ClinicCard />
-      <ForClient />
       <Footer />
 
       <FormForClient styles={{ width: "100%", height: "80vh" }} />
