@@ -25,18 +25,25 @@ const TagSlider: FC<TagSliderProps> = () => {
   const sliderRef: React.RefObject<HTMLDivElement> = useRef(null);
 
   const changeOffset = (newOffset: number) => {
-    /*
-    Если нам разница между newOffset и шириной всего слайдера меньше ширины видимой части,
-    то перестаём крутить, потому что крутить уже нечего
-    */
+    if (newOffset < 0) {
+      setOffset(0);
+      return;
+    }
+
     if (
       sliderRef.current &&
-      newOffset <=
+      newOffset >
         (sliderRef.current.clientWidth * widthPercent) / 100 -
-          sliderRef.current.clientWidth &&
-      newOffset >= 0
-    )
-      setOffset(newOffset);
+          sliderRef.current.clientWidth
+    ) {
+      setOffset(
+        (sliderRef.current.clientWidth * widthPercent) / 100 -
+          sliderRef.current.clientWidth
+      );
+      return;
+    }
+
+    setOffset(newOffset);
   };
 
   // Мышка
