@@ -26,7 +26,7 @@ const Home: NextPage<HomeProps> = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <Spacer axis="vertical" size={50} />
+      <Spacer axis="vertical" size={100} />
       <Container>
         <FirstInfo />
         <Spacer axis="vertical" size={50} />

@@ -4,10 +4,17 @@ import Slider from "react-slick";
 import ClinicCard from "../ClinicCard";
 
 const settings = {
-  slidesToShow: 3,
-  slidesToScroll: 3,
+  slidesToShow: 4,
+  slidesToScroll: 4,
   infinite: true,
   responsive: [
+    {
+      breakpoint: 1500,
+      settings: {
+        slidesToShow: 3,
+        slidesToSroll: 3,
+      },
+    },
     {
       breakpoint: 1100,
       settings: {
