@@ -6,6 +6,8 @@ import Taglist from "../components/Taglist";
 import Container from "../components/Container";
 import ForClient from "../components/ForClient"
 import Footer from "../components/Footer"
+import TextInputFormComponent, {InputFieldType} from "../components/TextInputFormComponent";
+import FormForClient from "../components/FormForClient";
 
 export default function Home() {
   return (
@@ -23,6 +25,8 @@ export default function Home() {
       <ClinicCard />
         <ForClient />
         <Footer />
+      
+      <FormForClient styles={{width : '100%', height: '80vh'}}/>
     </div>
   );
 }
