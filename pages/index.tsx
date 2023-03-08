@@ -14,8 +14,9 @@ import ProjectList from "../components/ProjectList";
 import ClinicSlider from "../components/ClinicSlider";
 import Spacer from "../components/Spacer";
 import { NextPage } from "next";
+import HomeProjectList from "../components/HomeProjectList";
 
-interface HomeProps {}
+interface HomeProps { }
 
 const Home: NextPage<HomeProps> = () => {
   return (
@@ -36,6 +37,7 @@ const Home: NextPage<HomeProps> = () => {
         <Spacer axis="vertical" size={50} />
         <ForClient />
       </Container>
+      <HomeProjectList />
       <Footer />
 
       <FormForClient stylesProp={{ width: "100%", height: "80vh" }} />
