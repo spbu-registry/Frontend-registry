@@ -1,8 +1,8 @@
-import { FC } from "react";
 import TextInputFormComponent, {
   InputFieldType,
 } from "../TextInputFormComponent";
-import styles from "./FormForClient.module.scss";
+import FormStyles from "./FormForClient.module.scss";
+import InputFormStyles from './TextInputFormComponent.module.scss';
 
 /*
     FormForClient was build to receive project ideas from clients.
@@ -10,74 +10,88 @@ import styles from "./FormForClient.module.scss";
 */
 
 interface FormForClientProps {
-  stylesProp: any;
+  stylesProp : React.CSSProperties
 }
 
-const FormForClient: FC<FormForClientProps> = ({ stylesProp }) => {
+const genericStyle = {
+  Input : InputFormStyles.Input,
+  InputWrapper : InputFormStyles.InputWrapper,
+  InputError : InputFormStyles.Error,
+
+  Devider : InputFormStyles.Devider,
+  Label : InputFormStyles.Label,
+  Required : InputFormStyles.Required,
+
+  WrongInput : InputFormStyles.WrongInput,
+}
+
+export default function FormForClient({stylesProp} : FormForClientProps) {
   return (
-    <form className={styles.FormForClient} style={stylesProp}>
-      <div className={styles.Wrapper} style={{ flex: 1 }}>
+    <form className={FormStyles.FormForClient} style={stylesProp} noValidate>
+      <div className={FormStyles.Wrapper} style={{ flex: 1 }}>
         <TextInputFormComponent
-          label={"Имя юридического/физического лица"}
+          label={"Имя юридического / физического лица"}
           id={"Employer_name"}
+          setValue={() => {}}
           placeholder={"Иванов Иван Владимирович"}
           type={InputFieldType.Text}
-          required
+          validation={{required : true}}
+          styling={genericStyle}
         />
       </div>
-      <div className={styles.Wrapper} style={{ flex: 1 }}>
+      <div className={FormStyles.Wrapper} style={{ flex: 1 }}>
         <TextInputFormComponent
           label={"Почта для связи"}
           id={"Employer_email"}
+          setValue={() => {}}
           placeholder={"example@supermail.com"}
           type={InputFieldType.Email}
-          required
+          validation={{required : true}}
+          styling={genericStyle}
         />
       </div>
-      <div className={styles.Wrapper} style={{ flex: 1 }}>
+      <div className={FormStyles.Wrapper} style={{ flex: 1 }}>
         <TextInputFormComponent
           label={"Номер телефона"}
           id={"Employer_phone"}
+          setValue={() => {}}
           placeholder={"81234567890"}
           type={InputFieldType.PhoneNumber}
-          required
+          validation={{required : true}}
+          styling={Object.assign({}, genericStyle, {
+            Input : InputFormStyles.InputNumber,
+            InputWrapper : InputFormStyles.InputWrapperNumber,
+            InputError : InputFormStyles.ErrorNumber
+          })}
         />
       </div>
-      <div className={styles.Wrapper} style={{ flex: 2 }}>
+      <div className={FormStyles.Wrapper} style={{ flex: 2 }}>
         <TextInputFormComponent
           label={"Краткая идея проекта"}
           id={"Employer_idea"}
+          setValue={() => {}}
           placeholder={"Хочу летающие машины"}
           type={InputFieldType.Area}
-          required
+          validation={{required : true}}
+          styling={Object.assign({}, genericStyle, {
+            Input : InputFormStyles.InputArea,
+            InputWrapper : InputFormStyles.AreaInputWrapper
+          })}
         />
       </div>
-      <div className={styles.Wrapper} style={{ flex: 6 }}>
-        <TextInputFormComponent
-          label={"Описание проекта"}
-          id={"Employer_project_description"}
-          placeholder={
-            "Хочу прям такие крутящиеся летающие машины, которые пи-пи-пиу"
-          }
-          type={InputFieldType.Area}
-          ratio={4}
-          required
-          vertical
-        />
-      </div>
-      <div className={styles.Wrapper} style={{ flex: 1 }}>
+      <div className={FormStyles.Wrapper} style={{ flex: 1 }}>
         <TextInputFormComponent
           label={"Другие способы связи"}
           id={"Employer_contacts"}
+          setValue={() => {}}
           placeholder={"Мой второй телефон, моя мама..."}
           type={InputFieldType.Text}
+          styling={genericStyle}
         />
       </div>
-      <button className={styles.FormButton} style={{ flex: 1 }} type="submit">
+      <button className={FormStyles.FormButton} style={{ flex: 0.8 }} type="submit">
         Отправить
       </button>
     </form>
-  );
-};
-
-export default FormForClient;
+  )
+}
