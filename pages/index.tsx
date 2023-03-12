@@ -6,9 +6,6 @@ import TagSlider from "../components/TagSlider";
 import Container from "../components/Container";
 import ForClient from "../components/ForClient";
 import Footer from "../components/Footer";
-import TextInputFormComponent, {
-  InputFieldType,
-} from "../components/TextInputFormComponent";
 import FormForClient from "../components/FormForClient";
 import ProjectList from "../components/ProjectList";
 import ClinicSlider from "../components/ClinicSlider";
@@ -40,7 +37,7 @@ const Home: NextPage<HomeProps> = () => {
       <HomeProjectList />
       <Footer />
 
-      <FormForClient stylesProp={{ width: "100%", height: "80vh" }} />
+      <FormForClient stylesProp={{ width: "100%", height: "60vh" }} />
 
       <ProjectList />
     </>
