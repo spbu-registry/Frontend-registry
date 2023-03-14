@@ -1,13 +1,28 @@
 import React, { useState, useRef, useEffect, FC } from "react";
 import styles from "./Taglist.module.sass";
 import { tags } from "./tags.js";
+import { useWindowSize } from "./windowresize";
 
 /* 
 widthPercent - ширина в процентах всего слайдера относительно видимой части
 Сделал отдельной переменной, чтобы, если надо будет, на разных размерах экрана
 использовать разные значения
 */
-const widthPercent = 150;
+
+const breakpoints = [
+  {
+    breakpoint: 2000,
+    widthPercent: 150,
+  },
+  {
+    breakpoint: 1000,
+    widthPercent: 300,
+  },
+  {
+    breakpoint: 700,
+    widthPercent: 350,
+  },
+];
 
 interface TagSliderProps {}
 
@@ -16,6 +31,10 @@ const TagSlider: FC<TagSliderProps> = () => {
   offset - то, насколько сейчас сдвинут слайдер
   */
   const [offset, setOffset] = useState(0);
+
+  const [widthPercent, setWidthPercent] = useState(150);
+
+  const windowSize = useWindowSize();
 
   /*
   переходим по ссылке только если пользователь не пытался двигать слайдер
@@ -30,15 +49,22 @@ const TagSlider: FC<TagSliderProps> = () => {
       return;
     }
 
+    /*
+    Ограничивает прокрутку вправо. Отнимаем 28, потому что у всех элементов
+    margin-right: 30px. Если отнимать ровно 30, то border будет немного обрезаться,
+    я даже вникать не захотел, почему именно.
+    */
     if (
       sliderRef.current &&
       newOffset >
         (sliderRef.current.clientWidth * widthPercent) / 100 -
-          sliderRef.current.clientWidth
+          sliderRef.current.clientWidth -
+          28
     ) {
       setOffset(
         (sliderRef.current.clientWidth * widthPercent) / 100 -
-          sliderRef.current.clientWidth
+          sliderRef.current.clientWidth -
+          28
       );
       return;
     }
@@ -83,31 +109,11 @@ const TagSlider: FC<TagSliderProps> = () => {
 
   // Мышка End
 
-  const handleResize = () => {
-    if (!sliderRef.current) return;
-    /*
-    Если слайдер был откручен максимально вправо и пользователь начал уменьшать экран
-    (повернул телефон), то offset будет слишком большим и видимая часть
-    слишком далеко вправо будет уходить
-    */
-    if (
-      offset + sliderRef.current.clientWidth >
-      (sliderRef.current.clientWidth * widthPercent) / 100 -
-        sliderRef.current.clientWidth
-    ) {
-      setOffset(
-        (sliderRef.current.clientWidth * widthPercent) / 100 -
-          sliderRef.current.clientWidth
-      );
-    }
-  };
-
   useEffect(() => {
     /*
-    Чтобы перестать крутить, как только мышка ушла за пределы видимой части
+    Чтобы перестать крутить, как только мышка ушла за пределы видимой части слайдера
     */
     addEventListener("onmouseup", handleMouseUp);
-    window.addEventListener("resize", handleResize);
 
     return () => {
       /*
@@ -115,9 +121,47 @@ const TagSlider: FC<TagSliderProps> = () => {
       Нам не нужно следить за событиями, если списка тегов уже нет на странице
       */
       removeEventListener("onmouseup", handleMouseUp);
-      window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  // Resize
+
+  const calcSliderResize = () => {
+    const filtered = breakpoints.filter(
+      (option) => option.breakpoint > window.innerWidth
+    );
+
+    if (!filtered.length) return breakpoints[0].widthPercent;
+
+    return filtered[filtered.length - 1].widthPercent;
+  };
+
+  useEffect(() => {
+    const newWidthPercent = calcSliderResize();
+
+    if (!sliderRef.current) return;
+    /*
+    Если слайдер был откручен максимально вправо и пользователь начал уменьшать экран
+    (повернул телефон), то offset будет слишком большим и видимая часть
+    слишком далеко вправо будет уходить
+    */
+    if (
+      sliderRef.current &&
+      offset >
+        (sliderRef.current.clientWidth * newWidthPercent) / 100 -
+          sliderRef.current.clientWidth -
+          28
+    ) {
+      setOffset(
+        (sliderRef.current.clientWidth * newWidthPercent) / 100 -
+          sliderRef.current.clientWidth -
+          28
+      );
+    }
+    setWidthPercent(newWidthPercent);
+  }, [windowSize]);
+
+  // Resize End
 
   // Стрелки
 
@@ -147,13 +191,15 @@ const TagSlider: FC<TagSliderProps> = () => {
     if (
       offset + sliderRef.current.clientWidth <
       (sliderRef.current.clientWidth * widthPercent) / 100 -
-        sliderRef.current.clientWidth
+        sliderRef.current.clientWidth -
+        28
     ) {
       setOffset(offset + sliderRef.current.clientWidth);
     } else {
       setOffset(
         (sliderRef.current.clientWidth * widthPercent) / 100 -
-          sliderRef.current.clientWidth
+          sliderRef.current.clientWidth -
+          28
       );
     }
   };

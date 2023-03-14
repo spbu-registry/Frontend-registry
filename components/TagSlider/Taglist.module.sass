@@ -36,15 +36,31 @@
 
 .arrowLeft, .arrowRight
     position: absolute
-    height: 30px
-    width: 30px
+    height: 40px
+    width: 40px
     top: calc(50% - 25px)  // отнимаем половину высоты (15px) и половину от margin-bottom последнего ряда тегов (10px)
-    background: url('/tag-list-arrow.svg') no-repeat
-    background-size: contain
+    background: #fff
+    border-radius: 50%
+
+    &::after
+        content: ''
+        position: absolute
+        top: 0
+        left: 0
+        right: 0
+        bottom: 0
+        background: url('/tag-list-arrow-alt.svg') no-repeat
+        background-size: contain
+
+    &:hover
+        background: #000
+
+        &::after
+            filter: invert(100%)
 
 .arrowLeft
-    left: -40px
+    left: 5px
+    transform: rotate(180deg)
 
 .arrowRight
-    right: -40px
-    transform: rotate(180deg)
+    right: 5px
