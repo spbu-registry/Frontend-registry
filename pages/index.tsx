@@ -14,6 +14,7 @@ import { NextPage } from "next";
 import HomeProjectList from "../components/HomeProjectList";
 import TagFilter from "../components/TagFilter";
 import TempTagContainer from "../components/TempTagContainer";
+import YearFilter from "../components/YearFilter";
 
 interface HomeProps {}
 
@@ -29,6 +30,7 @@ const Home: NextPage<HomeProps> = () => {
       <Spacer axis="vertical" size={100} />
       <Container>
         <TempTagContainer />
+        <YearFilter />
         <FirstInfo />
         <Spacer axis="vertical" size={50} />
         <ClinicSlider />

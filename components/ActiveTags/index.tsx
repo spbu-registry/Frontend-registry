@@ -14,12 +14,11 @@ const ActiveTags: FC<ActiveTagsProps> = ({ activeTags, setActiveTags }) => {
   return (
     <ul className={styles.taglist}>
       {activeTags.map((tag) => (
-        <li
-          className={styles.tag}
-          onClick={() => handleRemoveTag(tag)}
-          key={tag}
-        >
-          <span className={styles.delete} />
+        <li className={styles.tag} key={tag}>
+          <span
+            className={styles.delete}
+            onClick={() => handleRemoveTag(tag)}
+          />
           {tag}
         </li>
       ))}

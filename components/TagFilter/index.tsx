@@ -48,6 +48,7 @@ const TagFilter: FC<TagFilterProps> = ({ activeTags, setActiveTags }) => {
     if (e.target instanceof HTMLLIElement && e.target.innerHTML) {
       setActiveTags([...activeTags, e.target.innerHTML]);
     }
+    setOpened(false);
   };
 
   const handleFocus = () => {
