@@ -12,8 +12,9 @@ import ClinicSlider from "../components/ClinicSlider";
 import Spacer from "../components/Spacer";
 import { NextPage } from "next";
 import HomeProjectList from "../components/HomeProjectList";
+import TagFilter from "../components/TagFilter";
 
-interface HomeProps { }
+interface HomeProps {}
 
 const Home: NextPage<HomeProps> = () => {
   return (
@@ -26,6 +27,7 @@ const Home: NextPage<HomeProps> = () => {
       <Header />
       <Spacer axis="vertical" size={100} />
       <Container>
+        <TagFilter />
         <FirstInfo />
         <Spacer axis="vertical" size={50} />
         <ClinicSlider />

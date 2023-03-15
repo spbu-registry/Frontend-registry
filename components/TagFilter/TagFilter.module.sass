@@ -1,0 +1,50 @@
+.tagFilter
+    position: relative
+    display: inline-block
+
+    & input 
+        border: 2px solid #9f2d20
+        border-radius: 8px
+        padding: 10px
+        padding-left: 40px
+
+        &:focus
+            outline: none
+    
+    &::before
+        content: ''
+        position: absolute
+        display: block
+        height: 100%
+        width: 20px
+        top: calc(50% - 10px)
+        left: 5px
+        background: url('/filter-tag-search.svg') no-repeat
+        background-size: contain
+
+.popup
+    position: absolute
+    top: calc(100% - 10px)
+    padding-top: 10px
+    width: 100%
+    left: 0
+    border: 2px solid #9F2D20
+    border-top: none
+    border-bottom-left-radius: 8px
+    border-bottom-right-radius: 8px
+    background: #fff
+    z-index: 100
+    cursor: pointer
+    overflow: hidden
+
+    & li
+        padding: 5px
+
+        &:hover
+            background: #eee
+
+.highlight 
+    background: #ddd
+
+    &:hover
+        background: #ddd
