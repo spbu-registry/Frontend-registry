@@ -2,7 +2,10 @@ import React, { FC, useEffect, useRef, useState } from "react";
 import styles from "./TagFilter.module.sass";
 import { useDebounce } from "./useDebounce";
 
-interface TagFilterProps {}
+interface TagFilterProps {
+  activeTags: string[];
+  setActiveTags: (value: string[]) => void;
+}
 
 /*
 Фильтрация предложенных тегов сейчас происходит на стороне клиента.
@@ -10,12 +13,13 @@ interface TagFilterProps {}
 или передаются как проп.
 Переделать под фильтрацию на беке несложно: немного поменять handleChange
 */
-const filters = ["абв", "абвгде", "а", "каы", "ук", "de"];
+const tags = ["абв", "абвгде", "а", "каы", "ук", "de"];
 
-const TagFilter: FC<TagFilterProps> = () => {
-  const [activeFilters, setActiveFilters] = useState<string[]>([]);
+const TagFilter: FC<TagFilterProps> = ({ activeTags, setActiveTags }) => {
+  const [inputText, setInputText] = useState("");
+  const [suggested, setSuggested] = useState<string[]>([]);
 
-  const debouncedFilters = useDebounce(activeFilters, 200);
+  const debouncedSuggested = useDebounce(suggested, 200);
 
   //opened - чтобы можно было свернуть всплывашку, но не сбрасывать поиск
   const [opened, setOpened] = useState(false);
@@ -27,17 +31,7 @@ const TagFilter: FC<TagFilterProps> = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
-    if (!e.currentTarget.value) {
-      setActiveFilters([]);
-      return;
-    }
-    setActiveFilters(
-      filters.filter((filter) =>
-        filter.toLowerCase().includes(e.currentTarget.value.toLowerCase())
-      )
-    );
-    setHighlighted(-1);
-    setOpened(true);
+    setInputText(e.currentTarget.value);
   };
 
   const handleClickAway = (e: MouseEvent) => {
@@ -52,9 +46,7 @@ const TagFilter: FC<TagFilterProps> = () => {
 
   const handleClick = (e: React.MouseEvent) => {
     if (e.target instanceof HTMLLIElement && e.target.innerHTML) {
-      /*
-      коллбек
-      */
+      setActiveTags([...activeTags, e.target.innerHTML]);
     }
   };
 
@@ -70,13 +62,41 @@ const TagFilter: FC<TagFilterProps> = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (!inputText) {
+      setSuggested([]);
+      return;
+    }
+    /*
+    1. Тег должен включать в себя инпут пользователя
+    2. Тега не должно быть в списке уже активных
+    */
+    setSuggested(
+      tags.filter(
+        (tag) =>
+          tag.toLowerCase().includes(inputText.toLowerCase()) &&
+          !activeTags.includes(tag)
+      )
+    );
+    setHighlighted(-1);
+    setOpened(true);
+    /*
+    вообще для activeTags можно было бы сделать отдельный
+    useEffect, где будет меньше всего происходить
+    (нам там нужно только обновление suggested).
+    */
+  }, [inputText, activeTags]);
+
   const handleKeyDown = (e: React.KeyboardEvent) => {
     switch (e.key) {
       case "Enter":
         e.preventDefault();
         /*
-        коллбек
+        1. Тега не должно быть в списке уже активных
+        2. Инпут должен полностью совпадать с каким-то из существующих тегов
         */
+        if (tags.filter((tag) => !activeTags.includes(tag)).includes(inputText))
+          setActiveTags([...activeTags, inputText]);
         break;
       case "ArrowUp":
         e.preventDefault();
@@ -84,7 +104,7 @@ const TagFilter: FC<TagFilterProps> = () => {
         break;
       case "ArrowDown":
         e.preventDefault();
-        if (highlighted < debouncedFilters.length - 1)
+        if (highlighted < debouncedSuggested.length - 1)
           setHighlighted(highlighted + 1);
         break;
     }
@@ -98,14 +118,14 @@ const TagFilter: FC<TagFilterProps> = () => {
         onKeyDown={handleKeyDown}
         placeholder="Начните вводить тег..."
       />
-      {opened && debouncedFilters.length > 0 && (
+      {opened && debouncedSuggested.length > 0 && (
         <ul className={styles.popup} onClick={handleClick}>
-          {debouncedFilters.map((filter, index) => (
+          {debouncedSuggested.map((option, index) => (
             <li
               className={index == highlighted ? styles.highlight : ""}
-              key={filter}
+              key={option}
             >
-              {filter}
+              {option}
             </li>
           ))}
         </ul>
