@@ -19,7 +19,7 @@ const TagFilter: FC<TagFilterProps> = ({ activeTags, setActiveTags }) => {
   const [inputText, setInputText] = useState("");
   const [suggested, setSuggested] = useState<string[]>([]);
 
-  const debouncedSuggested = useDebounce(suggested, 200);
+  const debouncedInput = useDebounce(inputText, 200);
 
   //opened - чтобы можно было свернуть всплывашку, но не сбрасывать поиск
   const [opened, setOpened] = useState(false);
@@ -64,7 +64,7 @@ const TagFilter: FC<TagFilterProps> = ({ activeTags, setActiveTags }) => {
   }, []);
 
   useEffect(() => {
-    if (!inputText) {
+    if (!debouncedInput) {
       setSuggested([]);
       return;
     }
@@ -75,7 +75,7 @@ const TagFilter: FC<TagFilterProps> = ({ activeTags, setActiveTags }) => {
     setSuggested(
       tags.filter(
         (tag) =>
-          tag.toLowerCase().includes(inputText.toLowerCase()) &&
+          tag.toLowerCase().includes(debouncedInput.toLowerCase()) &&
           !activeTags.includes(tag)
       )
     );
@@ -86,7 +86,7 @@ const TagFilter: FC<TagFilterProps> = ({ activeTags, setActiveTags }) => {
     useEffect, где будет меньше всего происходить
     (нам там нужно только обновление suggested).
     */
-  }, [inputText, activeTags]);
+  }, [debouncedInput, activeTags]);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     switch (e.key) {
@@ -105,8 +105,7 @@ const TagFilter: FC<TagFilterProps> = ({ activeTags, setActiveTags }) => {
         break;
       case "ArrowDown":
         e.preventDefault();
-        if (highlighted < debouncedSuggested.length - 1)
-          setHighlighted(highlighted + 1);
+        if (highlighted < suggested.length - 1) setHighlighted(highlighted + 1);
         break;
     }
   };
@@ -119,9 +118,9 @@ const TagFilter: FC<TagFilterProps> = ({ activeTags, setActiveTags }) => {
         onKeyDown={handleKeyDown}
         placeholder="Начните вводить тег..."
       />
-      {opened && debouncedSuggested.length > 0 && (
+      {opened && suggested.length > 0 && (
         <ul className={styles.popup} onClick={handleClick}>
-          {debouncedSuggested.map((option, index) => (
+          {suggested.map((option, index) => (
             <li
               className={index == highlighted ? styles.highlight : ""}
               key={option}
