@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 
 interface ProjectCardProps {
-  project: ProjectCardInList;
+  project: any;
   className: string;
 }
 
