@@ -1,26 +1,60 @@
-import React, { FC } from "react";
+import React, {FC, useEffect, useState} from "react";
 import styles from "./ProjectList.module.sass";
-import { projects } from "./projects";
 import ProjectCard from "./ProjectCard";
+import {useDebounce} from "../TagFilter/useDebounce";
+import SearchBar from "./SearchBar";
 
-interface ProjectListProps {}
+interface ProjectListProps {
+}
 
 const ProjectList: FC<ProjectListProps> = () => {
-  return (
-    <div>
-      <div>поиск</div>
-      <div>сортировка тегов</div>
-      <div className={styles.container}>
-        {projects.map((project) => (
-          <ProjectCard
-            key={project.header}
-            project={project}
-            className={styles.project}
-          ></ProjectCard>
-        ))}
-      </div>
-    </div>
-  );
+
+    const [searchTerm, setSearchTerm] = useState<string>('');
+    const keys = ["header", "clinic", "task", "status", "date"];
+
+    const [results, setResults] = useState<any[]>([])
+
+    const debouncedSearchTerm = useDebounce(searchTerm, 200);
+
+    const getData = async (search: string) => {
+        const response = await fetch(`http://localhost:3000/api/projects`);
+        const data = await response.json();
+        if (search == '') {
+            setResults(data.splice(0, 5));
+        } else {
+            setResults(data.filter((project: any) =>
+                    keys.some(((key: string) =>
+                        project[key].toLowerCase().includes(search.toLowerCase()))
+                    )
+                ).splice(0, 5)
+            )
+        }
+
+    }
+
+    useEffect(() => {
+        (getData(debouncedSearchTerm));
+    }, [debouncedSearchTerm])
+
+
+    return (
+        <div>
+            <SearchBar searchInputClassName={styles.searchInput} iconClassName={styles.icon} handleSearchChange={(event: any) => setSearchTerm(event.target.value)}/>
+
+            <div className={styles.container}>
+                {results.map((project) => (
+                    <ProjectCard
+                        key={project.id}
+                        project={project}
+                        className={styles.project}
+                    />
+                ))}
+            </div>
+
+            <div>сортировка тегов</div>
+
+        </div>
+    );
 };
 
 export default ProjectList;
