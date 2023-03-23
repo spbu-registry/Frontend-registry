@@ -14,7 +14,8 @@
 
 .project_1,
 .project_2,
-.project_3 {
+.project_3,
+.project_4 {
     display: flex;
     flex-direction: column;
     margin: 10px 26px;
@@ -36,6 +37,10 @@
     background-color: rgba(167, 197, 189, 0.6);
 }
 
+.project_4_color {
+    background-color: rgba(34, 182, 142, 0.6);
+}
+
 .project_info,
 .project_name {
     display: flex;
@@ -49,21 +54,19 @@
 }
 
 .project_info {
-    height: 72%;
     font-size: 24px;
     font-weight: 400;
 }
 
 .project_name {
-    height: 28%;
     font-size: 26px;
     font-weight: 600;
 }
 
-@media screen and (max-width: 619px) {
+@media screen and (max-width: 1808px) {
 
-    .project_info,
-    .project_name {
-        height: auto;
+    .project_break {
+        flex-basis: 100%;
+        height: 0;
     }
 }
