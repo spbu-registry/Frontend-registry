@@ -92,13 +92,24 @@ const TagFilter: FC<TagFilterProps> = ({ activeTags, setActiveTags }) => {
     switch (e.key) {
       case "Enter":
         e.preventDefault();
-        /*
-        1. Тега не должно быть в списке уже активных
-        2. Инпут должен полностью совпадать с каким-то из существующих тегов
-        */
-        if (tags.filter((tag) => !activeTags.includes(tag)).includes(inputText))
-          setActiveTags([...activeTags, inputText]);
-        break;
+        if (highlighted == -1) {
+          /*
+          Пользователь пытается применить тег, который он ввёл сам
+          1. Тега не должно быть в списке уже активных
+          2. Инпут должен полностью совпадать с каким-то из существующих тегов
+          */
+          if (
+            tags.filter((tag) => !activeTags.includes(tag)).includes(inputText)
+          )
+            setActiveTags([...activeTags, inputText]);
+          break;
+        } else {
+          /*
+          Здесь проверки не нужны, highlighted и так никогда не выходит за пределы
+          размера suggested и в suggested всегда только ещё не применённые теги
+          */
+          setActiveTags([...activeTags, suggested[highlighted]]);
+        }
       case "ArrowUp":
         e.preventDefault();
         if (highlighted > 0) setHighlighted(highlighted - 1);
