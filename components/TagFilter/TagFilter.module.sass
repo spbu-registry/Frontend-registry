@@ -38,7 +38,27 @@
     overflow: hidden
 
     & li
+        position: relative
         padding: 5px
+        padding-left: 35px
+
+        &::before 
+            content: ''
+            position: absolute
+            height: 16px
+            width: 16px
+            top: 7px
+            left: 5px
+            border: 2px solid #868686
+            border-radius: 6px
+            overflow: hidden
+
+        &.active::before
+            background: url('/tag-filter-checked.svg') no-repeat
+            background-size: cover
+            border: none
+            height: 20px
+            width: 20px
 
         &:hover
             background: #eee

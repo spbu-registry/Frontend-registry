@@ -70,13 +70,10 @@ const TagFilter: FC<TagFilterProps> = ({ activeTags, setActiveTags }) => {
     }
     /*
     1. Тег должен включать в себя инпут пользователя
-    2. Тега не должно быть в списке уже активных
     */
     setSuggested(
-      tags.filter(
-        (tag) =>
-          tag.toLowerCase().includes(debouncedInput.toLowerCase()) &&
-          !activeTags.includes(tag)
+      tags.filter((tag) =>
+        tag.toLowerCase().includes(debouncedInput.toLowerCase())
       )
     );
     setHighlighted(-1);
@@ -88,6 +85,18 @@ const TagFilter: FC<TagFilterProps> = ({ activeTags, setActiveTags }) => {
     */
   }, [debouncedInput, activeTags]);
 
+  const toggleTag = (
+    tag: string,
+    activeTags: string[],
+    setActiveTags: (value: string[]) => void
+  ) => {
+    if (activeTags.includes(tag)) {
+      setActiveTags(activeTags.filter((activeTag) => activeTag != tag));
+    } else {
+      setActiveTags([...activeTags, tag]);
+    }
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent) => {
     switch (e.key) {
       case "Enter":
@@ -95,20 +104,17 @@ const TagFilter: FC<TagFilterProps> = ({ activeTags, setActiveTags }) => {
         if (highlighted == -1) {
           /*
           Пользователь пытается применить тег, который он ввёл сам
-          1. Тега не должно быть в списке уже активных
           2. Инпут должен полностью совпадать с каким-то из существующих тегов
           */
-          if (
-            tags.filter((tag) => !activeTags.includes(tag)).includes(inputText)
-          )
-            setActiveTags([...activeTags, inputText]);
+          if (tags.includes(inputText))
+            toggleTag(inputText, activeTags, setActiveTags);
           break;
         } else {
           /*
           Здесь проверки не нужны, highlighted и так никогда не выходит за пределы
           размера suggested и в suggested всегда только ещё не применённые теги
           */
-          setActiveTags([...activeTags, suggested[highlighted]]);
+          toggleTag(suggested[highlighted], activeTags, setActiveTags);
         }
       case "ArrowUp":
         e.preventDefault();
@@ -133,7 +139,11 @@ const TagFilter: FC<TagFilterProps> = ({ activeTags, setActiveTags }) => {
         <ul className={styles.popup} onClick={handleClick}>
           {suggested.map((option, index) => (
             <li
-              className={index == highlighted ? styles.highlight : ""}
+              className={
+                (index == highlighted ? styles.highlight : "") +
+                " " +
+                (activeTags.includes(option) ? styles.active : "")
+              }
               key={option}
             >
               {option}
