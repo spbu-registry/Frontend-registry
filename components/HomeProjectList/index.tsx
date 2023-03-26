@@ -4,7 +4,7 @@ import styles from "./HomeProjectList.module.scss";
 import logo from "../../public/logo.svg";
 import { useWindowSize } from "./windowresize";
 
-interface HomeProjectListProps { }
+interface HomeProjectListProps {}
 
 const breakpoints = [
   {
@@ -90,6 +90,7 @@ const HomeProjectList: FC<HomeProjectListProps> = () => {
 
   return (
     <>
+      <h2 className={styles["projects_title"]}>Проекты</h2>
       <div ref={ref} className={styles["projects_container"]}>
         <div className={styles["project"]}>
           <h2

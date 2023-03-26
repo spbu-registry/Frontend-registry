@@ -1,20 +1,13 @@
-import React, { FC } from "react";
+import React, { FC, useRef } from "react";
 import styles from "./ClinicSlider.module.sass";
 import Slider from "react-slick";
 import ClinicCard from "../ClinicCard";
 
 const settings = {
-  slidesToShow: 4,
-  slidesToScroll: 4,
-  infinite: true,
+  slidesToShow: 3,
+  slidesToScroll: 3,
+  infinite: false,
   responsive: [
-    {
-      breakpoint: 1500,
-      settings: {
-        slidesToShow: 3,
-        slidesToSroll: 3,
-      },
-    },
     {
       breakpoint: 1100,
       settings: {
@@ -35,17 +28,30 @@ const settings = {
 interface ClinicSliderProps {}
 
 const ClinicSlider: FC<ClinicSliderProps> = () => {
+  const sliderRef: React.RefObject<Slider> = useRef(null);
+
+  const handleArrowLeft = () => {
+    if (sliderRef.current) sliderRef.current.slickPrev();
+  };
+
+  const handleArrowRight = () => {
+    if (sliderRef.current) sliderRef.current.slickNext();
+  };
+
   return (
     <div className={styles.container}>
-      <Slider {...settings} className={"clinic-slider-main"}>
-        <ClinicCard />
-        <ClinicCard />
-        <ClinicCard />
-        <ClinicCard />
-        <ClinicCard />
-        <ClinicCard />
-        <ClinicCard />
+      <h2 className={styles.title}>Клиники</h2>
+      <Slider {...settings} ref={sliderRef} className={"clinic-slider-main"}>
+        <ClinicCard index={0} />
+        <ClinicCard index={1} />
+        <ClinicCard index={2} />
+        <ClinicCard index={3} />
+        <ClinicCard index={4} />
+        <ClinicCard index={5} />
+        <ClinicCard index={6} />
       </Slider>
+      <div className={styles.arrowLeft} onClick={handleArrowLeft} />
+      <div className={styles.arrowRight} onClick={handleArrowRight} />
     </div>
   );
 };

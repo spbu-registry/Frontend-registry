@@ -5,16 +5,16 @@
 
 .image
   position: relative
-  width: 50%
+  width: 45%
   margin-top: 50px
+  margin-left: 5%
   margin-bottom: 50px
   height: 100px
-  display: flex
-  justify-content: center
-  align-items: center
 
   & img
     cursor: pointer
+    object-fit: contain
+    object-position: -10%
     max-height: 100%
     max-width: 100%
 
@@ -44,22 +44,28 @@
 
 .menu
   display: flex
-  justify-content: space-around
+  justify-content: flex-end
   color: #fff
-  margin: 20px 10px 0px 60px
+  margin: 20px 5vw 0px 60px
 
   & li
     cursor: pointer
+    margin-left: 40px
 
     &:hover
       color: rgb(209, 209, 209)
+
+@media (max-width: 1100px)
+  .menu
+    & li
+      margin-left: 20px
 
 
 @media (max-width: 850px) 
 
   .image
     height: 120px
-    width: 65%
+    width: 55%
     margin-top: 40px
     margin-bottom: 40px
   
@@ -75,6 +81,10 @@
     text-align: right
     height: 150px
     margin-right: 40px
+
+@media (max-width: 700px)
+  .image
+    width: 60%
   
 
 
@@ -97,6 +107,7 @@
 
   .image
     width: 100%
+    margin-left: 0
   
 
 

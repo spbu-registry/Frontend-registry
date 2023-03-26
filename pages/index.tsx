@@ -15,6 +15,7 @@ import HomeProjectList from "../components/HomeProjectList";
 import TagFilter from "../components/TagFilter";
 import TempTagContainer from "../components/TempTagContainer";
 import YearFilter from "../components/YearFilter";
+import MainPageBg from "../components/MainPageBg";
 
 interface HomeProps {}
 
@@ -27,24 +28,31 @@ const Home: NextPage<HomeProps> = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <Spacer axis="vertical" size={100} />
+      <Spacer axis="vertical" size={40} />
       <Container>
-        <TempTagContainer />
-        <YearFilter />
         <FirstInfo />
-        <Spacer axis="vertical" size={50} />
-        <ClinicSlider />
-        <Spacer axis="vertical" size={50} />
+      </Container>
+      <MainPageBg image={"/clinic-slider-bg.svg"}>
+        <Container>
+          <ClinicSlider />
+        </Container>
+      </MainPageBg>
+      <Spacer axis="vertical" size={40} />
+      <Container>
         <TagSlider />
-        <Spacer axis="vertical" size={50} />
+      </Container>
+      <Spacer axis="vertical" size={40} />
+      <MainPageBg image={"/mainpage-projects-bg.svg"}>
+        <Container>
+          <HomeProjectList />
+        </Container>
+      </MainPageBg>
+      <Spacer axis="vertical" size={40} />
+      <Container>
         <ForClient />
       </Container>
-      <HomeProjectList />
+      <Spacer axis="vertical" size={40} />
       <Footer />
-
-      <FormForClient stylesProp={{ width: "100%", height: "60vh" }} />
-
-      <ProjectList />
     </>
   );
 };

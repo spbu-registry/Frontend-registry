@@ -3,6 +3,7 @@ import Image from "next/image";
 import styles from "./Header.module.sass";
 
 import logo from "../../public/logo.svg";
+import Link from "next/link";
 
 interface HeaderProps {}
 
@@ -18,7 +19,9 @@ const Header: FC<HeaderProps> = () => {
             <li>
               <a href="https://spbu.ru/universitet/klinika-spbgu">Клиники</a>
             </li>
-            <li>Проекты</li>
+            <li>
+              <Link href="/projects">Проекты</Link>
+            </li>
             <li>Заказчикам</li>
             <li>Войти</li>
           </ul>

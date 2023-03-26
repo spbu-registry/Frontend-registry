@@ -1,10 +1,46 @@
 .container
-    width: calc(100% + 40px)
-    margin-left: -20px
-
-@media (max-width: 800px)
-
-    .container
-        width: calc(100% + 20px)
-        margin-left: -10px
+    position: relative
+    overflow: hidden
     
+.title
+    text-align: center
+    margin-bottom: 40px
+    font-size: 48px
+    font-weight: 600
+    
+.arrowLeft,.arrowRight
+    position: absolute
+    height: 70px
+    width: 76px
+    top: calc(50% - 35px)
+    background: url('/clinic-slider-arrow-left.svg') no-repeat
+    background-size: contain
+
+.arrowLeft
+    left: -56px
+
+.arrowRight
+    right: -56px
+    transform: rotate(180deg)
+
+@media (max-width: 1000px)
+    .arrowLeft
+        left: -30px
+        height: 50px
+        width: 55px
+
+    .arrowRight
+        right: -30px
+        height: 50px
+        width: 55px
+
+@media (max-width: 600px)
+    .arrowLeft, .arrowRight
+        height: 70px
+        width: 76px
+
+    .arrowLeft
+        left: 0
+
+    .arrowRight
+        right: 0
