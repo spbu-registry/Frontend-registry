@@ -16,6 +16,7 @@ import TagFilter from "../components/TagFilter";
 import TempTagContainer from "../components/TempTagContainer";
 import YearFilter from "../components/YearFilter";
 import MainPageBg from "../components/MainPageBg";
+import { Filters } from "../components/ProjectList/Filters";
 
 interface HomeProps {}
 
