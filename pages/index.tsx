@@ -15,6 +15,7 @@ import HomeProjectList from "../components/HomeProjectList";
 import TagFilter from "../components/TagFilter";
 import TempTagContainer from "../components/TempTagContainer";
 import YearFilter from "../components/YearFilter";
+import { Filters } from "../components/ProjectList/Filters";
 
 interface HomeProps {}
 
@@ -45,6 +46,8 @@ const Home: NextPage<HomeProps> = () => {
       <FormForClient stylesProp={{ width: "100%", height: "60vh" }} />
 
       <ProjectList />
+      <Filters/>
+      <div style={{height : '200px'}}></div>
     </>
   );
 };
