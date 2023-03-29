@@ -26,7 +26,7 @@ const ProjectList: FC<ProjectListProps> = () => {
           .filter((project: Project) =>
             Object.keys(project).some((key: string) => {
               if (typeof project[key as keyof Project] === "string") {
-                return project[key as keyof Project]
+                return project[key as keyof Project].toString()
                   .toLowerCase()
                   .includes(search.toLowerCase());
               } else return false;
