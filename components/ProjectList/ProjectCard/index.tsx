@@ -1,7 +1,8 @@
 import React, { FC } from "react";
+import { Project } from "../../../pages/api/data/projects";
 
 interface ProjectCardProps {
-  project: any;
+  project: Project;
   className: string;
 }
 
