@@ -19,7 +19,11 @@
 
     box-sizing: border-box;
 
+    background-color: white;
+
     overflow-y : scroll;
+    overflow-x:hidden;
+    z-index: 1;
 
     &.hideScroll::-webkit-scrollbar {
         display: none;
@@ -36,6 +40,8 @@
 
     display: flex;
     align-items: center;
+
+    box-sizing: content-box;
 
     & > .Checkbox {
         height: 1.3em;
@@ -85,7 +91,7 @@
 
     height : 100%;
     width : 100%;
-    padding : 0 5%;
+    padding : 0 3%;
     
     border-radius: 8px;
     border : 2px solid #9f2d20;
@@ -121,4 +127,34 @@
 
 .highlighted {
     border: 2px solid #2f5982;
+}
+
+.SuggestedSearch {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+}
+
+.Input {
+    height: 80%;
+    flex: 1;
+    max-width: calc(100% - 1.5em - 5px);
+    border : none;
+
+    font-size: 1em;
+
+    outline: none;
+
+    &.Focused {
+        border: 2px solid #2f5982;
+    }
+}
+
+.MagnifyingGlass {
+    height: 1.5em;
+    width: 1.5em;
+    margin: 0 5px;
+    flex-shrink: 0;
 }

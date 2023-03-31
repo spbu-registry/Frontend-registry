@@ -5,7 +5,7 @@ interface ArrowProps {
 
 interface MultiselectProps {
     options : Map<string, boolean>,
-    setOption : (key : string, value : boolean) => void
+    toggleOption : (key : string) => void
     id : string
     lable : string
 
@@ -14,25 +14,16 @@ interface MultiselectProps {
 
 interface OptionProps {
   option : [string, boolean];
-  setOption : (value :boolean) => void;
+  toggleOption : () => void;
 
   highlighted : boolean;
   id : string;
-} 
+}
 
-/*
+interface SuggestedSearchProps extends MultiselectProps {
+  setInput : ( value : string ) => void
+}
 
-  const [importantMap, setImportantMap] = useState(new Map([['sobaka', true], ['koshka', false]]));
-
-  return <div style={{height : '3rem', width : '300px'}}>
-    <Multiselect
-    options={importantMap}
-    setOption={(key, value) => setImportantMap( prevState => {
-      const newState = new Map(prevState);
-      newState.set(key, value)
-      return newState;
-    })}
-    />
-  </div>
-};
-*/
+interface AnnounceProps {
+  n : number
+}

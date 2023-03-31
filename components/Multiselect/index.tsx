@@ -2,7 +2,9 @@ import styles from './Multiselect.module.scss';
 import { useEffect, useRef, useState, useMemo } from 'react';
 import { useSuccession } from './useSuccession';
 import { Option } from './Option';
+import SuggestedSearch from './Suggested-Search';
 
+export {SuggestedSearch};
 /* 
     Компонент мультиселект полностью заполняет контейнер, в котором оказывается,
     поэтому его нужно оборачивать в собственный wrapper.
@@ -18,7 +20,7 @@ function Arrow ({className} : ArrowProps) {
 }
 
 export default function Multiselect (props : MultiselectProps) {
-    const {options, setOption, id, height, lable} = props;
+    const {options, toggleOption, id, height, lable} = props;
 
     const [expanded, setExpanded] = useState(false);
     // Индекс выбранного подсвечиваемого компонента
@@ -133,8 +135,7 @@ export default function Multiselect (props : MultiselectProps) {
 
             if ('Enter '.includes(event.key)) {
                 const keyForMap = indexOptions[highlighted as number];
-
-                setOption(keyForMap, !(options.get(keyForMap) as boolean))
+                toggleOption(keyForMap)
             } else if ('Escape'.includes(event.key)) {
                 setHighLighted(null);
                 setExpanded(false);
@@ -243,7 +244,7 @@ export default function Multiselect (props : MultiselectProps) {
                     id={`${id}-${index}`}
                     key={key}
                     option={[key, options.get(key) as boolean]}
-                    setOption={(value) => setOption(key, value)}
+                    toggleOption={() => toggleOption(key)}
                     highlighted={convertHighlightedToId() === `${id}-${index}`}
                     />
                 )

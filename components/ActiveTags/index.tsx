@@ -2,13 +2,15 @@ import React, { FC } from "react";
 
 interface ActiveTagsProps {
   activeTags: string[];
-  setActiveTags: (value: string[]) => void;
+  toggleTag: (value: string) => void;
 }
 import styles from "./ActiveTags.module.sass";
 
-const ActiveTags: FC<ActiveTagsProps> = ({ activeTags, setActiveTags }) => {
+const ActiveTags: FC<ActiveTagsProps> = ({ activeTags, toggleTag }) => {
   const handleRemoveTag = (tag: string) => {
-    setActiveTags(activeTags.filter((mapped) => mapped != tag));
+    const foundTags = activeTags.find((mapped) => mapped === tag);
+    if (foundTags === undefined) return;
+    toggleTag(foundTags);
   };
 
   return (

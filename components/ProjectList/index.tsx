@@ -1,45 +1,49 @@
 import React, {FC, useEffect, useState} from "react";
 import styles from "./ProjectList.module.sass";
 import ProjectCard from "./ProjectCard";
-import {useDebounce} from "../TagFilter/useDebounce";
-import SearchBar from "./SearchBar";
+import { Filters } from "./Filters";
+import useFilters from "./useFilters";
 
 interface ProjectListProps {
 }
 
 const ProjectList: FC<ProjectListProps> = () => {
 
-    const [searchTerm, setSearchTerm] = useState<string>('');
-    const keys = ["header", "clinic", "task", "status", "date"];
-
+    const [filtersState, filtersDispatch] = useFilters();
     const [results, setResults] = useState<any[]>([])
 
-    const debouncedSearchTerm = useDebounce(searchTerm, 200);
+    // Handle projects fetch
+    // NOT DONE
+    useEffect(() => {
 
-    const getData = async (search: string) => {
-        const response = await fetch(`http://localhost:3000/api/projects`);
-        const data = await response.json();
-        if (search == '') {
-            setResults(data.splice(0, 5));
-        } else {
-            setResults(data.filter((project: any) =>
-                    keys.some(((key: string) =>
-                        project[key].toLowerCase().includes(search.toLowerCase()))
-                    )
-                ).splice(0, 5)
-            )
+        const keys = ["header", "clinic", "task", "status", "date"];
+
+        const getData = async (filtersState: FiltersState) => {
+            const response = await fetch(`http://localhost:3000/api/projects`);
+            const data = await response.json();
+            if (filtersState.search == '') {
+                setResults(data.splice(0, 5));
+            } else {
+                setResults(data.filter((project: any) =>
+                        keys.some(((key: string) =>
+                            project[key].toLowerCase().includes(filtersState.search.toLowerCase()))
+                        )
+                    ).splice(0, 5)
+                )
+            }
+    
         }
 
-    }
-
-    useEffect(() => {
-        (getData(debouncedSearchTerm));
-    }, [debouncedSearchTerm])
+        (getData(filtersState));
+    }, [filtersState])
 
 
     return (
-        <div>
-            <SearchBar searchInputClassName={styles.searchInput} iconClassName={styles.icon} handleSearchChange={(event: any) => setSearchTerm(event.target.value)}/>
+        <>
+            <Filters
+            state={filtersState}
+            dispatch={filtersDispatch}
+            n={results.length}/>
 
             <div className={styles.container}>
                 {results.map((project) => (
@@ -50,10 +54,7 @@ const ProjectList: FC<ProjectListProps> = () => {
                     />
                 ))}
             </div>
-
-            <div>сортировка тегов</div>
-
-        </div>
+        </>
     );
 };
 

@@ -1,22 +1,39 @@
-import React, {FC} from "react";
+import React, {FC, useState, useEffect} from "react";
+import { useDebounce } from "../../TagFilter/useDebounce";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
+import styles from './Search.module.scss';
 
 interface SearchBarProps {
-    searchInputClassName: string;
-    handleSearchChange: any;
-    iconClassName: string;
-
+    id : string;
+    label : string;
+    setInput : (value : string) => void;
 }
 
-const SearchBar: FC<SearchBarProps> = ({searchInputClassName, handleSearchChange, iconClassName}) => {
+const SearchBar: FC<SearchBarProps> = (props) => {
+
+    const [textInput, setTextInput] = useState<string>('');
+
+    const debounced = useDebounce(textInput, 200);
+
+    
+    useEffect(() => {
+        props.setInput(debounced)
+    }, [debounced]);
+
+    const handleOnChange = (e: React.FormEvent<HTMLInputElement>) => {
+        setTextInput(e.currentTarget.value);
+    };
 
     return (
-        <div className={searchInputClassName}>
-            <FontAwesomeIcon icon={faMagnifyingGlass} className={iconClassName}/>
+        <div className={styles.SearchBar}>
+            <FontAwesomeIcon icon={faMagnifyingGlass} className={styles.Icon}/>
+            <label style={{display : 'none'}} htmlFor={props.id}>{props.label}</label>
             <input
+                className={styles.Search}
+                id={props.id}
                 type="text"
-                onChange={handleSearchChange}
+                onChange={handleOnChange}
             />
         </div>
     )
