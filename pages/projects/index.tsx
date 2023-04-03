@@ -20,8 +20,6 @@ const Projects: NextPage<ProjectsProps> = () => {
       <Header />
       <Spacer axis="vertical" size={50} />
       <Container>
-        <Filters />
-        <div style={{ height: "200px" }}></div>
         <ProjectList />
       </Container>
       <Footer />

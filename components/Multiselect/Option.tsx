@@ -1,7 +1,7 @@
 import styles from './Multiselect.module.scss';
 import { useRef, useEffect } from 'react';
 
-export function Option ({option, setOption, highlighted, id} : OptionProps) {
+export function Option ({option, toggleOption, highlighted, id} : OptionProps) {
 
     const [label, value] = option;
 
@@ -21,7 +21,7 @@ export function Option ({option, setOption, highlighted, id} : OptionProps) {
     <div ref={optionRef}
         className={`${styles.Option} ${highlighted ? styles.highlighted : ''}`} 
         id={id}
-        onClick={() => setOption(!value)}
+        onClick={() => toggleOption()}
         //Aria
         role='option'
         aria-selected={value}>
