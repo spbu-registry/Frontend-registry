@@ -9,7 +9,7 @@ interface ProjectListProps {}
 
 const ProjectList: FC<ProjectListProps> = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
-  // const keys: string[] = ["header", "clinic", "task", "status", "date"];
+  const keys: string[] = ["header", "clinic", "task", "status", "date"];
 
   const [results, setResults] = useState<Project[]>([]);
 
@@ -24,9 +24,10 @@ const ProjectList: FC<ProjectListProps> = () => {
       setResults(
         data
           .filter((project: Project) =>
-            Object.keys(project).some((key: string) => {
+            keys.some((key: string) => {
               if (typeof project[key as keyof Project] === "string") {
-                return project[key as keyof Project].toString()
+                return project[key as keyof Project]
+                  .toString()
                   .toLowerCase()
                   .includes(search.toLowerCase());
               } else return false;
