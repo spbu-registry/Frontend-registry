@@ -24,7 +24,7 @@ interface HomeProps {}
 
 const Home: NextPage<HomeProps> = () => {
 
-  const [popUpActive, setPopUpActive] = useState(true);
+  const [popUpActive, setPopUpActive] = useState(false);
 
   return (
     <>
