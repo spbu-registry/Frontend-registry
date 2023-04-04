@@ -5,12 +5,12 @@ import { tags } from "./tags.js";
 
 
 
-// interface TagSliderProps {tags:}
-
-// const TagSlider: FC<TagSliderProps> = ({tags}) => {
-
-
+// interface TagSliderProps {tags: tags_ex}
 interface TagSliderProps {}
+// const TagSlider: FC<TagSliderProps> = ({tags} ) => {
+
+
+
 
 const TagSlider: FC<TagSliderProps> = () => {
   return (
