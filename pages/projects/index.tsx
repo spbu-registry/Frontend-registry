@@ -4,12 +4,28 @@ import Container from "../../components/Container";
 import Footer from "../../components/Footer";
 import ProjectList from "../../components/ProjectList";
 import Spacer from "../../components/Spacer";
-import { NextPage } from "next";
+import { GetStaticProps, NextPage } from "next";
 import { Filters } from "../../components/ProjectList/Filters";
+import { IAPIProject } from "../../types/types";
 
-interface ProjectsProps {}
+export const getStaticProps: GetStaticProps = async (context: any) => {
+  const projects = await fetch(`http://localhost:3000/api/projects`).then(
+    (data) => data.json()
+  );
 
-const Projects: NextPage<ProjectsProps> = () => {
+  return {
+    props: {
+      projects,
+    },
+    revalidate: 60,
+  };
+};
+
+interface ProjectsProps {
+  projects: IAPIProject[];
+}
+
+const Projects: NextPage<ProjectsProps> = ({ projects }) => {
   return (
     <>
       <Head>
@@ -20,7 +36,7 @@ const Projects: NextPage<ProjectsProps> = () => {
       <Header />
       <Spacer axis="vertical" size={50} />
       <Container>
-        <ProjectList />
+        <ProjectList projects={projects} />
       </Container>
       <Footer />
     </>
