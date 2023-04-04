@@ -4,10 +4,11 @@ import TagSliderForCurProject from "../../components/TagSliderForCurProject/";
 import Container from "../../components/Container";
 import Footer from "../../components/Footer";
 import Spacer from "../../components/Spacer";
+import ProjectPublicAboutUs from "../../components/ProjectPublicAboutUs"
 import { NextPage } from "next";
 
 
-interface HomeProps {}
+interface HomeProps { }
 
 const Home: NextPage<HomeProps> = () => {
   return (
@@ -21,12 +22,15 @@ const Home: NextPage<HomeProps> = () => {
       <Spacer axis="vertical" size={40} />
 
 
-     
+
       <Spacer axis="vertical" size={40} />
       <Container>
         <TagSliderForCurProject />
       </Container>
       <Spacer axis="vertical" size={40} />
+
+      <ProjectPublicAboutUs />
+
       <Footer />
     </>
   );
