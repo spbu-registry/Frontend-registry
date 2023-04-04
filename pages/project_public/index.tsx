@@ -1,6 +1,8 @@
 import Head from "next/head";
 import Header from "../../components/Header/";
-import TagSliderForCurProject from "../../components/TagSliderForCurProject/";
+import TagSliderForCurProject from "../../components/ProjectPagePublicPath/TagSliderForCurProject";
+import AboutProject from "../../components/ProjectPagePublicPath/AboutProject/";
+import InfoAboutCuTuDi from"../../components/ProjectPagePublicPath/InfoAboutCustomerTutorDirector"
 import Container from "../../components/Container";
 import Footer from "../../components/Footer";
 import Spacer from "../../components/Spacer";
@@ -25,6 +27,11 @@ const Home: NextPage<HomeProps> = () => {
       <Spacer axis="vertical" size={40} />
       <Container>
         <TagSliderForCurProject />
+      </Container>
+      <Spacer axis="vertical" size={40} />
+      <Container>
+        <InfoAboutCuTuDi />
+        <AboutProject />
       </Container>
       <Spacer axis="vertical" size={40} />
       <Footer />
