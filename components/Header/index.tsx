@@ -5,9 +5,11 @@ import styles from "./Header.module.sass";
 import logo from "../../public/logo.svg";
 import Link from "next/link";
 
-interface HeaderProps {}
+interface HeaderProps {
+  popUpSetActive: any;
+}
 
-const Header: FC<HeaderProps> = () => {
+const Header: FC<HeaderProps> = ({ popUpSetActive }) => {
   return (
     <header className={styles.container}>
       <div className={styles.image}>
@@ -23,7 +25,11 @@ const Header: FC<HeaderProps> = () => {
               <Link href="/projects">Проекты</Link>
             </li>
             <li>Заказчикам</li>
-            <li>Войти</li>
+            <li>
+              <a href="#" onClick={() => popUpSetActive(true)}>
+                Войти
+              </a>
+            </li>
           </ul>
         </nav>
       </div>
