@@ -1,7 +1,6 @@
-import { useRef, useState, useMemo, useEffect } from 'react';
-import Announce from './Announce';
+import { useRef, useState, useEffect, FocusEventHandler, useCallback, MouseEventHandler, KeyboardEventHandler } from 'react';
 import styles from './Multiselect.module.scss';
-import { Option } from './Option';
+import ListBoxPopUp, {FocusAt} from './Components/ListBoxPopUp';
 import { useDebounce } from '../TagFilter/useDebounce';
 
 function MagnifyingGlass ({className} : ArrowProps) {
@@ -10,220 +9,148 @@ function MagnifyingGlass ({className} : ArrowProps) {
     </svg>
 }
 
+function isOneOf(target : string, list : string[]) {
+    for (const str of list) 
+        if (target === str) return true;
+    
+    return false;
+}
+
+/*
+    Мультиселект с текстовым фильтром
+*/
+
 export default function SuggestedSearch (props : SuggestedSearchProps) {
 
-    const {id, lable, options, toggleOption, height, setInput} = props;
+    const {id, lable, options, toggleOption, height, setOuterInput} = props;
 
     const [expanded, setExpanded] = useState(false);
+    // Focus is used to make sure that we won't lose input focus during actions
     const [focus, setFocus] = useState(false);
-    // Индекс выбранного подсвечиваемого компонента
-    const [highlighted, setHighLighted] = useState<number | null>(null);
     
+    // Text from input
     const [inputText, setInputText] = useState<string>('');
     const debouncedInput = useDebounce(inputText, 200);
 
-    const indexOptions = useMemo(() => {
-        const ans : string[] = [];
-        
-        options.forEach((value, key) => ans.push(key));
-        
-        return ans;
-        
-    }, [options])
-
-    // Для aria конвертируем highlight в id
-    const convertHighlightedToId = () => {
-        if (highlighted === null) return null;
-        if (highlighted < indexOptions.length && 
-                highlighted >= 0) return `${id}-${highlighted}`
-        else return null
-    }
-
     const inputRef = useRef<HTMLInputElement>(null);
     const fullBoxRef = useRef<HTMLInputElement>(null);
+    const comboMenuRef = useRef<ListBoxPopUpRef>(null);
 
     // Handle debounceUpdate
     
     useEffect(() => {
-        setInput(debouncedInput);
+        setOuterInput(debouncedInput);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [debouncedInput])
 
-    // Handle expansion on focus
-    useEffect (() => {
-        if (inputRef.current === null) return;
+    const handleFocus : FocusEventHandler = useCallback(() => {
+        setFocus(true);
+        setExpanded(true);
+    }, [])
 
-        const input = inputRef.current;
+    const handleClick : MouseEventHandler = useCallback(() => {
+        setExpanded(true);
+    }, [])
 
-        const handleFocus = () => {
-            setFocus(true);
-            setExpanded(true);
-        }
+    const handleBlur : FocusEventHandler = useCallback((event) => {
 
-        input.addEventListener('focus', handleFocus);
-        return () => input.removeEventListener('focus', handleFocus);
-
-    }, [indexOptions]);
-
-    // Handle Click
-    useEffect(() => {
-        if (inputRef.current === null) return;
-
-        const input = inputRef.current;
-
-        const handleClick = () => setExpanded(true);
-
-        input.addEventListener('click', handleClick);
-        return () => input.removeEventListener('click', handleClick);
-    })
-
-    // Handle expansion on blur 
-    useEffect(() => {
-        if (inputRef.current === null || fullBoxRef.current === null) return;
-
-        const input = inputRef.current;
         const fullBox = fullBoxRef.current;
+        if (fullBox === null) return
 
-        const loseFocus = (event : FocusEvent) => {
+        if (!fullBox.contains(
+            event.relatedTarget as HTMLElement)) {
+            
+            setFocus(false);
+            setExpanded(false);
+            comboMenuRef.current?.loseFocus();
+        }
+        else {
+            setTimeout(() => inputRef.current?.focus(), 10)
+        }
+    }, [])
 
-            if (!fullBox.contains(
-                    event.relatedTarget as HTMLElement)) {
-                    
-                    setFocus(false);
-                    setExpanded(prev => false);
-                    setHighLighted(null);
-                }
-            else {
-                setTimeout(() => input.focus(), 10)
-            }
-                
+    const handleKeyDownCollapsed : KeyboardEventHandler = useCallback((event) => {
+
+        if (options.size === 0) return;
+
+        switch (event.key) {
+            case 'ArrowUp' :
+            case 'ArrowDown' :
+            case 'Enter' :
+                event.preventDefault();
+                setExpanded(true);     
         }
 
-        input.addEventListener('focusout', loseFocus);
-        return () => input.removeEventListener('focusout', loseFocus);
-    });
+    }, [options])
 
-    // Handle controls for listbox collapsed
-    useEffect(() => {
-        if (expanded || inputRef.current === null) return;
-        const input = inputRef.current;
+    const handleKeyDownExpanded : KeyboardEventHandler = useCallback((event) => {
 
-        const handleOnKeyDownCollapsed = (event : KeyboardEvent) => {
+        if (!isOneOf(event.key, ['Enter', 'Escape', 'ArrowDown',
+            'ArrowUp', 'PageUp', 'PageDown'])) return;
 
-            if (event.key === 'ArrowUp' ||
-                event.key === 'ArrowDown' ||
-                event.key === 'Enter') {
-                    event.preventDefault();
-                    setExpanded(true);
-                    setHighLighted(0);
-            }
+        const comboMenu = comboMenuRef.current;
+        if (comboMenu === null) return;
+
+        event.preventDefault();
+
+        switch (event.key) {
+            case 'Enter' :
+                return comboMenu.toggle()
+            case 'Escape' :
+                comboMenu.loseFocus();
+                return setExpanded(false);
+            case 'ArrowDown' :
+                if (comboMenu.focusAt() !== FocusAt.Option) 
+                    return comboMenu.focusOnStart();
+                else return comboMenu.focusDown(1);
+            case 'ArrowUp' :
+                if (comboMenu.focusAt() !== FocusAt.Option) 
+                    return comboMenu.focusOnStart();
+                else return comboMenu.focusUp(1);
+            case 'PageUp':
+                if (comboMenu.focusAt() !== FocusAt.Option) 
+                    return comboMenu.focusOnStart();
+                else return comboMenu.focusUp(10);
+            case 'PageDown' :
+                if (comboMenu.focusAt() !== FocusAt.Option) 
+                    return comboMenu.focusOnEnd();
+                else return comboMenu.focusDown(10);
         }
 
-        input.addEventListener('keydown', handleOnKeyDownCollapsed);
-        return () => input.removeEventListener('keydown', handleOnKeyDownCollapsed);
-
-    }, [expanded, indexOptions])
-
-    // Handle controls for listbox expanded
-    useEffect(() => {
-        if (!expanded || inputRef.current === null) return;
-        const input = inputRef.current;
-
-        const handleOnKeyDownExpanded = (event : KeyboardEvent) => {
-
-            if (event.key.length === 1 ||
-                event.key === 'Tab' || event.key === 'Backspace'
-                || event.key==='ArrowLeft' || event.key === 'ArrowRight'
-                || event.key === 'Home' || event.key === 'End') return;
-
-            event.preventDefault();
-
-            if ('Enter'.includes(event.key)) {
-                const keyForMap = indexOptions[highlighted === null ? 0 : highlighted];
-                toggleOption(keyForMap)
-            } else if ('Escape'.includes(event.key)) {
-                setHighLighted(null);
-                setExpanded(false);
-            } else if ('ArrowDown'.includes(event.key)) {
-
-                if (highlighted === null) {
-                    setHighLighted(0);
-                }
-                else if (highlighted as number + 1 < indexOptions.length) {
-                    setHighLighted(prev => prev as number + 1);
-                }
-            } else if ('ArrowUp'.includes(event.key)) {
-                if (highlighted === null) {
-                    setHighLighted(0);
-                }
-                if (highlighted as number - 1 >= 0) {
-                    setHighLighted(prev => prev as number - 1);
-                }
-            }
-            else if ('PageUp'.includes(event.key)){ 
-                if (highlighted === null) setHighLighted(0);
-                else setHighLighted(
-                    highlighted as number - 10 >= 0 ? 
-                        highlighted as number - 10 : 0
-                )
-            }
-            else if ('PageDown'.includes(event.key)) {
-                if (highlighted === null) setHighLighted(
-                    0 + 10 < indexOptions.length ? 
-                        0 + 10 : indexOptions.length - 1
-                )
-                else setHighLighted(
-                highlighted as number + 10 < indexOptions.length ? 
-                    highlighted as number + 10 : indexOptions.length - 1
-                )}
-            }
-
-        input.addEventListener('keydown', handleOnKeyDownExpanded);
-        return () => input.removeEventListener('keydown', handleOnKeyDownExpanded);
-    })
-
+    }, [])
 
     return <div ref={fullBoxRef} className={`${styles.Combobox} 
-                ${expanded && indexOptions.length !== 0 ? styles.Expanded : styles.Collapsed}`}>
+                ${expanded && options.size !== 0 ? styles.Expanded : styles.Collapsed}`}>
 
         <MagnifyingGlass className={styles.MagnifyingGlass}/>
 
         <input ref={inputRef} 
         className={`${styles.Input} 
         ${focus ? styles.Focused : ''}`} type='text' placeholder={lable}
-        onChange={(event : React.FormEvent<HTMLInputElement>) => 
-                setInputText(event.currentTarget.value ?? '')}
         id={id}
         // Aria
         role='combobox'
-        aria-expanded={expanded && indexOptions.length !== 0}
+        aria-expanded={expanded && options.size !== 0}
         aria-controls={`${id}-menu`}
         aria-autocomplete='list'
-        aria-activedescendant={convertHighlightedToId() ?? undefined}
+        aria-activedescendant={ comboMenuRef.current?.getId() ?? undefined}
+        // Event Handlers
+        onChange={(event) => setInputText(event.currentTarget.value ?? '')}
+        onBlurCapture={handleBlur}
+        onClick={handleClick}
+        onFocus={handleFocus}
+        onKeyDown={expanded ? handleKeyDownExpanded : handleKeyDownCollapsed}
+
         ></input>
 
-        {expanded ? 
-        <div
-            className={`${styles.ComboMenu} 
-                ${convertHighlightedToId() === `${id}-menu` ? styles.highlighted : ''}`}
-            style={{'--options' : Math.min(height, indexOptions.length)} as React.CSSProperties}
-            id={`${id}-menu`}
-            tabIndex={-1}
-            // Aria
-            role='listbox'
-            aria-multiselectable={true}
-            >
-            <Announce n={indexOptions.length}></Announce>
-            {
-                indexOptions.map(
-                    (key, index) => <Option 
-                    id={`${id}-${index}`}
-                    key={key}
-                    option={[key, options.get(key) as boolean]}
-                    toggleOption={() => toggleOption(key)}
-                    highlighted={convertHighlightedToId() === `${id}-${index}`}
-                    />
-                )
-            }
-        </div> : null}
+        <ListBoxPopUp
+        expanded={expanded && options.size !== 0}
+        ref={comboMenuRef}
+        options={options}
+        toggleOption={toggleOption}
+        parentId={id}
+        height={height}
+        announce={true}
+        />
    </div>
 }

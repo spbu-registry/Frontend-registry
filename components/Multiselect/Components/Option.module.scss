@@ -1,0 +1,58 @@
+.Option {
+    width: 100%;
+    min-height: calc(100% / var(--options));
+    padding : 0 10px;
+
+    color: #6c757d;
+
+    display: flex;
+    align-items: center;
+
+    box-sizing: content-box;
+
+    & > .Checkbox {
+        height: 1.3em;
+        aspect-ratio: 1;
+
+        margin: 5px;
+
+        border: 2px solid #868686;
+        border-radius: 8px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        & > .CheckboxSVG {
+            height: 80%;
+        }
+    }
+
+    & > .Label {
+        flex : 1;
+        font-weight:600;
+    }
+
+    &:hover {
+        background-color: #f3d6d6;
+    }
+
+    &[aria-selected="true"] {
+        background-color: white;
+    }
+
+    &[aria-selected="true"] > .Label {
+        color: #9f2d20;
+    }
+
+    &[aria-selected="true"] > .Checkbox {
+        background-color: #9f2d20;
+        border: none;
+        
+    }
+
+    &.highlighted {
+        border: 2px solid #2f5982;
+    }
+
+}
