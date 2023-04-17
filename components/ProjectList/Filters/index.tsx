@@ -1,6 +1,6 @@
 import styles from './Filters.module.scss';
-import Multiselect, {SuggestedSearch} from '../../Multiselect';
-import useFilters, {Actions} from '../useFilters';
+import {Multiselect, SuggestedSearch} from '../../Multiselect';
+import {Actions} from '../useFilters';
 import SearchBar from '../SearchBar';
 import ActiveTags from '../../ActiveTags';
 import YearFilter from '../../YearFilter';
@@ -58,7 +58,7 @@ export function Filters ({state, dispatch, n} : FiltersProps) {
         </div>
         <div className={`${styles.Tags}`}>
             <SuggestedSearch
-            setInput={(value) => dispatch({
+            setOuterInput={(value) => dispatch({
                 type : Actions.SetTagSearch,
                 payload : value
             })}

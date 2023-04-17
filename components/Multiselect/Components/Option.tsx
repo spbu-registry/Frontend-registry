@@ -1,7 +1,7 @@
-import styles from './Multiselect.module.scss';
+import styles from './Option.module.scss';
 import { useRef, useEffect } from 'react';
 
-export function Option ({option, toggleOption, highlighted, id} : OptionProps) {
+export default function Option ({option, toggleOption, highlighted, id} : OptionProps) {
 
     const [label, value] = option;
 
