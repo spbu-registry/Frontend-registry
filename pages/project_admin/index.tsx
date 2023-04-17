@@ -8,10 +8,49 @@ import Footer from "../../components/Footer";
 import Spacer from "../../components/Spacer";
 import ProjectPublicAboutUs from "../../components/ProjectPublicAboutUs";
 import { NextPage } from "next";
+import AdminSupervisors, {
+  ISupervisor,
+} from "../../components/AdminSupervisors";
+import { useEffect, useRef } from "react";
 
 interface HomeProps {}
 
+export interface IFormData {
+  supervisors: ISupervisor[];
+}
+
 const ProjectAdmin: NextPage<HomeProps> = () => {
+  /*
+  formDataRef надо будет передавать во все компоненты, чтобы отрендерить
+  начальные данные, которые нам приходят с бекенда
+
+  Когда админ будет что-то менять в ваших компонентах, помимо
+  стейта своего компонента вы будете менять и соответствующее свойство этого рефа
+
+  Нужно это, чтобы при нажатии на кнопку "Сохранить изменения", которая в этом файле
+  будет находиться, сразу в готовом виде была информация, которую нужно отправлять бекенду
+
+  Сейчас formDataRef использует от руки набранные данные,
+  вы тоже набирайте их вручную, пока мы не настроили работу с бекендом
+  По-хорошему мы будем делать запрос серверу и через getStaticProps/getServerSideProps
+  передавать пропом то, что нам подкинет бекенд
+  */
+  const formDataRef = useRef<IFormData>({
+    supervisors: [
+      {
+        title: "Заказчик",
+        names: ["Иванов Иван Иванович"],
+      },
+      {
+        title: "Куратор",
+        names: ["Смирнов Александр Дмитриевич"],
+      },
+      {
+        title: "Руководитель",
+        names: ["Васильев Артём Андреевич"],
+      },
+    ],
+  });
   return (
     <>
       <Head>
@@ -21,6 +60,12 @@ const ProjectAdmin: NextPage<HomeProps> = () => {
       </Head>
       <Header />
       <Spacer axis="vertical" size={40} />
+      <Container>
+        {/* рендерим только если есть значение у formDataRef.current.
+        Вообще есть ощущение, что он и так изначально будет, но я решил,
+        что лишним не будет на всякий случай эту проверку добавить */}
+        {formDataRef.current && <AdminSupervisors formDataRef={formDataRef} />}
+      </Container>
       <Footer />
     </>
   );

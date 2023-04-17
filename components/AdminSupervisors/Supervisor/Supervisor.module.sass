@@ -1,0 +1,62 @@
+
+.addBlock
+    position: relative
+
+.title
+    border-radius: 20px
+    padding: 10px 35px
+    width: 100%
+    text-align: center
+    font-size: 22px
+    margin-bottom: 20px
+
+.name
+    position: relative
+    margin-bottom: 10px
+    padding: 10px 35px 10px 20px
+    border: 3px solid #C5A7AF
+    border-radius: 18px
+
+.nameRemove
+    position: absolute
+    top: calc(50% - 6px)
+    right: 10px
+    height: 14px
+    width: 14px
+    padding: 0
+    background: transparent
+    border: none
+
+    & img
+        height: 100%
+        width: 100%
+        object-fit: contain
+
+.addText
+    padding: 15px 0px
+    width: 100%
+    font-size: 16px
+    border: none
+    border-bottom: 3px solid #C5A7AF
+
+    &:focus
+        outline: none
+
+.addButton
+    position: absolute
+    height: 20px
+    width: 20px
+    padding: 0
+    background: transparent
+    border: none
+    top: calc(50% - 10px)
+    right: 10px
+
+    & img
+        height: 100%
+        width: 100%
+        object-fit: contain
+
+@media (max-width: 800px)
+    .title
+        font-size: 18px

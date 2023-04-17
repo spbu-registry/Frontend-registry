@@ -1,0 +1,63 @@
+.container
+    display: flex
+
+.clinic
+    width: 20%
+
+.supervisors
+    width: 80%
+    display: flex
+    justify-content: space-between
+
+.supervisor
+    width: 30%
+    max-width: 30%
+
+.addBlock
+    position: relative
+
+.addText
+    padding: 15px 0px
+    width: 100%
+    font-size: 20px
+    border: none
+    border-bottom: 3px solid #C5A7AF
+
+.addButton
+    position: absolute
+    height: 20px
+    width: 20px
+    padding: 0
+    background: transparent
+    border: none
+    top: calc(50% - 10px)
+    right: 10px
+
+    & img
+        height: 100%
+        width: 100%
+        object-fit: contain
+    
+@media (max-width: 1000px) 
+    .container
+        flex-direction: column
+
+    .clinic
+        margin-bottom: 50px
+
+    .supervisors
+        width: 100%
+
+@media (max-width: 700px)
+    .supervisors
+        flex-direction: column
+        align-items: center
+
+    .supervisor
+        width: 400px
+        max-width: 400px
+        margin-bottom: 70px
+
+@media (max-width: 500px)
+    .supervisor
+        width: 250px
