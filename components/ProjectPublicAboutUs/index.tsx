@@ -4,7 +4,6 @@ import styles from "./ProjectPublicAboutUs.module.scss"
 interface ProjectPublicAboutUsProps { }
 
 const ProjectPublicAboutUs: FC<ProjectPublicAboutUsProps> = (props) => {
-    console.log(props)
     return (
         <div className={styles["aboutus"]}>
             <div className={styles["result"]}>
@@ -31,8 +30,8 @@ const ProjectPublicAboutUs: FC<ProjectPublicAboutUsProps> = (props) => {
                         <tr><td>Тестировщик: { }</td></tr>
                         < tr><td> Менеджер: { }</td></tr>
                     </tbody>
-                 </table>                                                     
-            </div>                                                     
+                 </table>                                                       
+            </div>                                                       
         </div>       
     );                 
 }
