@@ -6,7 +6,7 @@ import logo from "../../public/logo.svg";
 import Link from "next/link";
 
 interface HeaderProps {
-  popUpSetActive: any;
+  popUpSetActive?: any;
 }
 
 const Header: FC<HeaderProps> = ({ popUpSetActive }) => {
