@@ -11,7 +11,9 @@ const YearFilter: FC<YearFilterProps> = () => {
   */
   return (
     <div className={styles.container}>
-      <p className={styles.label}>Отобразить проекты от</p>
+      <p className={styles.label + " " + styles.labelFirst}>
+        Отобразить проекты от
+      </p>
       <input className={styles.input} type="number" />
       <p className={styles.label}>до</p>
       <input className={styles.input} type="number" />
