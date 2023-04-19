@@ -11,12 +11,18 @@ import { NextPage } from "next";
 import AdminSupervisors, {
   ISupervisor,
 } from "../../components/AdminSupervisors";
+import InputTextArea from "../../components/InputTextArea";
+import ProjectCalendar from "../../components/ProjectCalendar";
 import { useEffect, useRef } from "react";
 
-interface HomeProps {}
+interface HomeProps { }
 
 export interface IFormData {
   supervisors: ISupervisor[];
+  projectDescription: string,
+  commandRequirements: string,
+  projectRequirements: string,
+  projectTimeline: object
 }
 
 const ProjectAdmin: NextPage<HomeProps> = () => {
@@ -50,6 +56,28 @@ const ProjectAdmin: NextPage<HomeProps> = () => {
         names: ["Васильев Артём Андреевич"],
       },
     ],
+
+    projectDescription: "a",
+    commandRequirements: "aa",
+    projectRequirements: "aaa",
+
+    projectTimeline: {
+      dateAdd: "2000-01-01",
+      applicationDeadline: {
+        from: "2000-01-01",
+        to: "",
+      },
+      projectImplementationDates: {
+        from: "2000-01-01",
+        to: "",
+      },
+      projectProtection: {
+        from: "2000-01-01",
+        to: "",
+      },
+      projectStatus: "Защита",
+    }
+
   });
   return (
     <>
@@ -66,6 +94,11 @@ const ProjectAdmin: NextPage<HomeProps> = () => {
         что лишним не будет на всякий случай эту проверку добавить */}
         {formDataRef.current && <AdminSupervisors formDataRef={formDataRef} />}
       </Container>
+      {formDataRef.current && <InputTextArea formDataRef={formDataRef} title="Описание проекта:" text="projectDescription" />}
+      {formDataRef.current && <InputTextArea formDataRef={formDataRef} title="Требование к исполнителю:" text="commandRequirements" />}
+      {formDataRef.current && <InputTextArea formDataRef={formDataRef} title="Требования проекта:" text="projectRequirements" />}
+      {formDataRef.current && <ProjectCalendar formDataRef={formDataRef} />}
+
       <Footer />
     </>
   );

@@ -2,14 +2,17 @@ import React, { FC, useState, useEffect, useRef } from "react";
 import styles from "./InputTextArea.module.sass"
 import Image from "next/image";
 import vector from "../../public/Vector.svg";
+import { IFormData } from "../../pages/project_admin";
+import { KeyObject } from "crypto";
 
 interface InputTextAreaProps {
-    head: string
+    formDataRef: React.RefObject<IFormData>,
+    title: string,
     text: string
 }
 
-const InputTextArea: FC<InputTextAreaProps> = ({ head, text }) => {
-    const [textValue, setTextValue] = useState(text);
+const InputTextArea: FC<InputTextAreaProps> = ({ formDataRef, title, text }) => {
+    const [textValue, setTextValue] = useState(formDataRef.current![text]);
     const [textChange, setTextChange] = useState(false);
     const textField = useRef<HTMLTextAreaElement>(null);
 
@@ -23,12 +26,15 @@ const InputTextArea: FC<InputTextAreaProps> = ({ head, text }) => {
         } else {
             el.scrollTop = 0;
         }
+
+        // сохраняем изменения
+        formDataRef.current![text] = textValue;
     }, [textChange]);
 
     return (
         <>
             <div className={styles.head}>
-                {head}
+                {title}
                 <Image
                     alt=""
                     className={styles.img}
