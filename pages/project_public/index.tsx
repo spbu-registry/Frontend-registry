@@ -9,6 +9,8 @@ import Spacer from '../../components/Spacer';
 import ProjectPublicAboutUs from '../../components/ProjectPublicAboutUs';
 import { NextPage } from 'next';
 import DateBlock from '../../components/ProjectPagePublicPath/DateBlock';
+import Contener4CuTuDiPridjectDescr from '../../components/ProjectPagePublicPath/Contener4CuTuDi&PridjectDescr';
+
 
 interface HomeProps {}
 
@@ -37,11 +39,11 @@ const Home: NextPage<HomeProps> = () => {
         deadline='11.10.2011 - 21.10.2012'
         status='открыт'
       />
-
-      <Container>
+      <Contener4CuTuDiPridjectDescr/>
+      {/* <Container>
         <InfoAboutCuTuDi />
         <AboutProject />
-      </Container>
+      </Container> */}
       <Spacer axis='vertical' size={40} />
       <Footer />
     </>
