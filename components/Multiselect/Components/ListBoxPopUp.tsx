@@ -1,11 +1,13 @@
-import { useState, useMemo, useImperativeHandle, useRef, useCallback } from "react";
+import styles from './css/ListBoxPopUp.module.scss';
+
+import React, { useCallback } from "react";
+import classNames from "classnames";
+
 import Option from "./Option";
 import Announce from "./Announce";
-import styles from './css/ListBoxPopUp.module.scss';
-import React from "react";
-import { initMultiselectController } from "./ListBoxController";
+
 import { Theme } from "./enums";
-import classNames from "classnames";
+import { convertHighlightedToId } from "./utils";
 
 
 
@@ -15,50 +17,24 @@ import classNames from "classnames";
 */
 
 function ListBoxPopUp (
-    props : ListBoxPopUpProps, ref : React.ForwardedRef<ListBoxPopUpRef>) {
+    props : ListBoxPopUpProps, ref : React.ForwardedRef<HTMLDivElement>) {
 
-    const {parentId, options, toggleOption, height} = props;
+    const {expanded, parentId, controller, viewer, height, toggleOption, theme} = props;
 
-    const indexOptions = useMemo(() => {
-        const ans : string[] = [];
+    const {highlighted} = controller;
+    const {indexOptions, options} = viewer;
+    
+    const makeId = useCallback((index : number | null) => convertHighlightedToId(
+        parentId, indexOptions.length, index
+    ), [parentId, indexOptions]);
         
-        props.options.forEach((value, key) => ans.push(key));
-        
-        return ans;
-        
-    }, [props.options])
-
-    // highlighted = 0 ... n-1 => One of options is highlighted
-    // highlighted = -1 (or highlighted < 0 or highlighted > n) => whole listbox if highlighted
-    // highlighted = null => nothing is highlighted
-    const [highlighted, setHighLighted] = useState<number | null>(null);
-
-    const convertHighlightedToId = useCallback((highlighted : number | null) => {
-        if (highlighted === null) return null;
-        else if (highlighted >= 0 && highlighted < indexOptions.length)
-            return `${parentId}-${highlighted}`;
-        else return `${parentId}-menu`;
-    }, [parentId, indexOptions])
-
-    const listBoxRef = useRef<HTMLDivElement>(null);
-
-    // Handler to move selection from outside
-    useImperativeHandle(ref, () => initMultiselectController(
-        {
-            listBoxRef, highlighted, 
-            setHighLighted, convertHighlightedToId,
-            indexOptions, toggleOption
-        }
-    )
-    , [highlighted, convertHighlightedToId, indexOptions, toggleOption])
-
-    // ClassName
+        // ClassName
     const className = classNames(styles.ComboMenu, {
-        [styles.highlighted] : convertHighlightedToId(highlighted) === `${parentId}-menu`,
+        [styles.highlighted] : makeId(highlighted) === `${parentId}-menu`,
         [styles.Blue] : props.theme === Theme.Blue
     })
 
-    return (props.expanded === undefined || props.expanded) ? <div ref={listBoxRef}
+    return (expanded === undefined || expanded) ? <div ref={ref}
     className={className}
     style={{'--options' : Math.min(height, indexOptions.length)} as React.CSSProperties}
     id={`${parentId}-menu`}
@@ -78,12 +54,12 @@ function ListBoxPopUp (
             key={key}
             option={[key, options.get(key) as boolean]}
             toggleOption={() => toggleOption(key)}
-            highlighted={convertHighlightedToId(highlighted) === `${parentId}-${index}`}
-            theme={props.theme}
+            highlighted={makeId(highlighted) === `${parentId}-${index}`}
+            theme={theme}
             />
         )
     }
-    </div> : <div ref={listBoxRef}></div>
+    </div> : <div ref={ref}></div>
 }
 
-export default React.forwardRef<ListBoxPopUpRef, ListBoxPopUpProps>(ListBoxPopUp);
+export default React.forwardRef<HTMLDivElement, ListBoxPopUpProps>(ListBoxPopUp);

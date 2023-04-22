@@ -1,23 +1,17 @@
-import { useRef, useState, useEffect, FocusEventHandler, useCallback, MouseEventHandler, KeyboardEventHandler } from 'react';
 import styles from './Multiselect.module.scss';
-import { FocusAt } from './Components/enums';
-import ListBoxPopUp from './Components/ListBoxPopUp';
-import { useDebounce } from '../TagFilter/useDebounce';
-import { Theme } from './Components/enums';
+
+import { useRef, useState, useEffect, FocusEventHandler, useCallback, MouseEventHandler, KeyboardEventHandler } from 'react';
 import classNames from 'classnames';
 
-function MagnifyingGlass ({className} : ArrowProps) {
-    return <svg aria-label='Search Icon' className={className} fill='abb5be' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-        <path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
-    </svg>
-}
+import { useDebounce } from '../TagFilter/useDebounce';
+import { useMultiselectController } from './useMultiselectController';
 
-function isOneOf(target : string, list : string[]) {
-    for (const str of list) 
-        if (target === str) return true;
-    
-    return false;
-}
+import { isOneOf, convertHighlightedToId } from './Components/utils';
+
+import { FocusAt, Theme } from './Components/enums';
+
+import ListBoxPopUp from './Components/ListBoxPopUp';
+import { MagnifyingGlass } from './Components/SVGs';
 
 /*
     Мультиселект с текстовым фильтром
@@ -25,7 +19,7 @@ function isOneOf(target : string, list : string[]) {
 
 export default function SuggestedSearch (props : SuggestedSearchProps) {
 
-    const {id, lable, options, toggleOption, height, setOuterInput} = props;
+    const {id, lable, options, toggleOption, height, setOuterInput, theme} = props;
 
     const [expanded, setExpanded] = useState(false);
     // Focus is used to make sure that we won't lose input focus during actions
@@ -35,9 +29,11 @@ export default function SuggestedSearch (props : SuggestedSearchProps) {
     const [inputText, setInputText] = useState<string>('');
     const debouncedInput = useDebounce(inputText, 200);
 
+    const [controller, viewer] = useMultiselectController(options, toggleOption);
+
     const inputRef = useRef<HTMLInputElement>(null);
     const fullBoxRef = useRef<HTMLInputElement>(null);
-    const comboMenuRef = useRef<ListBoxPopUpRef>(null);
+    const comboMenuRef = useRef<HTMLDivElement>(null);
 
     // Handle debounceUpdate
     
@@ -67,12 +63,12 @@ export default function SuggestedSearch (props : SuggestedSearchProps) {
             
             setFocus(false);
             setExpanded(false);
-            comboMenuRef.current?.loseFocus();
+            controller.loseFocus();
         }
         else {
             setTimeout(() => inputRef.current?.focus(), 10)
         }
-    }, [])
+    }, [controller])
 
     const handleKeyDownCollapsed : KeyboardEventHandler = useCallback((event) => {
 
@@ -93,42 +89,39 @@ export default function SuggestedSearch (props : SuggestedSearchProps) {
         if (!isOneOf(event.key, ['Enter', 'Escape', 'ArrowDown',
             'ArrowUp', 'PageUp', 'PageDown'])) return;
 
-        const comboMenu = comboMenuRef.current;
-        if (comboMenu === null) return;
-
         event.preventDefault();
 
         switch (event.key) {
             case 'Enter' :
-                return comboMenu.toggle()
+                return controller.toggle()
             case 'Escape' :
-                comboMenu.loseFocus();
+                controller.loseFocus();
                 return setExpanded(false);
             case 'ArrowDown' :
-                if (comboMenu.focusAt() !== FocusAt.Option) 
-                    return comboMenu.focusOnStart();
-                else return comboMenu.focusDown(1);
+                if (controller.focusAt() !== FocusAt.Option) 
+                    return controller.focusOnStart();
+                else return controller.focusDown(1);
             case 'ArrowUp' :
-                if (comboMenu.focusAt() !== FocusAt.Option) 
-                    return comboMenu.focusOnStart();
-                else return comboMenu.focusUp(1);
+                if (controller.focusAt() !== FocusAt.Option) 
+                    return controller.focusOnStart();
+                else return controller.focusUp(1);
             case 'PageUp':
-                if (comboMenu.focusAt() !== FocusAt.Option) 
-                    return comboMenu.focusOnStart();
-                else return comboMenu.focusUp(10);
+                if (controller.focusAt() !== FocusAt.Option) 
+                    return controller.focusOnStart();
+                else return controller.focusUp(10);
             case 'PageDown' :
-                if (comboMenu.focusAt() !== FocusAt.Option) 
-                    return comboMenu.focusOnEnd();
-                else return comboMenu.focusDown(10);
+                if (controller.focusAt() !== FocusAt.Option) 
+                    return controller.focusOnEnd();
+                else return controller.focusDown(10);
         }
 
-    }, [])
+    }, [controller])
 
     // ClassNames
 
     const comboboxClass = classNames( styles.Combobox, {
         [styles.Expanded] : expanded && options.size !== 0,
-        [styles.Blue] : props.theme === Theme.Blue
+        [styles.Blue] : theme === Theme.Blue
     })
     const inputClass = classNames(styles.Input, {
         [styles.Focused] : focus
@@ -136,7 +129,7 @@ export default function SuggestedSearch (props : SuggestedSearchProps) {
 
     return <div ref={fullBoxRef} className={comboboxClass}>
 
-        <MagnifyingGlass className={styles.MagnifyingGlass}/>
+        <MagnifyingGlass/>
 
         <input ref={inputRef} 
         className={inputClass} type='text' placeholder={lable}
@@ -146,7 +139,7 @@ export default function SuggestedSearch (props : SuggestedSearchProps) {
         aria-expanded={expanded && options.size !== 0}
         aria-controls={`${id}-menu`}
         aria-autocomplete='list'
-        aria-activedescendant={ comboMenuRef.current?.getId() ?? undefined}
+        aria-activedescendant={ convertHighlightedToId(id, options.size, controller.highlighted) ?? undefined}
         // Event Handlers
         onChange={(event) => setInputText(event.currentTarget.value ?? '')}
         onBlurCapture={handleBlur}
@@ -159,12 +152,13 @@ export default function SuggestedSearch (props : SuggestedSearchProps) {
         <ListBoxPopUp
         expanded={expanded && options.size !== 0}
         ref={comboMenuRef}
-        options={options}
+        viewer={viewer}
+        controller={controller}
         toggleOption={toggleOption}
         parentId={id}
         height={height}
         announce={true}
-        theme={props.theme}
+        theme={theme}
         />
    </div>
 }

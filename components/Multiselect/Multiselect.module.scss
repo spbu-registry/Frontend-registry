@@ -13,44 +13,26 @@
     align-items: center;
 
     position: relative;
+    
 
+    &.Blue {
+        border : 2px solid #47a5af;
+    }
+    
     &.Expanded {
         border-bottom: none;
         border-radius: 8px 8px 0 0;
     }
 
-    &.Blue {
-        border : 2px solid #47a5af;
-    }
 
-}
-
-.Arrow {
-    height: 50%;
-    position: absolute;
-    right: 5%;
-    transition-property: transform;
-    transition-duration: 0.5s;
-
-    &.Up {
-        transform: rotate(180deg);
-    }
-}
-
-.Path {
-    color : black;
 }
 
 .highlighted {
     border: 2px solid #2f5982;
-}
 
-.SuggestedSearch {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-
+    &.Blue {
+        border : 2px solid #000000;
+    }
 }
 
 .Input {
@@ -68,9 +50,3 @@
     }
 }
 
-.MagnifyingGlass {
-    height: 1.5em;
-    width: 1.5em;
-    margin: 0 5px;
-    flex-shrink: 0;
-}

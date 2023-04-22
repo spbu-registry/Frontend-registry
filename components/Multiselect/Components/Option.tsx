@@ -1,5 +1,6 @@
-import classNames from 'classnames';
 import styles from './css/Option.module.scss';
+
+import classNames from 'classnames';
 import { useRef, useEffect } from 'react';
 import { Theme } from './enums';
 

@@ -1,0 +1,22 @@
+.MagnifyingGlass {
+    height: 1.5em;
+    width: 1.5em;
+    margin: 0 5px;
+    flex-shrink: 0;
+}
+
+.Path {
+    color : black;
+}
+
+.Arrow {
+    height: 50%;
+    position: absolute;
+    right: 5%;
+    transition-property: transform;
+    transition-duration: 0.5s;
+
+    &.Up {
+        transform: rotate(180deg);
+    }
+}
