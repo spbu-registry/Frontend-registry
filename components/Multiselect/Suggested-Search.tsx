@@ -1,7 +1,10 @@
 import { useRef, useState, useEffect, FocusEventHandler, useCallback, MouseEventHandler, KeyboardEventHandler } from 'react';
 import styles from './Multiselect.module.scss';
-import ListBoxPopUp, {FocusAt} from './Components/ListBoxPopUp';
+import { FocusAt } from './Components/enums';
+import ListBoxPopUp from './Components/ListBoxPopUp';
 import { useDebounce } from '../TagFilter/useDebounce';
+import { Theme } from './Components/enums';
+import classNames from 'classnames';
 
 function MagnifyingGlass ({className} : ArrowProps) {
     return <svg aria-label='Search Icon' className={className} fill='abb5be' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -42,6 +45,8 @@ export default function SuggestedSearch (props : SuggestedSearchProps) {
         setOuterInput(debouncedInput);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [debouncedInput])
+
+    // Control handlers
 
     const handleFocus : FocusEventHandler = useCallback(() => {
         setFocus(true);
@@ -119,14 +124,22 @@ export default function SuggestedSearch (props : SuggestedSearchProps) {
 
     }, [])
 
-    return <div ref={fullBoxRef} className={`${styles.Combobox} 
-                ${expanded && options.size !== 0 ? styles.Expanded : styles.Collapsed}`}>
+    // ClassNames
+
+    const comboboxClass = classNames( styles.Combobox, {
+        [styles.Expanded] : expanded && options.size !== 0,
+        [styles.Blue] : props.theme === Theme.Blue
+    })
+    const inputClass = classNames(styles.Input, {
+        [styles.Focused] : focus
+    })
+
+    return <div ref={fullBoxRef} className={comboboxClass}>
 
         <MagnifyingGlass className={styles.MagnifyingGlass}/>
 
         <input ref={inputRef} 
-        className={`${styles.Input} 
-        ${focus ? styles.Focused : ''}`} type='text' placeholder={lable}
+        className={inputClass} type='text' placeholder={lable}
         id={id}
         // Aria
         role='combobox'
@@ -151,6 +164,7 @@ export default function SuggestedSearch (props : SuggestedSearchProps) {
         parentId={id}
         height={height}
         announce={true}
+        theme={props.theme}
         />
    </div>
 }

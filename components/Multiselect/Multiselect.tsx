@@ -1,7 +1,9 @@
 import styles from './Multiselect.module.scss';
 import { useEffect, useRef, useState, useCallback, MouseEventHandler, FocusEventHandler, KeyboardEventHandler } from 'react';
 import { useSuccession } from './useSuccession';
-import ListBoxPopUp, {FocusAt} from './Components/ListBoxPopUp';
+import { FocusAt, Theme } from './Components/enums';
+import ListBoxPopUp from './Components/ListBoxPopUp';
+import classNames from 'classnames';
 
 /* 
     Компонент мультиселект полностью заполняет контейнер, в котором оказывается,
@@ -11,13 +13,14 @@ import ListBoxPopUp, {FocusAt} from './Components/ListBoxPopUp';
     https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/
 */
 
-function Arrow ({className} : ArrowProps) {
-    return <svg aria-label='Cosmetic Arrow' className={className} width="12" height="9" viewBox="0 0 12 9" fill="abb5be" xmlns="http://www.w3.org/2000/svg">
-    <path className={styles.Path} d="M6 8.41602L0 2.41566L2.00094 0.416016L6 4.41672L9.99906 0.416016L12 2.41566L6 8.41602Z" fill="#ABB5BE"/>
+export function Arrow ({className} : ArrowProps) {
+
+    return  <svg aria-label='Cosmetic Arrow' className={className} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path className={styles.Path} d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" fill="#ABB5BE" />
     </svg>
 }
 
-function isOneOf(target : string, list : string[]) {
+export function isOneOf(target : string, list : string[]) {
     for (const str of list) 
         if (target === str) return true;
     
@@ -34,6 +37,8 @@ export default function Multiselect (props : MultiselectProps) {
 
     const comboboxRef = useRef<HTMLDivElement>(null);
     const comboMenuRef = useRef<ListBoxPopUpRef>(null);
+
+    // Control handlers
 
     const handleClick : MouseEventHandler = useCallback((event) => {
 
@@ -160,10 +165,15 @@ export default function Multiselect (props : MultiselectProps) {
 
     }, [addChar, succession])
 
+    // ClassNames
+    const comboboxClass = classNames(styles.Combobox, {
+        [styles.Expanded] : expanded,
+        [styles.Blue] : props.theme === Theme.Blue
+    })
+
     return <div 
         ref={comboboxRef} 
-        className={`${styles.Combobox}
-            ${expanded ? styles.Expanded : styles.Collapsed}`}
+        className={comboboxClass}
         id={id}
         tabIndex={0}
         // Aria
@@ -189,6 +199,7 @@ export default function Multiselect (props : MultiselectProps) {
         toggleOption={toggleOption}
         parentId={id}
         height={height}
+        theme={props.theme}
         />
 
     </div>

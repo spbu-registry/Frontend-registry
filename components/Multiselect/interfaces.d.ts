@@ -11,6 +11,7 @@ interface MultiselectProps {
     lable : string
 
     height : number
+    theme? : Theme
 }
 
 
@@ -31,6 +32,7 @@ interface OptionProps {
 
   highlighted : boolean;
   id : string;
+  theme? : Theme
 }
 
 
@@ -44,6 +46,8 @@ interface ListBoxPopUpProps {
 
   announce? : boolean;
   expanded? : boolean
+  theme? : Theme
+
 }
 
 type ListBoxPopUpRef = {
@@ -60,4 +64,4 @@ type ListBoxPopUpRef = {
   focusAutocomplete : (full : string, lastChar : string) => void
   getId : () => string | null
   toggle : () => void
-} | null;
+};

@@ -8,8 +8,6 @@
     display: flex;
     align-items: center;
 
-    box-sizing: content-box;
-
     & > .Checkbox {
         height: 1.3em;
         aspect-ratio: 1;
@@ -55,4 +53,20 @@
         border: 2px solid #2f5982;
     }
 
+}
+
+.Option.Blue {
+
+    &[aria-selected="true"] > .Label {
+        color: #47a5af;
+    }
+
+    &[aria-selected="true"] > .Checkbox {
+        background-color: #47a5af;
+        border: none;
+    }
+
+    &.highlighted {
+        border: 2px solid #000000;
+    }
 }

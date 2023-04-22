@@ -12,23 +12,38 @@ export enum Actions {
     ToggleSort,
     ToggleTag,
 
+    ChooseClinic,
+    ChooseStatus,
+    ChooseSort,
+
     SetSearch,
     SetTagSearch,
     SetFrom,
     SetTo
 }
 
-function reducer (state : FiltersState, action : FiltersAction) {
+function reducer (state : FiltersState, action : FiltersAction) : FiltersState {
 
     function toggleMap(mapName : keyof FiltersState, key : string) {
-        if (!(state[mapName] as Map<string, boolean>)
-            .has(key)) return state;
 
         const newMap = new Map(
             (state[mapName] as Map<string, boolean>)
         );
 
         newMap.set(key, !newMap.get(key))
+        return newMap;
+    }
+
+    function chooseMap (mapName : keyof FiltersState, data : string[]) {
+
+        const newMap = new Map(
+            (state[mapName] as Map<string, boolean>)
+        );
+
+        newMap.forEach((value, key) => newMap.set(key, false))
+
+        for (const key of data) newMap.set(key, true);
+
         return newMap;
     }
 
@@ -41,93 +56,86 @@ function reducer (state : FiltersState, action : FiltersAction) {
         return newMap;
     }
 
-    if (action.type === Actions.SetFrom) {
-        return Object.assign({}, state, {from : action.payload});
-    }
-    else if (action.type === Actions.SetTo) {
-        return Object.assign({}, state, {to : action.payload});
-    }
-    else if (action.type === Actions.SetSearch) {
-        return Object.assign({}, state, {search : action.payload});
-    }
-    else if (action.type === Actions.SetTagSearch) {
-        return Object.assign({}, state, {tagSearch : action.payload});
-    }
-    else if (action.type === Actions.ToggleClinic) {
-        return Object.assign({}, state, 
-            {clinic : toggleMap('clinic', action.payload as string)}
-        );
-    }
-    else if (action.type === Actions.ToggleStatus){
-        return Object.assign({}, state, 
-            {status : toggleMap('status', action.payload as string)}
-        );
-    }
-    else if (action.type === Actions.ToggleSort) {
-        return Object.assign({}, state, 
-            {sort : toggleMap('sort', action.payload as string)}
-        );
-    }
-    else if (action.type === Actions.ToggleTag) {
+    // Toggles
 
-        if (!state.filteredTags.has(action.payload as string)) return state;
-
-        const key = action.payload as string;
-
-        if (state.filteredTags.get(key)) 
-            return Object.assign({}, state, 
-                {
-                    filteredTags : toggleMap('filteredTags', action.payload as string),
-                    activeTags : state.activeTags.filter((tag) => tag !== key)
-                }
-            );
-        else 
-            return Object.assign({}, state, 
-                {
-                    filteredTags : toggleMap('filteredTags', action.payload as string),
-                    activeTags : [...state.activeTags, key]
-                }
-            );
-    }
-    else if (action.type === Actions.SetClinic) {
-
-        if (action.data === undefined) return state;
-
-        return Object.assign({}, state, 
-            {clinic : setMap(action.data)}
-        );
-    }
-    else if (action.type === Actions.SetStatus) {
-        
-        if (action.data === undefined) return state;
-
-        return Object.assign({}, state, 
-            {status : setMap(action.data)}
-        );
-    }
-    else if (action.type === Actions.SetSort) {
-        
-        if (action.data === undefined) return state;
-
-        return Object.assign({}, state, 
-            {sort : setMap(action.data)}
-        );
-    }
-    else if (action.type === Actions.SetFilteredTags) {
-
-        if (action.data === undefined) return state;
-
-        const newMap = setMap(action.data);
-
-        for (const key of state.activeTags) {
-                if (newMap.has(key))
-                        newMap.set(key, true);
+    switch (action.type) {
+        case (Actions.ToggleClinic) :
+            return { ...state, 
+                clinic : toggleMap('clinic', action.payload as string)
             }
+        case (Actions.ToggleSort) :
+            return { ...state, 
+                sort : toggleMap('sort', action.payload as string)
+            }
+        case (Actions.ToggleStatus) :
+            return { ...state, 
+                status : toggleMap('status', action.payload as string)
+            }
+        case (Actions.ToggleTag) :
+            if (!state.filteredTags.has(action.payload as string)) return state;
 
-        return Object.assign({}, state, 
-            {filteredTags : newMap}
-        );
+            const key = action.payload as string;
+
+            return state.filteredTags.get(key) ? 
+            {   ...state, 
+                filteredTags : toggleMap('filteredTags', action.payload as string),
+                activeTags : state.activeTags.filter((tag) => tag !== key)
+            } : {...state, 
+                filteredTags : toggleMap('filteredTags', action.payload as string),
+                activeTags : [...state.activeTags, key]}
     }
+
+    // Chooses
+
+    switch (action.type) {
+        case (Actions.ChooseClinic) :
+            if (!action.data) return state
+            return {...state, clinic : chooseMap('clinic', action.data)}
+        case (Actions.ChooseSort) :
+            if (!action.data) return state
+            return {...state, sort : chooseMap('sort', action.data)}
+        case (Actions.ChooseStatus) : 
+            if (!action.data) return state
+            return {...state, status : chooseMap('status', action.data)}
+    }
+
+    // Setters
+
+    switch (action.type) {
+        case (Actions.SetFrom) :
+            if (!action.payload) return state;
+            return {...state, from : action.payload}
+        case (Actions.SetTo) :
+            if (!action.payload) return state;
+            return {...state, to : action.payload}
+        case (Actions.SetSearch) :
+            if (!action.payload) return state;
+            return {...state, search : action.payload}
+        case (Actions.SetTagSearch) :
+            if (!action.payload) return state;
+            return {...state, tagSearch : action.payload}
+        case (Actions.SetClinic) :
+            if (!action.data) return state;
+            return {...state, clinic : setMap(action.data)}
+        case (Actions.SetStatus) :
+            if (!action.data) return state;
+            return {...state, status : setMap(action.data)}
+        case (Actions.SetSort) :
+            if (!action.data) return state;
+            return {...state, sort : setMap(action.data)}
+        case (Actions.SetFilteredTags) :
+            if (!action.data) return state
+
+            const newMap = setMap(action.data);
+
+            for (const key of state.activeTags) {
+                    if (newMap.has(key))
+                            newMap.set(key, true);
+                }
+
+            return {...state, filteredTags : newMap}
+    }
+
     return state
 }
 

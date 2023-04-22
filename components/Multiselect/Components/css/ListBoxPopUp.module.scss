@@ -4,19 +4,17 @@
 
     position: absolute;
     top : 100%;
-    left: -1px;
+    left: 0;
+    right: 0;
 
     height: calc(100% * var(--options));
-    width: calc(100% + 2px);
-
-    margin: 0;
     border: none;
 
-    border : 1px solid #9f2d20;
+    border : 2px solid #9f2d20;
+    margin : -2px;
+
     border-top: none;
     border-radius: 0px 0px 8px 8px;
-
-    box-sizing: border-box;
 
     background-color: white;
 
@@ -27,6 +25,15 @@
     &.hideScroll::-webkit-scrollbar {
         display: none;
     }
+
+    &.highlighted {
+        border: 2px solid #2f5982;
+    }
+}
+
+.ComboMenu.Blue {
+    border : 2px solid #47a5af;
+    border-top: none;
 
     &.highlighted {
         border: 2px solid #2f5982;

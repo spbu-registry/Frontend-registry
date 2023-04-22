@@ -7,6 +7,7 @@
     
     border-radius: 8px;
     border : 2px solid #9f2d20;
+    
 
     display: flex;
     align-items: center;
@@ -14,15 +15,18 @@
     position: relative;
 
     &.Expanded {
-        border : 1px solid #9f2d20;
         border-bottom: none;
         border-radius: 8px 8px 0 0;
+    }
+
+    &.Blue {
+        border : 2px solid #47a5af;
     }
 
 }
 
 .Arrow {
-    height: 20%;
+    height: 50%;
     position: absolute;
     right: 5%;
     transition-property: transform;
