@@ -20,6 +20,23 @@ import { LinksToPresentations } from "../../components/LinksToPresentations";
 
 interface HomeProps {}
 
+export interface ITimeline {
+  dateAdd: string;
+  applicationDeadline: {
+    from: string;
+    to: string;
+  };
+  projectImplementationDates: {
+    from: string;
+    to: string;
+  };
+  projectProtection: {
+    from: string;
+    to: string;
+  };
+  projectStatus: string;
+}
+
 export interface IFormData {
   supervisors: ISupervisor[];
   teams: Map<string, string>;
@@ -27,7 +44,7 @@ export interface IFormData {
   projectDescription: string;
   commandRequirements: string;
   projectRequirements: string;
-  projectTimeline: object;
+  projectTimeline: ITimeline;
 }
 
 const ProjectAdmin: NextPage<HomeProps> = () => {

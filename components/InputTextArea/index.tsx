@@ -8,7 +8,7 @@ import { KeyObject } from "crypto";
 interface InputTextAreaProps {
   formDataRef: React.RefObject<IFormData>;
   title: string;
-  text: string;
+  text: "projectDescription" | "commandRequirements" | "projectRequirements";
 }
 
 const InputTextArea: FC<InputTextAreaProps> = ({
@@ -22,13 +22,15 @@ const InputTextArea: FC<InputTextAreaProps> = ({
 
   useEffect(() => {
     const el = textField.current;
-    el.disabled = !textChange;
-    if (textChange) {
-      el.focus();
-      el.setSelectionRange(el.value.length, el.value.length);
-      el.scrollTop = el.scrollHeight;
-    } else {
-      el.scrollTop = 0;
+    if (el) {
+      el.disabled = !textChange;
+      if (textChange) {
+        el.focus();
+        el.setSelectionRange(el.value.length, el.value.length);
+        el.scrollTop = el.scrollHeight;
+      } else {
+        el.scrollTop = 0;
+      }
     }
 
     // сохраняем изменения
