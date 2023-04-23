@@ -12,6 +12,7 @@ import { NextPage } from "next";
 import AdminSupervisors, {
   ISupervisor,
 } from "../../components/AdminSupervisors";
+import ProjectCalendar from "../../components/ProjectCalendar";
 import { useEffect, useRef } from "react";
 import Results from "../../components/AdminSupervisors/Results";
 import InputTextArea from "../../components/InputTextArea";
@@ -23,6 +24,10 @@ export interface IFormData {
   supervisors: ISupervisor[];
   teams: Map<string, string>;
   description: string;
+  projectDescription: string;
+  commandRequirements: string;
+  projectRequirements: string;
+  projectTimeline: object;
 }
 
 const ProjectAdmin: NextPage<HomeProps> = () => {
@@ -68,6 +73,27 @@ const ProjectAdmin: NextPage<HomeProps> = () => {
     ]),
     description:
       "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Similique et asperiores earum corporis impedit beatae dolorem, adipisci officia animi facere necessitatibus doloribus tempora velit quis ea, eius illum itaque quam molestiae, quos eaque. Minus temporibus laborum sed eligendi. Quia ipsa recusandae explicabo, hic iure repellendus, iste voluptatum labore perspiciatis veniam vitae, nulla laborum repudiandae nisi illo nihil aut incidunt vel voluptatem nostrum suscipit eum. Eveniet, ipsa veniam dignissimos ratione enim animi doloremque id tenetur quam libero repellendus cum veritatis totam molestiae non magni pariatur aliquam ex doloribus natus qui asperiores aliquid consequuntur? Quaerat sapiente, accusamus at enim quia quam eius, dolorum adipisci voluptas fuga quo cumque sunt vero! Perferendis nemo placeat sequi laboriosam non quae eveniet, beatae eligendi praesentium? Fugit, veritatis? Optio maxime ea ab, sequi, accusamus quidem recusandae porro vel dolorem eligendi illum expedita explicabo aut sapiente. Amet eligendi eaque distinctio vel quos, sed consequuntur. Eveniet consequuntur, deserunt quas debitis consectetur deleniti esse ab error. Illum corrupti voluptatem vel fugiat porro error, nulla, debitis vitae ad reprehenderit voluptas! Perferendis inventore architecto, explicabo suscipit quidem earum nobis sapiente. Quo reprehenderit sint aspernatur ex ipsa rem officiis doloribus iusto rerum quod eaque qui cum, autem laborum maxime alias aliquam at in.",
+
+    projectDescription: "a",
+    commandRequirements: "aa",
+    projectRequirements: "aaa",
+
+    projectTimeline: {
+      dateAdd: "2000-01-01",
+      applicationDeadline: {
+        from: "2000-01-01",
+        to: "",
+      },
+      projectImplementationDates: {
+        from: "2000-01-01",
+        to: "",
+      },
+      projectProtection: {
+        from: "2000-01-01",
+        to: "",
+      },
+      projectStatus: "Защита",
+    },
   });
 
   const removeLink = (key: string) => {};
@@ -88,10 +114,6 @@ const ProjectAdmin: NextPage<HomeProps> = () => {
         <Container>
           <AdminSupervisors formDataRef={formDataRef} />
           <Spacer axis="vertical" size={60} />
-          <InputTextArea
-            head={"Описание проекта"}
-            text={formDataRef.current.description}
-          />
           <Spacer axis="vertical" size={60} />
           <LinksToPresentations
             linksAndLabels={formDataRef.current.teams}
@@ -102,6 +124,29 @@ const ProjectAdmin: NextPage<HomeProps> = () => {
       )}
 
       <Spacer axis="vertical" size={40} />
+      {formDataRef.current && (
+        <InputTextArea
+          formDataRef={formDataRef}
+          title="Описание проекта:"
+          text="projectDescription"
+        />
+      )}
+      {formDataRef.current && (
+        <InputTextArea
+          formDataRef={formDataRef}
+          title="Требование к исполнителю:"
+          text="commandRequirements"
+        />
+      )}
+      {formDataRef.current && (
+        <InputTextArea
+          formDataRef={formDataRef}
+          title="Требования проекта:"
+          text="projectRequirements"
+        />
+      )}
+      {formDataRef.current && <ProjectCalendar formDataRef={formDataRef} />}
+
       <Footer />
     </>
   );
