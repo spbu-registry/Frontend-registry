@@ -88,6 +88,19 @@ const HomeProjectList: FC<HomeProjectListProps> = () => {
     }
   }, [windowSize]);
 
+  useEffect(() => {
+    // Из-за того, что стили подгружаются не мгновенно (если их нет в кэше),
+    // изначально при загрузке страницы размеры могут посчитаться неправильно
+    // Компонент не в начале страницы, поэтому нестрашно, если будет
+    // моргание контента, пользователь этого не увидит
+    setTimeout(() => {
+      if (ref.current) {
+        const chunks = createChunks(ref.current.children, calcChunkSize());
+        chunks.forEach((chunk) => resizeChunk(chunk as HTMLElement[]));
+      }
+    }, 1000);
+  }, []);
+
   return (
     <>
       <h2 className={styles["projects_title"]}>Проекты</h2>
