@@ -1,14 +1,16 @@
 import Head from 'next/head';
 import Header from '../../components/Header/';
 import TagSliderForCurProject from '../../components/ProjectPagePublicPath/TagSliderForCurProject';
-import AboutProject from '../../components/ProjectPagePublicPath/AboutProject/';
-import InfoAboutCuTuDi from '../../components/ProjectPagePublicPath/InfoAboutCustomerTutorDirector';
+import AboutProject from '../../components/ProjectPagePublicPath/Contener4CuTuDi&PridjectDescr/AboutProject';
+import InfoAboutCuTuDi from '../../components/ProjectPagePublicPath/Contener4CuTuDi&PridjectDescr/InfoAboutCustomerTutorDirector';
 import Container from '../../components/Container';
 import Footer from '../../components/Footer';
 import Spacer from '../../components/Spacer';
 import ProjectPublicAboutUs from '../../components/ProjectPublicAboutUs';
 import { NextPage } from 'next';
 import DateBlock from '../../components/ProjectPagePublicPath/DateBlock';
+import Contener4CuTuDiPridjectDescr from '../../components/ProjectPagePublicPath/Contener4CuTuDi&PridjectDescr';
+
 
 interface HomeProps {}
 
@@ -26,7 +28,7 @@ const Home: NextPage<HomeProps> = () => {
       <Spacer axis='vertical' size={40} />
       <Container>
         <TagSliderForCurProject />
-      </Container>
+      
       <Spacer axis='vertical' size={40} />
 
       <ProjectPublicAboutUs />
@@ -37,12 +39,13 @@ const Home: NextPage<HomeProps> = () => {
         deadline='11.10.2011 - 21.10.2012'
         status='открыт'
       />
-
-      <Container>
+      <Contener4CuTuDiPridjectDescr/>
+      {/* <Container>
         <InfoAboutCuTuDi />
         <AboutProject />
-      </Container>
+      </Container> */}
       <Spacer axis='vertical' size={40} />
+      </Container>
       <Footer />
     </>
   );
