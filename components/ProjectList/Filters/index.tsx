@@ -7,6 +7,20 @@ import YearFilter from '../../YearFilter';
 
 export function Filters ({state, dispatch, n} : FiltersProps) {
 
+    const chooseSort = (key : string) => {
+        if (state.sort.get(key) === true) {
+            dispatch({
+                type : Actions.ToggleSort,
+                payload : key
+            })
+        } else if (state.sort.get(key) === false) {
+            dispatch({
+                type : Actions.ChooseSort,
+                data : [key]
+            })
+        }
+    }
+
     return <div className={styles.Filters}>
     <div className={styles.SearchBar}>
         <SearchBar
@@ -47,10 +61,7 @@ export function Filters ({state, dispatch, n} : FiltersProps) {
         <div className={`${styles.Sort}`}>
             <Multiselect
                 options={state.sort}
-                toggleOption={(key) => dispatch({
-                    type : Actions.ToggleSort,
-                    payload : key
-                })}
+                toggleOption={chooseSort}
                 id='SortSelect'
                 lable='Сортировка'
                 height={2}

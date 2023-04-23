@@ -1,19 +1,16 @@
 interface ArrowProps {
-    className : string
+    turned : boolean
 }
-
 
 interface MultiselectProps {
     options : Map<string, boolean>,
-    toggleOption : (key : string) => void
     toggleOption : (key : string) => void
     id : string
     lable : string
 
     height : number
+    theme? : Theme
 }
-
-
 
 interface SuggestedSearchProps extends MultiselectProps {
   setOuterInput : ( value : string ) => void
@@ -31,11 +28,13 @@ interface OptionProps {
 
   highlighted : boolean;
   id : string;
+  theme? : Theme
 }
 
 
 interface ListBoxPopUpProps {
-  options : Map<string, boolean>;
+  controller : MultiselectController,
+  viewer : MultiselectViewer
   toggleOption : (key : string) => void;
 
   parentId : string;
@@ -44,10 +43,17 @@ interface ListBoxPopUpProps {
 
   announce? : boolean;
   expanded? : boolean
+  theme? : Theme
+
 }
 
-type ListBoxPopUpRef = {
-  element: HTMLDivElement | null
+type MultiselectViewer = {
+  indexOptions : string[],
+  options : Map<string, boolean>
+}
+
+type MultiselectController = {
+  highlighted : number | null,
   focusAt : () => FocusAt
   focusAtNum : () => number | null 
   loseFocus : () => void
@@ -58,6 +64,5 @@ type ListBoxPopUpRef = {
   focusOnStart : () => void
   focusOnEnd : () => void
   focusAutocomplete : (full : string, lastChar : string) => void
-  getId : () => string | null
   toggle : () => void
-} | null;
+};

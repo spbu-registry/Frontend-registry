@@ -1,7 +1,16 @@
 import styles from './Multiselect.module.scss';
+
 import { useEffect, useRef, useState, useCallback, MouseEventHandler, FocusEventHandler, KeyboardEventHandler } from 'react';
+import classNames from 'classnames';
+
 import { useSuccession } from './useSuccession';
-import ListBoxPopUp, {FocusAt} from './Components/ListBoxPopUp';
+import { useMultiselectController } from './useMultiselectController';
+
+import { isOneOf, convertHighlightedToId } from './Components/utils';
+
+import { FocusAt, Theme } from './Components/enums';
+import { Arrow } from './Components/SVGs';
+import ListBoxPopUp from './Components/ListBoxPopUp';
 
 /* 
     Компонент мультиселект полностью заполняет контейнер, в котором оказывается,
@@ -10,19 +19,6 @@ import ListBoxPopUp, {FocusAt} from './Components/ListBoxPopUp';
     Компонент создан в соответствии со стандартом
     https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/
 */
-
-function Arrow ({className} : ArrowProps) {
-    return <svg aria-label='Cosmetic Arrow' className={className} width="12" height="9" viewBox="0 0 12 9" fill="abb5be" xmlns="http://www.w3.org/2000/svg">
-    <path className={styles.Path} d="M6 8.41602L0 2.41566L2.00094 0.416016L6 4.41672L9.99906 0.416016L12 2.41566L6 8.41602Z" fill="#ABB5BE"/>
-    </svg>
-}
-
-function isOneOf(target : string, list : string[]) {
-    for (const str of list) 
-        if (target === str) return true;
-    
-    return false;
-}
 
 export default function Multiselect (props : MultiselectProps) {
     const {options, toggleOption, id, height, lable} = props;
@@ -33,14 +29,18 @@ export default function Multiselect (props : MultiselectProps) {
     const [succession, addChar] = useSuccession(1000);
 
     const comboboxRef = useRef<HTMLDivElement>(null);
-    const comboMenuRef = useRef<ListBoxPopUpRef>(null);
+    const comboMenuRef = useRef<HTMLDivElement>(null);
+
+    const [controller, viewer] = useMultiselectController(options, toggleOption);
+
+    // Control handlers
 
     const handleClick : MouseEventHandler = useCallback((event) => {
 
-        const menu = comboMenuRef.current?.element;
+        const menu = comboMenuRef.current;
         const multiselect = comboboxRef.current;
 
-        if (menu === null || menu === undefined || multiselect === null) return;
+        if (menu === null || multiselect === null) return;
 
         if (!expanded) {
             setExpanded(true);
@@ -50,22 +50,19 @@ export default function Multiselect (props : MultiselectProps) {
             && !menu.contains(event.target as HTMLElement)
             ) {
                 setExpanded(false);
-                comboMenuRef.current?.loseFocus();
+                controller.loseFocus();
             }
-    }, [expanded])
+    }, [expanded, controller])
 
     const handleBlur : FocusEventHandler = useCallback((event) => {
         if ((event.currentTarget as HTMLElement).contains(
             event.relatedTarget as HTMLElement)) return;
 
         setExpanded(false);
-        comboMenuRef.current?.loseFocus()
-    }, [])
+        controller.loseFocus()
+    }, [controller])
 
     const handleKeyDownCollapsed : KeyboardEventHandler = useCallback((event) => {
-
-        const comboMenu = comboMenuRef.current;
-        if (comboMenu === null) return;
 
         if (!isOneOf(event.key, [
             'ArrowDown', 'Enter', ' ', 'ArrowUp', 'Home', 'End'
@@ -78,22 +75,19 @@ export default function Multiselect (props : MultiselectProps) {
             case 'ArrowDown' :
             case 'Enter' :
             case ' ' :
-                return comboMenu.focusOnMenu()
+                return controller.focusOnMenu()
             
             case 'ArrowUp' :
             case 'Home' :
-                return comboMenu.focusOnStart();
+                return controller.focusOnStart();
             
             case 'End':
-                return comboMenu.focusOnEnd();
+                return controller.focusOnEnd();
 
         }
-    }, [])
+    }, [controller])
 
     const handleKeyDownExpanded : KeyboardEventHandler = useCallback((event) => {
-
-        const comboMenu = comboMenuRef.current;
-        if (comboMenu === null) return;
 
         if (!isOneOf(event.key, [
             'Enter', ' ', 'Escape', 'ArrowDown', 'ArrowUp', 'Home', 'End', 'PageUp', 'PageDown'
@@ -104,53 +98,50 @@ export default function Multiselect (props : MultiselectProps) {
         switch (event.key) {
             case 'Enter' :
             case ' ' : 
-                return comboMenu.toggle();
+                return controller.toggle();
 
             case 'Escape' :
                 return setExpanded(false);
 
             case 'ArrowDown' :
-                if (comboMenu.focusAt() !== FocusAt.Option) 
-                    return comboMenu.focusOnStart();
-                else return comboMenu.focusDown(1);
+                if (controller.focusAt() !== FocusAt.Option) 
+                    return controller.focusOnStart();
+                else return controller.focusDown(1);
 
             case 'ArrowUp' : 
-                if (comboMenu.focusAt() !== FocusAt.Option) 
-                        return comboMenu.focusOnStart();
-                else return comboMenu.focusUp(1);
+                if (controller.focusAt() !== FocusAt.Option) 
+                        return controller.focusOnStart();
+                else return controller.focusUp(1);
 
             case 'Home' : 
-                return comboMenu.focusOnStart();
+                return controller.focusOnStart();
 
             case 'End' :
-                return comboMenu.focusOnEnd();
+                return controller.focusOnEnd();
 
             case 'PageUp' : 
-                if (comboMenu.focusAt() === FocusAt.Menu) 
-                    return comboMenu.focusOnStart();
-                else return comboMenu.focusUp(10);
+                if (controller.focusAt() === FocusAt.Menu) 
+                    return controller.focusOnStart();
+                else return controller.focusUp(10);
             
             case 'PageDown' :
-                if (comboMenu.focusAt() === FocusAt.Menu) 
-                    return comboMenu.focusOnEnd();
-                else return comboMenu.focusDown(10);
+                if (controller.focusAt() === FocusAt.Menu) 
+                    return controller.focusOnEnd();
+                else return controller.focusDown(10);
         }
-    }, [])
+    }, [controller])
 
     // Handle autocomplete
     useEffect(() => {
-        if (
-            comboboxRef.current === null 
-            || comboMenuRef.current === null) return;
+        if (comboboxRef.current === null ) return;
 
         const combobox = comboboxRef.current;
-        const comboMenu = comboMenuRef.current;
 
         const handleAutoComplete = (event : KeyboardEvent) => {
 
             if (event.key.length !== 1 || event.key === ' ') return;
 
-            comboMenu.focusAutocomplete(succession, event.key)
+            controller.focusAutocomplete(succession, event.key)
             addChar(event.key);
             setExpanded(true);
         }
@@ -158,12 +149,17 @@ export default function Multiselect (props : MultiselectProps) {
         combobox.addEventListener('keydown', handleAutoComplete);
         return () => combobox.removeEventListener('keydown', handleAutoComplete);
 
-    }, [addChar, succession])
+    }, [addChar, succession, controller])
+
+    // ClassNames
+    const comboboxClass = classNames(styles.Combobox, {
+        [styles.Expanded] : expanded,
+        [styles.Blue] : props.theme === Theme.Blue
+    })
 
     return <div 
         ref={comboboxRef} 
-        className={`${styles.Combobox}
-            ${expanded ? styles.Expanded : styles.Collapsed}`}
+        className={comboboxClass}
         id={id}
         tabIndex={0}
         // Aria
@@ -172,23 +168,28 @@ export default function Multiselect (props : MultiselectProps) {
         aria-labelledby={`${id}-label`}
         aria-expanded={expanded}
         aria-controls={expanded ? `${id}-menu` : undefined}
-        aria-activedescendant={comboMenuRef.current?.getId() ?? undefined}
+        aria-activedescendant={
+            convertHighlightedToId(
+                props.id, options.size, controller.highlighted
+                ) ?? undefined
+            }
         // Handle Events
         onClick={handleClick}
         onBlurCapture={handleBlur}
         onKeyDown={ expanded ? handleKeyDownExpanded : handleKeyDownCollapsed}
         >
         <label id={`${id}-label`} htmlFor={id}>{lable}</label>
-        <Arrow className={`${styles.Arrow} ${expanded ? styles.Down : styles.Up}`}/>
-        
+        <Arrow turned={expanded} />
         
         <ListBoxPopUp
         expanded={expanded}
         ref={comboMenuRef}
-        options={options}
+        controller={controller}
+        viewer={viewer}
         toggleOption={toggleOption}
         parentId={id}
         height={height}
+        theme={props.theme}
         />
 
     </div>

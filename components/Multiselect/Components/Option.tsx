@@ -1,7 +1,10 @@
-import styles from './Option.module.scss';
-import { useRef, useEffect } from 'react';
+import styles from './css/Option.module.scss';
 
-export default function Option ({option, toggleOption, highlighted, id} : OptionProps) {
+import classNames from 'classnames';
+import { useRef, useEffect } from 'react';
+import { Theme } from './enums';
+
+export default function Option ({ theme, option, toggleOption, highlighted, id} : OptionProps) {
 
     const [label, value] = option;
 
@@ -17,9 +20,16 @@ export default function Option ({option, toggleOption, highlighted, id} : Option
 
     }, [optionRef, highlighted])
 
+    // ClassName
+
+    const className = classNames( styles.Option, {
+        [styles.highlighted] : highlighted,
+        [styles.Blue] : theme === Theme.Blue
+    })
+
     return (
     <div ref={optionRef}
-        className={`${styles.Option} ${highlighted ? styles.highlighted : ''}`} 
+        className={className} 
         id={id}
         onClick={() => toggleOption()}
         //Aria
