@@ -31,7 +31,8 @@ function ListBoxPopUp (
         // ClassName
     const className = classNames(styles.ComboMenu, {
         [styles.highlighted] : makeId(highlighted) === `${parentId}-menu`,
-        [styles.Blue] : props.theme === Theme.Blue
+        [styles.Blue] : props.theme === Theme.Blue,
+        [styles.hideScroll] : height >= indexOptions.length
     })
 
     return (expanded === undefined || expanded) ? <div ref={ref}
