@@ -1,0 +1,79 @@
+.Wrapper {
+    width: 100%;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    position: relative;
+
+    padding-right: 1.5rem;
+}
+
+.Tag {
+    display: flex;
+    align-items: center;
+
+    border-radius: 25px;
+    padding: 7px 10px;
+    gap: 5px;
+    margin: 10px 10px;
+
+    &:nth-child(3n) {
+        outline: 3px solid #547fc1;
+    }
+    &:nth-child(3n + 1) {
+        outline: 3px solid #20929f;
+    }
+    &:nth-child(3n + 2) {
+        outline: 3px solid #6c757d;
+        
+    }
+}
+
+.Close {
+    display: inline-block;
+
+    width: 20px;
+    height: 20px;
+
+    cursor: pointer;
+
+    fill : rgba(0,0,0,.5);
+
+    &:hover {
+        fill: black;
+    }
+}
+
+.TagName {
+    font-size: 1.2rem;
+}
+
+.AddTag {
+    display: inline-block;
+    width: 1.5rem;
+    height: 1.5rem;
+
+    position: absolute;
+    bottom : calc(10px + 1.5rem / 2);
+    right: 10px;
+
+    fill : rgba(0,0,0,.5);
+
+    &:hover {
+        fill: black;
+    }
+
+}
+
+.NoTags {
+    display: flex;
+    align-items: center;
+
+    border-radius: 25px;
+    padding: 7px 10px;
+    margin: 10px 0;
+
+    background-color: #e4e5e5;
+    outline: 3px solid #aaabaf;
+}

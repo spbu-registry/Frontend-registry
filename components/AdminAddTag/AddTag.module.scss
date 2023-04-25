@@ -103,6 +103,8 @@
     color : rgba(0,0,0,.5);
     float: inline-end;
 
+    transition: all 0.5s;
+
     min-width: 60%;
 
     padding : 10px 20px;
@@ -118,8 +120,7 @@
         cursor: pointer;
 
         &:hover {
-            //background-color: #A480CF;
-            color : #22223B;
+            background-color: #186e77;
         }
 
         &:active {
