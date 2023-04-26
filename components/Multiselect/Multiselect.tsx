@@ -152,16 +152,16 @@ export default function Multiselect (props : MultiselectProps) {
     }, [addChar, succession, controller])
 
     // ClassNames
-    const comboboxClass = classNames(styles.Combobox, {
+    const comboboxClass = classNames(styles.ComboboxHead, {
         [styles.Expanded] : expanded,
         [styles.Blue] : props.theme === Theme.Blue
     })
 
     return <div 
-        ref={comboboxRef} 
-        className={comboboxClass}
+        className={styles.Combobox}
         id={id}
         tabIndex={0}
+        ref={comboboxRef} 
         // Aria
         role="combobox"
         aria-haspopup="listbox"
@@ -174,13 +174,15 @@ export default function Multiselect (props : MultiselectProps) {
                 ) ?? undefined
             }
         // Handle Events
-        onClick={handleClick}
         onBlurCapture={handleBlur}
+        onClick={handleClick}
         onKeyDown={ expanded ? handleKeyDownExpanded : handleKeyDownCollapsed}
         >
-        <label id={`${id}-label`} htmlFor={id}>{lable}</label>
-        <Arrow turned={expanded} />
-        
+        <div className={comboboxClass}>
+            <label id={`${id}-label`} htmlFor={id}>{lable}</label>
+            <Arrow turned={expanded} />
+        </div>
+
         <ListBoxPopUp
         expanded={expanded}
         ref={comboMenuRef}

@@ -1,4 +1,15 @@
 .Combobox {
+    height : 100%;
+    width : 100%;
+
+    position: relative;
+
+
+    --bordersize : 0.1rem;
+}
+
+.ComboboxHead {
+
     user-select: none;
 
     height : 100%;
@@ -6,17 +17,16 @@
     padding : 0 3%;
     
     border-radius: 8px;
-    border : 2px solid #9f2d20;
+    border : var(--bordersize) solid #9f2d20;
     
 
     display: flex;
     align-items: center;
 
-    position: relative;
     
 
     &.Blue {
-        border : 2px solid #47a5af;
+        border : var(--bordersize) solid #47a5af;
     }
     
     &.Expanded {
