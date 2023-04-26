@@ -63,7 +63,9 @@ export function AdminAddTag (
                 })}
             </ul>
 
-            <button onClick={() => setTag(currentInput)} className={buttonClassName}>
+            <button 
+                onClick={!disabled ? () => setTag(currentInput) : undefined} 
+                className={buttonClassName}>
                 {disabled ? 'Выберите тег' : 'Отправить'}
             </button>
 
