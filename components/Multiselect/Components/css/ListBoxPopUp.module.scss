@@ -6,12 +6,8 @@
     top : 100%;
     left : 0;
     right: 0;
-    left: calc(-1 * var(--bordersize));
-    //right: calc(-1 * var(--bordersize) / 2);
-    width: calc(100% + var(--bordersize) * 2);
 
     height: calc(100% * var(--options));
-    border: none;
 
     border : var(--bordersize) solid #9f2d20;
 

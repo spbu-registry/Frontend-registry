@@ -119,7 +119,7 @@ export default function SuggestedSearch (props : SuggestedSearchProps) {
 
     // ClassNames
 
-    const comboboxClass = classNames( styles.Combobox, {
+    const comboboxClass = classNames( styles.ComboboxHead, {
         [styles.Expanded] : expanded && options.size !== 0,
         [styles.Blue] : theme === Theme.Blue
     })
@@ -127,27 +127,27 @@ export default function SuggestedSearch (props : SuggestedSearchProps) {
         [styles.Focused] : focus
     })
 
-    return <div ref={fullBoxRef} className={comboboxClass}>
+    return <div ref={fullBoxRef} className={styles.Combobox}>
 
-        <MagnifyingGlass/>
-
-        <input ref={inputRef} 
-        className={inputClass} type='text' placeholder={lable}
-        id={id}
-        // Aria
-        role='combobox'
-        aria-expanded={expanded && options.size !== 0}
-        aria-controls={`${id}-menu`}
-        aria-autocomplete='list'
-        aria-activedescendant={ convertHighlightedToId(id, options.size, controller.highlighted) ?? undefined}
-        // Event Handlers
-        onChange={(event) => setInputText(event.currentTarget.value ?? '')}
-        onBlurCapture={handleBlur}
-        onClick={handleClick}
-        onFocus={handleFocus}
-        onKeyDown={expanded ? handleKeyDownExpanded : handleKeyDownCollapsed}
-
-        ></input>
+        <div className={comboboxClass}>
+            <MagnifyingGlass/>
+            <input ref={inputRef}
+            className={inputClass} type='text' placeholder={lable}
+            id={id}
+            // Aria
+            role='combobox'
+            aria-expanded={expanded && options.size !== 0}
+            aria-controls={`${id}-menu`}
+            aria-autocomplete='list'
+            aria-activedescendant={ convertHighlightedToId(id, options.size, controller.highlighted) ?? undefined}
+            // Event Handlers
+            onChange={(event) => setInputText(event.currentTarget.value ?? '')}
+            onBlurCapture={handleBlur}
+            onClick={handleClick}
+            onFocus={handleFocus}
+            onKeyDown={expanded ? handleKeyDownExpanded : handleKeyDownCollapsed}
+            ></input>
+        </div>
 
         <ListBoxPopUp
         expanded={expanded && options.size !== 0}
