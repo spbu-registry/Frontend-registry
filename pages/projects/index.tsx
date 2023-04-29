@@ -1,12 +1,12 @@
 import Head from "next/head";
-import Header from "../../components/Header";
-import Container from "../../components/Container";
-import Footer from "../../components/Footer";
-import ProjectList from "../../components/ProjectList";
-import Spacer from "../../components/Spacer";
+import { Header } from "../../modules/Header";
+import { Container } from "../../modules/shared";
+import { Footer } from "../../modules/Footer";
+import ProjectList from "../../modules/ProjectList";
+import { Spacer } from "../../modules/shared";
 import { GetStaticProps, NextPage } from "next";
-import { Filters } from "../../components/ProjectList/Filters";
-import { IAPIProject } from "../../types/types";
+import { Filters } from "../../modules/ProjectList/components/Filters";
+import { IAPIProject } from "../../types";
 
 export const getStaticProps: GetStaticProps = async (context: any) => {
   const projects = await fetch(`http://localhost:3000/api/projects`).then(

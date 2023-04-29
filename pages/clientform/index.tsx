@@ -1,9 +1,9 @@
 import Head from "next/head";
-import Header from "../../components/Header";
-import Container from "../../components/Container";
-import Footer from "../../components/Footer";
-import FormForClient from "../../components/FormForClient";
-import Spacer from "../../components/Spacer";
+import { Header } from "../../modules/Header";
+import { Container } from "../../modules/shared";
+import { Footer } from "../../modules/Footer";
+import FormForClient from "../../modules/FormForClient";
+import { Spacer } from "../../modules/shared";
 import { NextPage } from "next";
 
 interface ClientFormProps {}
