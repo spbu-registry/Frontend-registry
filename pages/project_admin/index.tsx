@@ -8,6 +8,8 @@ import Footer from "../../components/Footer";
 import Spacer from "../../components/Spacer";
 import ProjectPublicAboutUs from "../../components/ProjectPublicAboutUs";
 
+import Role from "../../components/Role"
+
 import { NextPage } from "next";
 import AdminSupervisors, {
   ISupervisor,
@@ -39,6 +41,7 @@ export interface ITimeline {
 
 export interface IFormData {
   supervisors: ISupervisor[];
+  // role: IRole[];
   teams: Map<string, string>;
   description: string;
   projectDescription: string;
@@ -137,9 +140,17 @@ const ProjectAdmin: NextPage<HomeProps> = () => {
             removeLink={removeLink}
           />
           <Results />
+          <Role/>
+
+
         </Container>
       )}
 
+      {/* {formDataRef.current && (
+        <Role formDataRef={formDataRef}/>
+      )} */}
+
+      
       <Spacer axis="vertical" size={40} />
       {formDataRef.current && (
         <InputTextArea
