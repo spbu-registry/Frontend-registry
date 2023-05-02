@@ -8,14 +8,11 @@ interface ClinicCardProps {
   index: number;
 }
 
-const backgroundColors = ["#A7C5BD", "#FCAF39", "#BFBFBF"];
+const backgroundClasses = [styles.opal, styles.yellow, styles.gray];
 
 const ClinicCard: FC<ClinicCardProps> = ({ index }) => {
   return (
-    <div
-      className={styles.ClinicCard + " "}
-      style={{ backgroundColor: backgroundColors[index % 3] }}
-    >
+    <div className={styles.ClinicCard + " " + backgroundClasses[index % 3]}>
       <div className={styles.workingArea}>
         <div className={styles.title}>
           <h1>Музейно-архитектурная клиника</h1>

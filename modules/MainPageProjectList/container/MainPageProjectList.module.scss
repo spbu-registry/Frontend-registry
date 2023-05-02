@@ -61,22 +61,22 @@
 
   &:nth-child(4n - 3) > .project_name,
   &:nth-child(4n - 3) > .project_info {
-    background: $yellow-color-opacity60;
+    background: $yellow-color-opacity;
   }
 
   &:nth-child(4n - 2) > .project_name,
   &:nth-child(4n - 2) > .project_info {
-    background-color: $red-color-opacity60;
+    background-color: $red-color-opacity;
   }
 
   &:nth-child(4n - 1) > .project_name,
   &:nth-child(4n - 1) > .project_info {
-    background-color: $opal-color-opacity60;
+    background-color: $opal-color-opacity;
   }
 
   &:nth-child(4n) > .project_name,
   &:nth-child(4n) > .project_info {
-    background-color: #22b68eb3;
+    background-color: $cyan-color-opacity;
   }
 }
 

@@ -8,14 +8,14 @@ import { IFormData } from "../../types";
 
 interface SupervisorProps {
   initialNames: string[];
-  titleColor?: string;
+  titleClass?: string;
   className?: string;
   index: number;
   formDataRef: React.RefObject<IFormData>;
 }
 
 const Supervisor: FC<SupervisorProps> = ({
-  titleColor = "#C5A7AF",
+  titleClass = "",
   className = "",
   index,
   formDataRef,
@@ -80,7 +80,7 @@ const Supervisor: FC<SupervisorProps> = ({
 
   return (
     <div className={className + " " + styles.container}>
-      <div className={styles.title} style={{ backgroundColor: titleColor }}>
+      <div className={styles.title + " " + titleClass}>
         {formDataRef.current!.supervisors[index].title}
       </div>
       <div>

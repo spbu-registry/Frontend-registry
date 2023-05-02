@@ -42,10 +42,9 @@ const InfoAboutCuTuDi: FC<InfoAboutCuTuDiProps> = () => {
           onMouseOut={() => handleMouseOut(1)}
         >
           <div
-            className={styles.cu}
+            className={styles.cu + " " + styles.opal}
             style={{
               borderColor: "#c2333300",
-              background: "rgba(167, 197, 189, 0.6)",
             }}
           >
             Заказчик
@@ -65,8 +64,8 @@ const InfoAboutCuTuDi: FC<InfoAboutCuTuDiProps> = () => {
           onMouseOut={() => handleMouseOut(2)}
         >
           <div
-            className={styles.cu}
-            style={{ borderColor: "#c2333300", background: "#c2333333" }}
+            className={styles.cu + " " + styles.pink}
+            style={{ borderColor: "#c2333300" }}
           >
             Куратор
           </div>
@@ -85,10 +84,9 @@ const InfoAboutCuTuDi: FC<InfoAboutCuTuDiProps> = () => {
           onMouseOut={() => handleMouseOut(3)}
         >
           <div
-            className={styles.cu}
+            className={styles.cu + " " + styles.yellow}
             style={{
               borderColor: "#c2333300",
-              background: "rgba(252, 175, 57, 0.3)",
             }}
           >
             Руководитель

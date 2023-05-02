@@ -13,7 +13,7 @@ const AdminSupervisors: FC<AdminSupervisorsProps> = ({ formDataRef }) => {
   // Для дропдауна будет использоваться отдельный компонент, который ещё не сделан
   const [clinic, setClinic] = useState("Клиника");
 
-  const titleBgColors = ["#E8C5CC", "#B5E6ED", "#C4DAFF"];
+  const titleBgClasses = [styles.pink, styles.easternBlue, styles.dodgerBlue];
 
   return (
     <>
@@ -27,7 +27,7 @@ const AdminSupervisors: FC<AdminSupervisorsProps> = ({ formDataRef }) => {
               formDataRef={formDataRef}
               initialNames={supervisor.names}
               className={styles.supervisor}
-              titleColor={titleBgColors[index]}
+              titleClass={titleBgClasses[index]}
             />
           ))}
         </div>
