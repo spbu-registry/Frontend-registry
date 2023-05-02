@@ -8,6 +8,7 @@ import Results from "../components/Results";
 import Role from "../components/Role";
 import InputTextArea from "../components/InputTextArea";
 import ProjectCalendar from "../components/ProjectCalendar";
+import { AdminAddTag } from "../components/AdminAddTag";
 
 interface AdminEditProjectProps {}
 
@@ -71,6 +72,12 @@ const AdminEditProject: FC<AdminEditProjectProps> = () => {
         что лишним не будет на всякий случай эту проверку добавить */}
       {formDataRef.current && (
         <Container>
+          {/*<AdminAddTag
+            setInput={(text: string) => {}}
+            suggestedTagsList={["Test1", "Test2"]}
+            setTag={(tag: string) => {}}
+            onClose={() => {}}
+          />*/}
           <AdminSupervisors formDataRef={formDataRef} />
           <Spacer axis="vertical" size={60} />
           <Spacer axis="vertical" size={60} />

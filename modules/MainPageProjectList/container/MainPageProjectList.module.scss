@@ -1,3 +1,5 @@
+@import "../../../styles/library";
+
 .projects_container {
   display: flex;
   justify-content: space-between;
@@ -59,22 +61,22 @@
 
   &:nth-child(4n - 3) > .project_name,
   &:nth-child(4n - 3) > .project_info {
-    background: rgba(252, 175, 57, 0.7);
+    background: $yellow-color-opacity60;
   }
 
   &:nth-child(4n - 2) > .project_name,
   &:nth-child(4n - 2) > .project_info {
-    background-color: rgba(159, 45, 32, 0.7);
+    background-color: $red-color-opacity60;
   }
 
   &:nth-child(4n - 1) > .project_name,
   &:nth-child(4n - 1) > .project_info {
-    background-color: rgba(167, 197, 189, 0.7);
+    background-color: $opal-color-opacity60;
   }
 
   &:nth-child(4n) > .project_name,
   &:nth-child(4n) > .project_info {
-    background-color: rgba(34, 182, 142, 0.7);
+    background-color: #22b68eb3;
   }
 }
 

@@ -1,50 +1,52 @@
+@import "../../styles/library";
+
 .aboutus {
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  width: 100%;
 }
 
 .result {
-    margin: 31px;
-    padding: 13px;
-    border: 5px dashed #9F2D20;
-    border-radius: 25px;
+  margin: 31px;
+  padding: 13px;
+  border: 5px dashed $red-color;
+  border-radius: 25px;
 }
 
 .roles {
-    margin: 31px;
-    padding: 13px;
-    border: 5px dashed #FCAF39;
-    border-radius: 25px;
+  margin: 31px;
+  padding: 13px;
+  border: 5px dashed $yellow-color;
+  border-radius: 25px;
 }
 
 .aboutus tr {
-    font-family: 'Open Sans';
-    font-style: normal;
-    align-items: center;
-    text-align: center;
+  font-family: "Open Sans";
+  font-style: normal;
+  align-items: center;
+  text-align: center;
 }
 
 .aboutus table {
-    margin-left: auto;
-    margin-right: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.aboutus thead{
-    font-weight: 600;
-    font-size: 36px;
-    line-height: 49px;
+.aboutus thead {
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 49px;
 }
 
 .aboutus tbody tr {
-    font-weight: 400;
-    font-size: 32px;
-    line-height: 44px;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 44px;
 }
 
 @media (max-width: 1073px) {
-    .aboutus {
-      flex-direction: column;
-    }
+  .aboutus {
+    flex-direction: column;
   }
+}
