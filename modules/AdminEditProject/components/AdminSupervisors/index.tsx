@@ -4,6 +4,9 @@ import styles from "./AdminSupervisors.module.sass";
 import Image from "next/image";
 import Supervisor from "../Supervisor";
 import { IFormData } from "../../types";
+import { Multiselect } from "../../../shared";
+import { Theme } from "../../../shared/components/Multiselect/Components/enums";
+
 
 interface AdminSupervisorsProps {
   formDataRef: React.RefObject<IFormData>;
@@ -15,11 +18,36 @@ const AdminSupervisors: FC<AdminSupervisorsProps> = ({ formDataRef }) => {
 
   const titleBgClasses = [styles.pink, styles.easternBlue, styles.dodgerBlue];
 
+  // Для мультиселекта
+  const [clinicsOptions, setOptions] = useState<Map<string, boolean>>(new Map([
+    ['ИТ-Клиника', false],
+    ['Клиника цифрового сопровождения образовательных проектов СПБГУ',false],
+    ['Лингвистическая клиника', false],
+    ['Архивный центр',false],
+    ['Психологическая клиника',false],
+    ["Клиника коммуникационных проектов",false],
+    ["Юридическая клиника",false],
+    ["Экологическая клиника", false],
+  ]))
+
+  const toggleOption = (option : string) => setOptions(prev => {
+    const newMap = new Map(prev)
+    newMap.set(option, !prev.get(option))
+    return newMap
+  })
+
   return (
     <>
       <div className={styles.container}>
-        <div className={styles.clinic}>Дропдаун</div>
         <div className={styles.supervisors}>
+        <div className={styles.clinic}>
+          <Multiselect
+          options={clinicsOptions}
+          toggleOption={toggleOption}
+          id='ClinicsMultiselect'
+          lable="Клиника"
+          theme={Theme.Blue}/>
+        </div>
           {formDataRef.current!.supervisors.map((supervisor, index) => (
             <Supervisor
               key={index + "-" + supervisor.names.length}
