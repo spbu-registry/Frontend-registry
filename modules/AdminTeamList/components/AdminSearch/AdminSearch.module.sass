@@ -1,0 +1,21 @@
+@import '../../../../styles/library'
+
+.searchContainer
+    position: relative
+
+    &::before
+        content: ''
+        position: absolute
+        top: calc(50% - 12px)
+        left: 10px
+        height: 24px
+        width: 24px
+        background: url("/admin-search-icon.svg") no-repeat
+        background-size: cover
+
+.search
+    width: 100%
+    padding: 10px 30px 10px 60px
+    background: $text-forms-gray-color
+    border-radius: 25px
+    border: none
