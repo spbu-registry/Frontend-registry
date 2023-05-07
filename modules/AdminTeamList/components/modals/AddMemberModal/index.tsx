@@ -2,23 +2,19 @@ import React, { FC, useContext, useState } from "react";
 import styles from "../AdminModals.module.sass";
 import Image from "next/image";
 import closeIcon from "../../../../../public/admin-delete-icon.svg";
-import { IEditMemberData } from "../../../types";
+import { IAddMemberData } from "../../../types";
 import { TeamsContext } from "../../../context/teams";
 
-interface EditMemberModalProps {
-  data: IEditMemberData;
+interface AddMemberModalProps {
+  data: IAddMemberData;
   onClose: () => any;
 }
 
-const EditMemberModal: FC<EditMemberModalProps> = ({ data, onClose }) => {
+const AddMemberModal: FC<AddMemberModalProps> = ({ data, onClose }) => {
   const [name, setName] = useState(data.member.name);
   const [role, setRole] = useState(data.member.role);
 
   const { teams, setTeams } = useContext(TeamsContext);
-
-  const handleClose = () => {
-    onClose();
-  };
 
   const handleConfirm = () => {
     if (data.teamId) {
@@ -28,17 +24,17 @@ const EditMemberModal: FC<EditMemberModalProps> = ({ data, onClose }) => {
           team.id == data.teamId
             ? {
                 ...team,
-                members: team.members.map((member, index) =>
-                  index == data.memberIndex
-                    ? { name: name, role: role }
-                    : member
-                ),
+                members: [...team.members, { name: name, role: role }],
               }
             : team
         )
       );
-      onClose();
     }
+    onClose();
+  };
+
+  const handleClose = () => {
+    onClose();
   };
 
   return (
@@ -51,7 +47,7 @@ const EditMemberModal: FC<EditMemberModalProps> = ({ data, onClose }) => {
             onClick={handleClose}
           />
         </div>
-        <h2 className={styles.title}>Редактирование участника</h2>
+        <h2 className={styles.title}>Добавление нового участника</h2>
         <div className={styles.field}>
           <label htmlFor="editmember-name" className={styles.label}>
             ФИО:
@@ -90,4 +86,4 @@ const EditMemberModal: FC<EditMemberModalProps> = ({ data, onClose }) => {
   );
 };
 
-export default EditMemberModal;
+export default AddMemberModal;

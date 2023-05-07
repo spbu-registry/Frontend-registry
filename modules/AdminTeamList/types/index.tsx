@@ -1,19 +1,32 @@
 export interface IModalData {
-  addMember: {
-    active: boolean;
-    teamId: number;
-    member: IMember;
-  };
-  editMember: {
-    active: boolean;
-    teamId: number;
-    memberIndex: number; // номер в списке, с бекендом никак не связан, нужен только чтобы внешний компонент понимал, какого участника обновлять
-    member: IMember;
-  };
-  deleteTeam: {
-    active: boolean;
-    teamId: number;
-  };
+  addMember: IAddMemberData;
+  editMember: IEditMemberData;
+  deleteTeam: IDeleteTeamData;
+  deleteMember: IDeleteMemberData;
+}
+
+export interface IAddMemberData {
+  active: boolean;
+  teamId: number;
+  member: IMember;
+}
+
+export interface IEditMemberData {
+  active: boolean;
+  teamId: number;
+  memberIndex: number; // номер в списке, с бекендом никак не связан, нужен только чтобы внешний компонент понимал, какого участника обновлять
+  member: IMember;
+}
+
+export interface IDeleteTeamData {
+  active: boolean;
+  teamId: number;
+}
+
+export interface IDeleteMemberData {
+  active: boolean;
+  teamId: number;
+  memberIndex: number; // номер в списке, с бекендом никак не связан, нужен только чтобы внешний компонент понимал, какого участника удалять
 }
 
 export interface IMember {

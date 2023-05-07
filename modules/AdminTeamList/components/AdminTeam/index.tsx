@@ -53,7 +53,7 @@ const AdminTeam: FC<AdminTeamProps> = ({ team }) => {
               <Image
                 src={deleteIcon}
                 alt="Удалить участника"
-                data-member-delete
+                data-open-deletemember
               />
             </div>
           </li>

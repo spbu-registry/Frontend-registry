@@ -22,10 +22,20 @@ export const initialModalData: IModalData = {
     active: false,
     teamId: -1,
   },
+  deleteMember: {
+    active: false,
+    teamId: -1,
+    memberIndex: -1,
+  },
 };
 
+/*
+Нужно для определения, какую модалку открывать
+modalType: 'data-attribute'
+*/
 export const modalOpenAttributes = {
   addMember: "data-open-addmember",
   editMember: "data-open-editmember",
   deleteTeam: "data-open-deleteteam",
+  deleteMember: "data-open-deletemember",
 };

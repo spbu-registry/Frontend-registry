@@ -1,26 +1,11 @@
 import { modalOpenAttributes } from "../static/modalData";
 
-export const shouldCloseModal = (e: MouseEvent) => {
-  return (
-    e.target instanceof HTMLElement && e.target.hasAttribute("data-close-modal")
-  );
-};
-
-export const shouldOpenModal = (e: MouseEvent) => {
-  return (
-    e.target instanceof HTMLElement &&
-    Object.keys(modalOpenAttributes).find((key) =>
-      (e.target as HTMLElement).hasAttribute(
-        modalOpenAttributes[key as "addMember" | "editMember" | "deleteTeam"]
-      )
-    ) !== undefined
-  );
-};
-
 export const getModalType = (e: MouseEvent) => {
   return Object.keys(modalOpenAttributes).find((key) => {
     return (e.target as HTMLElement).hasAttribute(
-      modalOpenAttributes[key as "addMember" | "editMember" | "deleteTeam"]
+      modalOpenAttributes[
+        key as "addMember" | "editMember" | "deleteTeam" | "deleteMember"
+      ]
     );
   });
 };

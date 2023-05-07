@@ -1,5 +1,5 @@
 import { initialModalData } from "../static/modalData";
-import { ITeam } from "../types";
+import { IModalData, ITeam } from "../types";
 import { findMemberIndex } from "./eventData";
 
 export const prepareOpenModalData = (
@@ -42,5 +42,19 @@ export const prepareOpenModalData = (
       teamId: team.id,
     };
     return newModalData;
+  }
+
+  if (modalType == "deleteMember") {
+    const memberIndex = findMemberIndex(e);
+
+    if (memberIndex !== undefined) {
+      const newModalData = { ...initialModalData };
+      newModalData.deleteMember = {
+        active: true,
+        teamId: team.id,
+        memberIndex: memberIndex,
+      };
+      return newModalData;
+    }
   }
 };
