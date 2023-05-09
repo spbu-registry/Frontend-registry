@@ -6,7 +6,7 @@
   margin-right: 78px
   // margin-top: auto
   // margin-bottom: auto
-  
+
   // min-width: 40%
 
   font-size: 26px
@@ -17,13 +17,12 @@
     line-height: 1.2em
     margin-bottom: 30px
     font-weight: 600
-    
+
   .red
     color: $red-color
   & p
     text-align: justify
     font-size: 1em
-  
 
   .contener
     width: 100%
@@ -52,7 +51,7 @@
     margin-bottom: 20px
     touch-action: none
     box-sizing: border-box
-    
+
     // border-color: #A7C5BD
     // background: #A7C5BD
     border-radius: 25px
@@ -67,18 +66,27 @@
     // &:nth-child(3n - 2)
     //     border-color: #fcaf3900
     //     background:#fcaf394d
-    
+
   .hidt
     text-align: center
 
 .opal
   background-color: $opal-color-opacity
+  cursor: pointer
+  &:hover
+    background-color: darken($opal-color-opacity, 20%)
 
 .yellow
   background-color: $yellow-color-opacity-lg
+  cursor: pointer
+  &:hover
+    background-color: darken($yellow-color-opacity-lg, 20%)
 
 .pink
   background-color: $red-color-opacity-lg
+  cursor: pointer
+  &:hover
+    background-color: darken($red-color-opacity-lg, 20%)
 
 @media (max-width: 1150px)
   .InfoAboutCuTuDiInner
@@ -87,10 +95,9 @@
   .InfoAboutCuTuDiInner
     font-size: 20px
 
-@media (max-width: 550px) 
+@media (max-width: 550px)
   .InfoAboutCuTuDiInner
     font-size: 18px
 
     & h1
       font-size: 2em
-
