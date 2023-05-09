@@ -8,11 +8,12 @@ import Container from "../../shared/components/Container";
 
 interface HeaderProps {
   popUpSetActive?: any;
+  logoColor?: string;
 }
 
-const Header: FC<HeaderProps> = ({ popUpSetActive }) => {
+const Header: FC<HeaderProps> = ({ popUpSetActive, logoColor = 'red'}) => {
   return (
-    <header className={styles.container}>
+    <header className={styles['container' + `${logoColor}`]}>
       <Container>
         <div className={styles.inner}>
           <div className={styles.image}>
