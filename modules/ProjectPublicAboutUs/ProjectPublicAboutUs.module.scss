@@ -1,9 +1,6 @@
 @import '../../styles/library';
 
 .aboutus {
-  // display: flex;
-  // justify-content: space-evenly;
-  // flex-wrap: wrap;
   width: 100%;
   display: grid;
   grid-template-columns: 50% 50%;
@@ -47,11 +44,6 @@
   line-height: 44px;
 }
 
-.aboutus .buttonContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
 .aboutus button {
   background-color: $red-color;
@@ -61,6 +53,9 @@
   padding: 25px;
   font-size: 25px;
   cursor: pointer;
+  justify-self: center;
+  align-self: center;
+
   &:hover {
     background-color: darken($color: $red-color, $amount: 10%);
   }

@@ -59,9 +59,7 @@ const ProjectPublicAboutUs: FC<ProjectPublicAboutUsProps> = (props) => {
         deadline='11.10.2011 - 21.10.2012'
         status='открыт'
       />
-      <div className={styles.buttonContainer}>
-        <button>Подать заявку</button>
-      </div>
+      <button>Подать заявку</button>
     </div>
   );
 };
