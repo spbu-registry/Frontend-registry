@@ -1,10 +1,9 @@
-@import "../../styles/library";
+@import '../../styles/library';
 
 .aboutus {
-  display: flex;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
   width: 100%;
+  display: grid;
+  grid-template-columns: 50% 50%;
 }
 
 .result {
@@ -22,7 +21,7 @@
 }
 
 .aboutus tr {
-  font-family: "Open Sans";
+  font-family: 'Open Sans';
   font-style: normal;
   align-items: center;
   text-align: center;
@@ -45,8 +44,26 @@
   line-height: 44px;
 }
 
+
+.aboutus button {
+  background-color: $red-color;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  padding: 25px;
+  font-size: 25px;
+  cursor: pointer;
+  justify-self: center;
+  align-self: center;
+
+  &:hover {
+    background-color: darken($color: $red-color, $amount: 10%);
+  }
+}
+
 @media (max-width: 1073px) {
   .aboutus {
+    display: flex;
     flex-direction: column;
   }
 }

@@ -15,27 +15,24 @@ const DateBlock: FC<DateBlockProps> = ({
   status,
 }) => {
   return (
-    <div className={styles.container}>
-      <div className={styles.dates}>
-        <div className={styles.block}>
-          <p>Дата создания проекта:</p>
-          <p>{dateOfCreate}</p>
-        </div>
-        <div className={styles.block}>
-          <p>Сроки подачи заявок: </p>
-          <p>{dateOfRegister}</p>
-        </div>
-        <div className={styles.block}>
-          <p>Сроки проекта: </p>
-          <p>{deadline}</p>
-        </div>
-
-        <div className={styles.block}>
-          <p className={styles.status}>Статус проекта:</p>
-          <p>{status}</p>
-        </div>
+    <div className={styles.dates}>
+      <div className={styles.block}>
+        <p>Дата создания проекта:</p>
+        <p>{dateOfCreate}</p>
       </div>
-      <button>Подать заявку</button>
+      <div className={styles.block}>
+        <p>Сроки подачи заявок: </p>
+        <p>{dateOfRegister}</p>
+      </div>
+      <div className={styles.block}>
+        <p>Сроки проекта: </p>
+        <p>{deadline}</p>
+      </div>
+
+      <div className={styles.block}>
+        <p className={styles.status}>Статус проекта:</p>
+        <p>{status}</p>
+      </div>
     </div>
   );
 };

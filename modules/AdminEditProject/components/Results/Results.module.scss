@@ -10,26 +10,26 @@
   margin: 45px 0px;
   padding: 40px;
   ul {
-    list-style: square;
+    list-style: disc;
 
-    li {
-      div {
-        display: flex;
-        justify-content: space-between;
-      }
-      &:not(:last-child) {
-        margin-bottom: 10px;
-      }
-    }
+    // li {
+    //   div {
+    //     display: flex;
+    //     justify-content: space-between;
+    //   }
+    //   &:not(:last-child) {
+    //     margin-bottom: 10px;
+    //   }
+    // }
   }
 
-  .add {
-    margin-top: 10px;
-    display: flex;
-    justify-content: space-between;
+  // .add {
+  //   margin-top: 10px;
+  //   display: flex;
+  //   justify-content: space-between;
 
-    input {
-      width: 400px;
-    }
-  }
+  //   input {
+  //     width: 400px;
+  //   }
+  // }
 }

@@ -1,0 +1,14 @@
+@import '../../../../../styles/library';
+
+.result {
+  display: flex;
+  justify-content: space-between;
+  font-size: 30px;
+  div {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  button {
+    height: fit-content;
+  }
+}
