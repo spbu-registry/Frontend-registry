@@ -1,4 +1,4 @@
-@import '../../styles/library';
+@import "../../styles/library";
 
 .aboutus {
   width: 100%;
@@ -7,10 +7,18 @@
 }
 
 .result {
+  text-align: center;
   margin: 31px;
-  padding: 13px;
+  padding: 40px 30px 40px 30px;
   border: 5px dashed $red-color;
   border-radius: 25px;
+}
+
+.result__inner {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .roles {
@@ -20,48 +28,125 @@
   border-radius: 25px;
 }
 
-.aboutus tr {
-  font-family: 'Open Sans';
-  font-style: normal;
-  align-items: center;
-  text-align: center;
-}
-
-.aboutus table {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.aboutus thead {
+.aboutus__title {
   font-weight: 600;
-  font-size: 36px;
+  font-size: 30px;
   line-height: 49px;
 }
 
-.aboutus tbody tr {
-  font-weight: 400;
-  font-size: 32px;
-  line-height: 44px;
+.roles .aboutus__title {
+  margin-bottom: 25px;
 }
 
+.result__list {
+  margin-top: auto;
+  margin-bottom: auto;
+  & > li {
+    max-width: 100%;
+    font-size: 24px;
+    margin-bottom: 15px;
+    border-radius: 15px;
+    width: max-content;
+    margin-left: auto;
+    margin-right: auto;
+
+    &:nth-child(3n - 2) {
+      background-color: $opal-color-opacity;
+      cursor: pointer;
+      &:hover {
+        background-color: darken($opal-color-opacity, 20%);
+      }
+    }
+
+    &:nth-child(3n) {
+      background-color: $yellow-color-opacity-lg;
+      cursor: pointer;
+      &:hover {
+        background-color: darken($yellow-color-opacity-lg, 20%);
+      }
+    }
+
+    &:nth-child(3n - 1) {
+      background-color: $red-color-opacity-lg;
+      cursor: pointer;
+      &:hover {
+        background-color: darken($red-color-opacity-lg, 20%);
+      }
+    }
+  }
+}
 
 .aboutus button {
+  position: relative;
   background-color: $red-color;
   color: white;
   border: none;
+  padding: 30px 25px;
   border-radius: 15px;
-  padding: 25px;
-  font-size: 25px;
+  font-size: 20px;
   cursor: pointer;
   justify-self: center;
   align-self: center;
+
+  & > a {
+    display: block;
+    padding: 10px 40px;
+  }
 
   &:hover {
     background-color: darken($color: $red-color, $amount: 10%);
   }
 }
 
-@media (max-width: 1073px) {
+.result button {
+  width: max-content;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: transparent;
+  padding: 0;
+  color: #000;
+
+  &:hover {
+    background-color: transparent;
+  }
+}
+
+.roles {
+  text-align: center;
+  padding: 40px 10px;
+}
+
+.roles__list {
+  & > li {
+    margin-bottom: 10px;
+
+    & > h3 {
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    & > p {
+      font-size: 18px;
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .result {
+    margin-left: 0;
+    margin-right: 10px;
+  }
+  .roles {
+    margin-left: 10px;
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .result .aboutus__title {
+    margin-bottom: 25px;
+  }
   .aboutus {
     display: flex;
     flex-direction: column;
