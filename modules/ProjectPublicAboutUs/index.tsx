@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import styles from "./ProjectPublicAboutUs.module.scss";
-import { DateBlock } from "../ProjectDateBlock";
 
 interface ProjectPublicAboutUsProps {}
 
@@ -62,13 +61,6 @@ const ProjectPublicAboutUs: FC<ProjectPublicAboutUsProps> = (props) => {
           </li>
         </ul>
       </div>
-      <DateBlock
-        dateOfCreate="11.10.2011"
-        dateOfRegister="11.10.2011 - 21.10.2012"
-        deadline="11.10.2011 - 21.10.2012"
-        status="открыт"
-      />
-      <button>Подать заявку</button>
     </div>
   );
 };

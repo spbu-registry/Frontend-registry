@@ -1,64 +1,90 @@
 .ProjectRequirements {
-    width: 100%;
+  width: 100%;
 
+  & .Switch {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+
+    height: 3.5rem;
+    transition: height 1s;
+
+    &.Expanded {
+      height: 6rem;
+    }
+
+    & > *:nth-child(2n + 1) {
+      background-color: #f3d6d6;
+    }
+    & > *:nth-child(2n) {
+      background-color: #ffe7c4;
+    }
+
+    & > *:nth-child(2n + 1):hover {
+      background-color: #de8f8f;
+    }
+    & > *:nth-child(2n):hover {
+      background-color: #ffc26a;
+    }
+
+    & button {
+      flex: 1;
+
+      border-radius: 25px;
+      border: none;
+
+      height: 3.5rem;
+
+      cursor: pointer;
+
+      & h2 {
+        font-weight: 600;
+      }
+
+      &:first-child {
+        margin-right: 30px;
+      }
+
+      &:last-child {
+        margin-left: 30px;
+      }
+    }
+  }
+
+  & > section {
+    transition: all 1s;
+    opacity: 0;
+    height: 0;
+
+    &.Expanded {
+      opacity: 1;
+      height: auto;
+    }
+
+    &.Expanded.Loading {
+      opacity: 0;
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .ProjectRequirements {
     & .Switch {
-
-        display: flex;
-        align-items: center;
-        gap: 25px;
-
-        height: 3.5rem;
-        transition: height 1s;
-
-        &.Expanded {
-            height: 6rem;
+      gap: 20px;
+      & button {
+        &:first-child {
+          margin-right: 0px;
         }
-
-        & > *:nth-child(2n + 1){
-            background-color: #f3d6d6   
+        &:last-child {
+          margin-left: 0px;
         }
-        & > *:nth-child(2n) {
-            background-color: #ffe7c4
-        }
-
-        & > *:nth-child(2n + 1):hover{
-            background-color: #de8f8f   
-        }
-        & > *:nth-child(2n):hover {
-            background-color: #ffc26a
-        }
-
-
-        & button {
-            flex : 1;
-
-            border-radius: 25px;
-            border: none;
-
-            height: 3.5rem;
-
-            cursor: pointer;
-            
-            & h2 {
-                font-weight: 600;
-            }
-        }
-
-
+      }
     }
+  }
+}
 
-    & > section {
-        transition: all 1s;
-        opacity: 0;
-        height: 0;
-
-        &.Expanded {
-            opacity: 1;
-            height:auto;
-        }
-
-        &.Expanded.Loading {
-            opacity: 0;
-        }
-    }
+@media (max-width: 500px) {
+  .ProjectRequirements .Switch button h2 {
+    font-size: 15px;
+  }
 }

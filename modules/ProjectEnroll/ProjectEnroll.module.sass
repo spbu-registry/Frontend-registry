@@ -1,0 +1,26 @@
+@import "../../styles/library"
+    
+.container
+    display: flex
+    justify-content: space-around
+
+.button 
+  position: relative
+  background-color: $red-color
+  color: white
+  border: none
+  padding: 30px 25px
+  border-radius: 15px
+  font-size: 20px
+  cursor: pointer
+  justify-self: center
+  align-self: center
+
+  & > a 
+    display: block
+    padding: 10px 40px
+  
+
+  &:hover 
+    background-color: darken($color: $red-color, $amount: 10%)
+  
