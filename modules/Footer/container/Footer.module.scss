@@ -1,0 +1,21 @@
+@import '../../../styles/library';
+.footer {
+  background-color: $opal-color;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin: 50px 0px 20px 0px;
+  padding: 8px;
+
+  &.pink {
+    background-color: $pink-color;
+  }
+}
+
+.icon {
+  color: #627a78;
+  height: 45px;
+  &.pink {
+    color: $dark-pink-color;
+  }
+}

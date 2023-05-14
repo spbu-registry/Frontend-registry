@@ -35,7 +35,7 @@ const ProjectAdmin: NextPage<HomeProps> = () => {
       <Header logoColor="blue"/>
       <Spacer axis="vertical" size={40} />
       <AdminEditProject />
-      <Footer />
+      <Footer footerColor='pink'/>
     </>
   );
 };
