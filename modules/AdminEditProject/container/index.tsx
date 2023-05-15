@@ -10,7 +10,7 @@ import InputTextArea from "../components/InputTextArea";
 import ProjectCalendar from "../components/ProjectCalendar";
 import { AdminAddTag } from "../components/AdminAddTag";
 
-interface AdminEditProjectProps {}
+interface AdminEditProjectProps { }
 
 const AdminEditProject: FC<AdminEditProjectProps> = () => {
   const formDataRef = useRef<IFormData>({
@@ -63,7 +63,7 @@ const AdminEditProject: FC<AdminEditProjectProps> = () => {
     },
   });
 
-  const removeLink = (key: string) => {};
+  const removeLink = (key: string) => { };
 
   return (
     <>
@@ -87,6 +87,22 @@ const AdminEditProject: FC<AdminEditProjectProps> = () => {
           />
           <Results />
           <Role />
+          <InputTextArea
+            formDataRef={formDataRef}
+            title="Описание проекта:"
+            text="projectDescription"
+          />
+          <InputTextArea
+            formDataRef={formDataRef}
+            title="Требование к исполнителю:"
+            text="commandRequirements"
+          />
+          <InputTextArea
+            formDataRef={formDataRef}
+            title="Требования проекта:"
+            text="projectRequirements"
+          />
+          <ProjectCalendar formDataRef={formDataRef} />
         </Container>
       )}
 
@@ -95,28 +111,6 @@ const AdminEditProject: FC<AdminEditProjectProps> = () => {
       )} */}
 
       <Spacer axis="vertical" size={40} />
-      {formDataRef.current && (
-        <InputTextArea
-          formDataRef={formDataRef}
-          title="Описание проекта:"
-          text="projectDescription"
-        />
-      )}
-      {formDataRef.current && (
-        <InputTextArea
-          formDataRef={formDataRef}
-          title="Требование к исполнителю:"
-          text="commandRequirements"
-        />
-      )}
-      {formDataRef.current && (
-        <InputTextArea
-          formDataRef={formDataRef}
-          title="Требования проекта:"
-          text="projectRequirements"
-        />
-      )}
-      {formDataRef.current && <ProjectCalendar formDataRef={formDataRef} />}
     </>
   );
 };
