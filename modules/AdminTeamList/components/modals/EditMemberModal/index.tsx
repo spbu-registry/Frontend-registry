@@ -100,7 +100,7 @@ const EditMemberModal: FC<EditMemberModalProps> = ({ data, onClose }) => {
           />
         </div>
         <div onClick={handleConfirm} className={styles.confirm}>
-          Добавить
+          Подтвердить
         </div>
       </div>
     </div>
