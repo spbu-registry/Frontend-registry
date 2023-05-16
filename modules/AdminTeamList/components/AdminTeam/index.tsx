@@ -17,13 +17,6 @@ const AdminTeam: FC<AdminTeamProps> = ({ team }) => {
     <div className={styles.container}>
       <div className={styles.editableText}>
         <h2 className={styles.title}>Команда №{team.id}</h2>
-        <div>
-          <Image
-            src={editIcon}
-            alt="Редактировать название команды"
-            className={styles.editableTextTrigger}
-          />
-        </div>
       </div>
       <div className={styles.editableText + " " + styles.members}>
         <h2 className={styles.membersTitle}>Состав</h2>
@@ -38,7 +31,9 @@ const AdminTeam: FC<AdminTeamProps> = ({ team }) => {
       <ul className={styles.membersList}>
         {team.members.map((member) => (
           <li className={styles.member} key={member.name}>
-            <p className={styles.memberName}>{member.name}:</p>
+            <p className={styles.memberName}>
+              {member.name + (member.isTeamLead ? " (тимлид)" : "")}:
+            </p>
             <p className={styles.memberRole}>{member.role}</p>
             <div className={styles.memberButton}>
               <Image

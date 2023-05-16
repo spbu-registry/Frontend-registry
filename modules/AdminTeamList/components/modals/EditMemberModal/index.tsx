@@ -13,6 +13,7 @@ interface EditMemberModalProps {
 const EditMemberModal: FC<EditMemberModalProps> = ({ data, onClose }) => {
   const [name, setName] = useState(data.member.name);
   const [role, setRole] = useState(data.member.role);
+  const [isTeamLead, setIsTeamLead] = useState(data.member.isTeamLead);
 
   const { teams, setTeams } = useContext(TeamsContext);
 
@@ -28,11 +29,12 @@ const EditMemberModal: FC<EditMemberModalProps> = ({ data, onClose }) => {
           team.id == data.teamId
             ? {
                 ...team,
-                members: team.members.map((member, index) =>
-                  index == data.memberIndex
-                    ? { name: name, role: role }
-                    : member
-                ),
+                members: team.members.map((member, index) => {
+                  if (isTeamLead) member.isTeamLead = false;
+                  return index == data.memberIndex
+                    ? { name: name, role: role, isTeamLead: isTeamLead }
+                    : member;
+                }),
               }
             : team
         )
@@ -79,6 +81,21 @@ const EditMemberModal: FC<EditMemberModalProps> = ({ data, onClose }) => {
             onChange={(e: React.ChangeEvent) => {
               if (e.currentTarget instanceof HTMLInputElement)
                 setRole(e.currentTarget.value);
+            }}
+          />
+        </div>
+        <div className={styles.field}>
+          <label htmlFor="editmember-teamlead" className={styles.label}>
+            Тимлид:
+          </label>
+          <input
+            id="editmember-teamlead"
+            type="checkbox"
+            value={role}
+            className={styles.checkbox}
+            onChange={(e: React.ChangeEvent) => {
+              if (e.currentTarget instanceof HTMLInputElement)
+                setIsTeamLead(e.currentTarget.checked);
             }}
           />
         </div>

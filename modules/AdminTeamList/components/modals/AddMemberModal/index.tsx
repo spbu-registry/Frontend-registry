@@ -24,7 +24,10 @@ const AddMemberModal: FC<AddMemberModalProps> = ({ data, onClose }) => {
           team.id == data.teamId
             ? {
                 ...team,
-                members: [...team.members, { name: name, role: role }],
+                members: [
+                  ...team.members,
+                  { name: name, role: role, isTeamLead: false },
+                ],
               }
             : team
         )

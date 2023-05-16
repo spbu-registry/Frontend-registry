@@ -32,6 +32,7 @@ export interface IDeleteMemberData {
 export interface IMember {
   name: string;
   role: string;
+  isTeamLead: boolean;
 }
 
 export interface ITeam {
