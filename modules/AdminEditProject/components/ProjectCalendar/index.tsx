@@ -81,6 +81,8 @@ const ProjectCalendar: FC<ProjectCalendarProps> = ({ formDataRef }) => {
               setTimeline(_);
             }}
           />
+        </div>
+        <div>
           до{" "}
           <input
             className={styles.inputField}
@@ -108,6 +110,8 @@ const ProjectCalendar: FC<ProjectCalendarProps> = ({ formDataRef }) => {
               setTimeline(_);
             }}
           />
+        </div>
+        <div>
           до{" "}
           <input
             className={styles.inputField}
@@ -135,6 +139,8 @@ const ProjectCalendar: FC<ProjectCalendarProps> = ({ formDataRef }) => {
               setTimeline(_);
             }}
           />
+        </div>
+        <div>
           до{" "}
           <input
             className={styles.inputField}

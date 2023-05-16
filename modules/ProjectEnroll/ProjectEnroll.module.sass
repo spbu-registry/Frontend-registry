@@ -1,10 +1,23 @@
 @import "../../styles/library"
-    
-.container
-    display: flex
-    justify-content: space-around
 
-.button 
+.container
+  display: flex
+  // justify-content: space-around
+  flex-wrap: wrap
+
+.datablock
+  width: 50%
+  display: flex
+  justify-content: center
+
+.buttonwrapper
+  width: 50%
+  // justify-self: center
+  align-self: center
+  display: flex
+  justify-content: center
+
+.button
   position: relative
   background-color: $red-color
   color: white
@@ -16,11 +29,23 @@
   justify-self: center
   align-self: center
 
-  & > a 
+  & > a
     display: block
     padding: 10px 40px
-  
 
-  &:hover 
+  &:hover
     background-color: darken($color: $red-color, $amount: 10%)
-  
+
+@media (max-width: 768px)
+  .datablock,
+  .buttonwrapper
+    width: 100%
+
+  .buttonwrapper
+    margin-top: 40px
+
+  .container
+    flex-direction: column
+    text-align: center
+    justify-items: center
+    align-items: center
