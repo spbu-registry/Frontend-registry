@@ -2,6 +2,8 @@ import { NextPage } from "next";
 import Head from "next/head";
 import { Header } from "../../modules/Header";
 import { Footer } from "../../modules/Footer";
+import { Container, Spacer } from "../../modules/shared";
+import { Metrics } from "../../modules/Metrics";
 
 interface MetricsPageProps {}
 
@@ -14,6 +16,10 @@ const MetricsPage: NextPage<MetricsPageProps> = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
+      <Spacer axis="vertical" size={30} />
+      <Container>
+        <Metrics />
+      </Container>
       <Footer />
     </>
   );
