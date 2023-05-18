@@ -66,7 +66,7 @@ const InfoAboutCuTuDi: FC<InfoAboutCuTuDiProps> = ({
               }}
             >
               {clients.map((client) => (
-                <p>{client.name}</p>
+                <p key={client.name}>{client.name}</p>
               ))}
             </div>
           </div>
@@ -92,7 +92,7 @@ const InfoAboutCuTuDi: FC<InfoAboutCuTuDiProps> = ({
               }}
             >
               {curators.map((curator) => (
-                <p>{curator.name}</p>
+                <p key={curator.name}>{curator.name}</p>
               ))}
             </div>
           </div>
@@ -120,7 +120,7 @@ const InfoAboutCuTuDi: FC<InfoAboutCuTuDiProps> = ({
               }}
             >
               {supervisors.map((supervisor) => (
-                <p>{supervisor.name}</p>
+                <p key={supervisor.name}>{supervisor.name}</p>
               ))}
             </div>
           </div>

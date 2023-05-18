@@ -1,66 +1,66 @@
 export const tags = [
   {
     title: "Клиника цифрового сопровождения образовательных проектов СПбГУ",
-    url: "https://spbu.ru",
+    url: "./projects",
   },
   {
     title: "Лингвистическая клиника",
-    url: "https://spbu.ru",
+    url: "./projects",
   },
   {
     title: "Музейно-архитектурная клиника",
-    url: "https://spbu.ru",
+    url: "./projects",
   },
   {
     title: "Архивный центр",
-    url: "https://spbu.ru",
+    url: "./projects",
   },
   {
     title: "ИТ-клиника",
-    url: "https://spbu.ru",
+    url: "./projects",
   },
   {
     title: "Медиацентр",
-    url: "https://spbu.ru",
+    url: "./projects",
   },
   {
     title: "Клиника коммуникационных проектов",
-    url: "https://spbu.ru",
+    url: "./projects",
   },
   {
     title: "Конфликтологическая клиника",
-    url: "https://spbu.ru",
+    url: "./projects",
   },
   {
     title: "Социальная клиника",
-    url: "https://spbu.ru",
+    url: "./projects",
   },
   {
     title: "Психологическая клиника",
-    url: "https://spbu.ru",
+    url: "./projects",
   },
   {
     title: "Экологическая клиника",
-    url: "https://spbu.ru",
+    url: "./projects",
   },
   {
     title: "Юридичическая клиника",
-    url: "https://spbu.ru",
+    url: "./projects",
   },
   {
     title: "Социальный центр переводов",
-    url: "https://spbu.ru",
+    url: "./projects",
   },
   {
     title: "Социологическая клиника прикладных исследований",
-    url: "https://spbu.ru",
+    url: "./projects",
   },
   {
     title: "Центр финансовой грамотности",
-    url: "https://spbu.ru",
+    url: "./projects",
   },
   {
     title: "Центр прикладных экономических исследований СПбГУ",
-    url: "https://spbu.ru",
+    url: "./projects",
   },
 ];

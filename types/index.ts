@@ -97,7 +97,7 @@ export interface IAPITag {
 export interface IAPIRole {
   roleId?: number;
   role?: string;
-  studentId?: number;
+  student?: IAPIStudent;
   projectId?: number;
 }
 

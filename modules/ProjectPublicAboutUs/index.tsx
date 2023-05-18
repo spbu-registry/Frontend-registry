@@ -1,36 +1,30 @@
 import React, { FC } from "react";
 import styles from "./ProjectPublicAboutUs.module.scss";
+import { IAPILink, IAPIRole } from "../../types";
 
-interface ProjectPublicAboutUsProps {}
+interface ProjectPublicAboutUsProps {
+  links: IAPILink[];
+  roles: IAPIRole[];
+}
 
-const ProjectPublicAboutUs: FC<ProjectPublicAboutUsProps> = (props) => {
+const ProjectPublicAboutUs: FC<ProjectPublicAboutUsProps> = ({
+  links,
+  roles,
+}) => {
   return (
     <div className={styles["aboutus"]}>
       <div className={styles["result"]}>
         <div className={styles["result__inner"]}>
           <h2 className={styles["aboutus__title"]}>Результат</h2>
           <ul className={styles["result__list"]}>
-            <li>
-              <button>
-                <a href="https://github.com/spbu-registry/Frontend-registry">
-                  Гитхаб проекта
-                </a>
-              </button>
-            </li>
-            <li>
-              <button>
-                <a href="https://github.com/spbu-registry/Frontend-registry">
-                  Рабочий файл проекта
-                </a>
-              </button>
-            </li>
-            <li>
-              <button>
-                <a href="https://github.com/spbu-registry/Frontend-registry">
-                  Статья об этом проекте
-                </a>
-              </button>
-            </li>
+            {links &&
+              links.map((link) => (
+                <li key={link.link}>
+                  <button>
+                    <a href={link.link}>{link.name}</a>
+                  </button>
+                </li>
+              ))}
           </ul>
         </div>
       </div>
@@ -39,6 +33,13 @@ const ProjectPublicAboutUs: FC<ProjectPublicAboutUsProps> = (props) => {
           <h2 className={styles["aboutus__title"]}>Студенты и их роли</h2>
         </div>
         <ul className={styles["roles__list"]}>
+          {roles &&
+            roles.map((role) => (
+              <li key={role.role}>
+                <h3>{role.role}:</h3>
+                <p>{role.student && role.student.name}</p>
+              </li>
+            ))}
           <li>
             <h3>Продакт-менеджер:</h3>
             <p>Соколова Вероника Сергеевна</p>

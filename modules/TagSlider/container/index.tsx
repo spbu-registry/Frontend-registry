@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect, FC } from "react";
 import styles from "./Taglist.module.sass";
+import { useRouter } from "next/router";
 import { tags } from "../static/tags.js";
 import { useWindowSize } from "../../shared/hooks/windowresize";
 
@@ -36,6 +37,7 @@ const TagSlider: FC<TagSliderProps> = () => {
 
   const windowSize = useWindowSize();
 
+  const router = useRouter();
   /*
   переходим по ссылке только если пользователь не пытался двигать слайдер
   */
@@ -100,7 +102,7 @@ const TagSlider: FC<TagSliderProps> = () => {
   const handleMouseUp = () => {
     setMouseDown(false);
 
-    if (urlClicked) location.href = urlClicked;
+    if (urlClicked) router.push(urlClicked);
   };
 
   const handleMouseLeave = () => {

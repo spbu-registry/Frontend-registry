@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { Project } from "../../../../pages/api/data/projects";
 import { IAPIProject } from "../../../../types";
+import { statusNames } from "../../../shared/static/status";
 
 interface ProjectCardProps {
   project: IAPIProject;
@@ -24,7 +25,7 @@ const ProjectCard: FC<ProjectCardProps> = ({ project, className }) => {
           <h2>{project.name}</h2>
           <p>Клиника: {project.clinics![0].name}</p>
           <p>Задача: {project.description}</p>
-          <p>Статус: в процессе</p>
+          <p>Статус: {statusNames[project.status || "ACTIVE"]}</p>
         </div>
       </a>
       <p>

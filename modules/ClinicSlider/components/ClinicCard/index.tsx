@@ -3,6 +3,7 @@ import Image from "next/image";
 import styles from "./ClinicCard.module.sass";
 
 import clinicPic from "../../../../public/ClinicImage/1.jpg";
+import Link from "next/link";
 
 interface ClinicCardProps {
   index: number;
@@ -26,7 +27,9 @@ const ClinicCard: FC<ClinicCardProps> = ({ index }) => {
               <u>Подробнее</u>
             </a>
           </li>
-          <li>К проектам клиники</li>
+          <li>
+            <Link href="./projects">К проектам клиники</Link>
+          </li>
         </ul>
       </div>
     </div>

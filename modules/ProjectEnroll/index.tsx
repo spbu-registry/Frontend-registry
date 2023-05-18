@@ -2,6 +2,8 @@ import React, { FC } from "react";
 import DateBlock from "./components/ProjectDateBlock";
 
 import styles from "./ProjectEnroll.module.sass";
+import { IAPIStatus } from "../../types";
+import { statusNames } from "../shared/static/status";
 
 interface ProjectEnrollProps {
   startTime: string;
@@ -9,6 +11,7 @@ interface ProjectEnrollProps {
   endFiling: string;
   startImplementation: string;
   endImplementation: string;
+  status: IAPIStatus | undefined;
 }
 
 const ProjectEnroll: FC<ProjectEnrollProps> = ({
@@ -17,6 +20,7 @@ const ProjectEnroll: FC<ProjectEnrollProps> = ({
   endFiling,
   startImplementation,
   endImplementation,
+  status,
 }) => {
   const formatTime = (str: string) => {
     const date = new Date(str);
@@ -42,7 +46,7 @@ const ProjectEnroll: FC<ProjectEnrollProps> = ({
             " - " +
             formatTime(endImplementation)
           }
-          status="открыт"
+          status={status ? statusNames[status] : "открыт"}
         />
       </div>
       <div className={styles.buttonwrapper}>
