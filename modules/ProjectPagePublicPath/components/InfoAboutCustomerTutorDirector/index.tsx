@@ -5,12 +5,21 @@ import styles from "./InfoAboutCuTuDi.module.sass";
 import { spawn } from "child_process";
 import next from "next/types";
 import Spacer from "../../../shared/components/Spacer";
+import { IAPIClient, IAPICurator, IAPISupervisor } from "../../../../types";
 
 // import logo from "../../public/logo.svg";
 
-interface InfoAboutCuTuDiProps {}
+interface InfoAboutCuTuDiProps {
+  curators: IAPICurator[] | undefined;
+  supervisors: IAPISupervisor[] | undefined;
+  clients: IAPIClient[] | undefined;
+}
 
-const InfoAboutCuTuDi: FC<InfoAboutCuTuDiProps> = () => {
+const InfoAboutCuTuDi: FC<InfoAboutCuTuDiProps> = ({
+  curators,
+  supervisors,
+  clients,
+}) => {
   const [active, setActive] = useState(-1);
   const handleClick = (n: any) => {
     setActive(active == n ? -1 : n);
@@ -35,69 +44,87 @@ const InfoAboutCuTuDi: FC<InfoAboutCuTuDiProps> = () => {
           IT - клиника{" "}
         </h2>
         <Spacer axis="vertical" size={30} />
-        <div
-          className={styles.box}
-          onClick={() => handleClick(1)}
-          onMouseOver={() => handleMouseOver(1)}
-          onMouseOut={() => handleMouseOut(1)}
-        >
+        {clients && clients.length != 0 && (
           <div
-            className={styles.cu + " " + styles.opal}
-            style={{
-              borderColor: "#c2333300",
-            }}
+            className={styles.box}
+            onClick={() => handleClick(1)}
+            onMouseOver={() => handleMouseOver(1)}
+            onMouseOut={() => handleMouseOut(1)}
           >
-            Заказчик
+            <div
+              className={styles.cu + " " + styles.opal}
+              style={{
+                borderColor: "#c2333300",
+              }}
+            >
+              Заказчик
+            </div>
+            <div
+              className={styles.hidt}
+              style={{
+                display: active == 1 || active1 == 1 ? "block" : "none",
+              }}
+            >
+              {clients.map((client) => (
+                <p>{client.name}</p>
+              ))}
+            </div>
           </div>
-          <div
-            className={styles.hidt}
-            style={{ display: active == 1 || active1 == 1 ? "block" : "none" }}
-          >
-            ООО “Какой-нибудь заказчик”
-          </div>
-        </div>
+        )}
 
-        <div
-          className={styles.box}
-          onClick={() => handleClick(2)}
-          onMouseOver={() => handleMouseOver(2)}
-          onMouseOut={() => handleMouseOut(2)}
-        >
+        {curators && curators.length != 0 && (
           <div
-            className={styles.cu + " " + styles.pink}
-            style={{ borderColor: "#c2333300" }}
+            className={styles.box}
+            onClick={() => handleClick(2)}
+            onMouseOver={() => handleMouseOver(2)}
+            onMouseOut={() => handleMouseOut(2)}
           >
-            Куратор
+            <div
+              className={styles.cu + " " + styles.pink}
+              style={{ borderColor: "#c2333300" }}
+            >
+              Куратор
+            </div>
+            <div
+              className={styles.hidt}
+              style={{
+                display: active == 2 || active1 == 2 ? "block" : "none",
+              }}
+            >
+              {curators.map((curator) => (
+                <p>{curator.name}</p>
+              ))}
+            </div>
           </div>
-          <div
-            className={styles.hidt}
-            style={{ display: active == 2 || active1 == 2 ? "block" : "none" }}
-          >
-            Какой-нибудь Куратор
-          </div>
-        </div>
+        )}
 
-        <div
-          className={styles.box}
-          onClick={() => handleClick(3)}
-          onMouseOver={() => handleMouseOver(3)}
-          onMouseOut={() => handleMouseOut(3)}
-        >
+        {supervisors && supervisors.length != 0 && (
           <div
-            className={styles.cu + " " + styles.yellow}
-            style={{
-              borderColor: "#c2333300",
-            }}
+            className={styles.box}
+            onClick={() => handleClick(3)}
+            onMouseOver={() => handleMouseOver(3)}
+            onMouseOut={() => handleMouseOut(3)}
           >
-            Руководитель
+            <div
+              className={styles.cu + " " + styles.yellow}
+              style={{
+                borderColor: "#c2333300",
+              }}
+            >
+              Руководитель
+            </div>
+            <div
+              className={styles.hidt}
+              style={{
+                display: active == 3 || active1 == 3 ? "block" : "none",
+              }}
+            >
+              {supervisors.map((supervisor) => (
+                <p>{supervisor.name}</p>
+              ))}
+            </div>
           </div>
-          <div
-            className={styles.hidt}
-            style={{ display: active == 3 || active1 == 3 ? "block" : "none" }}
-          >
-            Какой-нибудь руководитель
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );

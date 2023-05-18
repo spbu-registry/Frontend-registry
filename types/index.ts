@@ -5,20 +5,25 @@
 export interface IAPIProject {
   projectId?: number;
   name?: string;
-  description?: string;
-  requirements?: any[];
-  client?: IAPIClient;
-  students?: IAPIStudent[];
-  clinics?: IAPIClinic[];
   tags?: IAPITag[];
-  scientificSupervisor?: string;
-  resultLink?: string;
-  commits?: any[];
-  links?: any[];
-  requirementsForPerformers?: any[];
+  clinics?: IAPIClinic[];
+  clients?: IAPIClient[];
+  curators?: IAPICurator[];
+  supervisors?: IAPISupervisor[];
+  description?: string;
+  links?: IAPILink[];
+  projectRoles?: IAPIRole[];
+  requirements?: string;
+  requirementsForPerformers?: string;
+  startTime?: string;
+  startFiling?: string;
+  endFiling?: string;
+  startImplementation?: string;
+  endImplementation?: string;
+  startDefense?: string;
+  endDefense?: string;
+  status?: IAPIStatus;
   workFormat?: IAPIWorkFormat;
-  start?: string;
-  end?: string;
   maxStudents?: number;
 }
 
@@ -28,6 +33,22 @@ export interface IAPIClient {
   email?: string;
   link?: string;
   orgName?: string;
+  phone?: string;
+}
+
+export interface IAPICurator {
+  curatorId?: number;
+  name?: string;
+  email?: string;
+  link?: string;
+  phone?: string;
+}
+
+export interface IAPISupervisor {
+  supervisorId?: number;
+  name?: string;
+  email?: string;
+  link?: string;
   phone?: string;
 }
 
@@ -61,13 +82,36 @@ export interface IAPIClinic {
   faculty?: IAPIFaculty;
 }
 
+export interface IAPILink {
+  linkId?: number;
+  name?: string;
+  link?: string;
+  projectId?: number;
+}
+
 export interface IAPITag {
   tagId?: number;
   name?: string;
+}
+
+export interface IAPIRole {
+  roleId?: number;
+  role?: string;
+  studentId?: number;
+  projectId?: number;
 }
 
 export enum IAPIWorkFormat {
   FULL_TIME = "FULL_TIME",
   DISTANT = "DISTANT",
   HYBRID = "HYBRID",
+}
+
+export enum IAPIStatus {
+  OPEN_ENROLLMENT = "OPEN_ENROLLMENT",
+  CLOSED = "CLOSED",
+  ACTIVE = "ACTIVE",
+  DEFENSE = "DEFENSE",
+  TEST = "TEST",
+  COMPLETE = "COMPLETE",
 }
