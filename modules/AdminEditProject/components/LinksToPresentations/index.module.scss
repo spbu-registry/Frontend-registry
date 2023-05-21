@@ -1,51 +1,56 @@
-label.Row{
-    font-size: 1.7rem;
+label.Row {
+  font-size: 1.7rem;
 }
 
 .Row {
-    height: 40px;
-    font-size: 1.5rem;
+  height: 40px;
+  font-size: 1.5rem;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    position: relative;
+  position: relative;
 }
 
 .SVG {
-    height: 100%;
-    cursor: pointer;
+  height: 100%;
+  cursor: pointer;
 }
 
 .BigLabel {
-    font-size: 1.9rem;
-    font-weight: 600;
-
-    & * {
-        cursor:default;
-    }
+  font-size: 1.9rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  & * {
+    cursor: default;
+  }
 }
 
-
-
 .Link {
-    color: #3ca0ab;
-    text-decoration: underline;
-    font-style: italic;
+  color: #3ca0ab;
+  text-decoration: underline;
+  font-style: italic;
 }
 
 .AllLinks {
+  --options: 1;
 
-    --options : 1;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  & > * {
+    min-width: 50%;
+    flex: 1;
+  }
+}
 
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-
-    & > * {
-        min-width: 50%;
-        flex : 1;
-    }
-
+@media (max-width: 700px) {
+  .AllLinks {
+    flex-direction: column;
+    gap: 15px;
+  }
+  label.Row {
+  font-size: 1.5rem;
+}
 }
