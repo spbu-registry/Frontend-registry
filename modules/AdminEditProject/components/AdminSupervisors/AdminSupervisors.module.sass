@@ -4,17 +4,17 @@
     display: flex
 
 .clinic
-    width: 23%
+    width: 30%
     height: 45px
 
 .supervisors
     width: 100%
     display: flex
-    justify-content: space-between
+    justify-content: space-evenly
 
 .supervisor
-    width: 23%
-    max-width: 23%
+    // width: 40%
+    max-width: 28%
 
 .addBlock
     position: relative
@@ -56,6 +56,8 @@
 
     .clinic
         margin-bottom: 50px
+        width: 50%
+        align-self: center
 
     .supervisors
         width: 100%
@@ -73,3 +75,9 @@
 @media (max-width: 500px)
     .supervisor
         width: 250px
+
+@media (700px < width < 1200px)
+    .dodgerBlue span
+        position: relative
+        right: 7px
+    

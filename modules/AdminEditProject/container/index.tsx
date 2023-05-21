@@ -85,6 +85,7 @@ const AdminEditProject: FC<AdminEditProjectProps> = () => {
             linksAndLabels={formDataRef.current.teams}
             removeLink={removeLink}
           />
+          <Spacer axis="vertical" size={40} />
           <Results />
           <Role />
           <InputTextArea

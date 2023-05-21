@@ -10,7 +10,7 @@ const Results = () => {
   const addResult = (typeInput: string, sourceInput: string) => {
     if (typeInput && sourceInput) {
       const newResult: result = {
-        id: Math.floor(Math.random() * 100),
+        id: Math.random().toString(16).slice(2),
         type: typeInput,
         source: sourceInput,
       };
@@ -18,7 +18,7 @@ const Results = () => {
     }
   };
 
-  const removeResult = (id: number) => {
+  const removeResult = (id: string) => {
     setResults([...results.filter((result) => result.id !== id)]);
   };
 

@@ -1,0 +1,19 @@
+@import "../../../../../styles/library";
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+
+    span {
+        color: darken($color: $gray-color, $amount: 40)
+    }
+
+    input {
+        width: 40%;
+        background-color: $text-forms-gray-color;
+        border-radius: 20px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}

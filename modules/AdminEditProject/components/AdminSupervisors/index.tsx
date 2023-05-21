@@ -39,27 +39,28 @@ const AdminSupervisors: FC<AdminSupervisorsProps> = ({ formDataRef }) => {
   return (
     <>
       <div className={styles.container}>
-        <div className={styles.supervisors}>
-        <div className={styles.clinic}>
-          <Multiselect
-          options={clinicsOptions}
-          toggleOption={toggleOption}
-          id='ClinicsMultiselect'
-          lable="Клиника"
-          theme={Theme.Blue}/>
-        </div>
-          {formDataRef.current!.supervisors.map((supervisor, index) => (
-            <Supervisor
-              key={index + "-" + supervisor.names.length}
-              index={index}
-              formDataRef={formDataRef}
-              initialNames={supervisor.names}
-              className={styles.supervisor}
-              titleClass={titleBgClasses[index]}
+          <div className={styles.clinic}>
+            <Multiselect
+              options={clinicsOptions}
+              toggleOption={toggleOption}
+              id='ClinicsMultiselect'
+              lable='Клиника'
+              theme={Theme.Blue}
             />
-          ))}
+          </div>
+          <div className={styles.supervisors}>
+            {formDataRef.current!.supervisors.map((supervisor, index) => (
+              <Supervisor
+                key={index + '-' + supervisor.names.length}
+                index={index}
+                formDataRef={formDataRef}
+                initialNames={supervisor.names}
+                className={styles.supervisor}
+                titleClass={titleBgClasses[index]}
+              />
+            ))}
+          </div>
         </div>
-      </div>
     </>
   );
 };

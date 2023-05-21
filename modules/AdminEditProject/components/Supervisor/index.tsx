@@ -79,9 +79,9 @@ const Supervisor: FC<SupervisorProps> = ({
   }, [names]);
 
   return (
-    <div className={className + " " + styles.container}>
-      <div className={styles.title + " " + titleClass}>
-        {formDataRef.current!.supervisors[index].title}
+    <div className={className + ' ' + styles.container}>
+      <div className={styles.title + ' ' + titleClass}>
+        <span>{formDataRef.current!.supervisors[index].title}</span>
       </div>
       <div>
         <div className={styles.names} ref={namesRef} onClick={handleRemoveName}>
@@ -89,7 +89,7 @@ const Supervisor: FC<SupervisorProps> = ({
             <div key={name} className={styles.name}>
               {name}
               <button className={styles.nameRemove}>
-                <Image src={remove} alt="Удалить" />
+                <Image src={remove} alt='Удалить' />
               </button>
             </div>
           ))}
@@ -102,13 +102,13 @@ const Supervisor: FC<SupervisorProps> = ({
               setUserInput(e.target.value)
             }
             className={styles.addText}
-            placeholder="Введите текст..."
+            placeholder='Введите текст...'
           />
           <button
             onClick={() => handleAdd(userInput)}
             className={styles.addButton}
           >
-            <Image src={add} alt="Добавить" />
+            <Image src={add} alt='Добавить' />
           </button>
         </div>
       </div>
