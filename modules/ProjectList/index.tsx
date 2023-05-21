@@ -7,9 +7,10 @@ import { IAPIProject } from "../../types";
 
 interface ProjectListProps {
   projects: IAPIProject[];
+  type: "public" | "admin";
 }
 
-const ProjectList: FC<ProjectListProps> = ({ projects }) => {
+const ProjectList: FC<ProjectListProps> = ({ projects, type }) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const keys: string[] = ["header", "clinic", "task", "status", "date"];
 
@@ -65,6 +66,7 @@ const ProjectList: FC<ProjectListProps> = ({ projects }) => {
             key={project.projectId}
             project={project}
             className={styles.project}
+            type={type}
           />
         ))}
       </div>

@@ -6,9 +6,10 @@ import { statusNames } from "../../../shared/static/status";
 interface ProjectCardProps {
   project: IAPIProject;
   className: string;
+  type: "public" | "admin";
 }
 
-const ProjectCard: FC<ProjectCardProps> = ({ project, className }) => {
+const ProjectCard: FC<ProjectCardProps> = ({ project, className, type }) => {
   const formatTime = (str: string) => {
     const date = new Date(str);
     const day = date.getDay() < 10 ? "0" + date.getDay() : date.getDay();
@@ -20,7 +21,11 @@ const ProjectCard: FC<ProjectCardProps> = ({ project, className }) => {
 
   return (
     <div className={className}>
-      <a href={"./project/" + project.projectId}>
+      <a
+        href={
+          (type == "admin" ? "/admin" : "") + "/project/" + project.projectId
+        }
+      >
         <div>
           <h2>{project.name}</h2>
           <p>Клиника: {project.clinics![0].name}</p>
