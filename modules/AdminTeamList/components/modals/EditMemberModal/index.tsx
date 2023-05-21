@@ -1,9 +1,12 @@
-import React, { FC, useContext, useState } from "react";
+import React, { FC, useContext, useState, useMemo } from "react";
 import styles from "../AdminModals.module.sass";
 import Image from "next/image";
 import closeIcon from "../../../../../public/admin-delete-icon.svg";
 import { IEditMemberData } from "../../../types";
 import { TeamsContext } from "../../../context/teams";
+import { SuggestedSearchSelect } from "../../../../shared/components/Multiselect";
+import { mockUpMembers } from "../mockUpMembers";
+import { Theme } from "../../../../shared/components/Multiselect/Components/enums";
 
 interface EditMemberModalProps {
   data: IEditMemberData;
@@ -16,6 +19,16 @@ const EditMemberModal: FC<EditMemberModalProps> = ({ data, onClose }) => {
   const [isTeamLead, setIsTeamLead] = useState(data.member.isTeamLead);
 
   const { teams, setTeams } = useContext(TeamsContext);
+  
+  // Suggested search using mockUp data
+  const [nameInput, setNameInput] = useState(data.member.name)
+  const potentialMembers = useMemo(() => {
+    return new Map(
+      mockUpMembers
+      .filter((mockname) => mockname.toLowerCase().includes(nameInput.toLowerCase()))
+      .map((mockname) => [mockname, mockname === name])
+    );
+  }, [name, nameInput]);
 
   const handleClose = () => {
     onClose();
@@ -58,15 +71,15 @@ const EditMemberModal: FC<EditMemberModalProps> = ({ data, onClose }) => {
           <label htmlFor="editmember-name" className={styles.label}>
             ФИО:
           </label>
-          <input
-            id="editmember-name"
-            value={name}
-            type="text"
-            className={styles.input}
-            onChange={(e: React.ChangeEvent) => {
-              if (e.currentTarget instanceof HTMLInputElement)
-                setName(e.currentTarget.value);
-            }}
+          <SuggestedSearchSelect
+          id={"editmember-name"}
+          startingValue={name}
+          options={potentialMembers}
+          toggleOption={setName}
+          setOuterInput={setNameInput}
+          lable={name}
+          height={3}
+          theme={Theme.Form}
           />
         </div>
         <div className={styles.field}>
