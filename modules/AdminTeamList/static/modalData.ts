@@ -5,6 +5,7 @@ export const initialModalData: IModalData = {
     active: false,
     teamId: -1,
     member: {
+      isTeamLead : false,
       name: "",
       role: "",
     },
@@ -14,6 +15,7 @@ export const initialModalData: IModalData = {
     teamId: -1,
     memberIndex: -1,
     member: {
+      isTeamLead : false,
       name: "",
       role: "",
     },

@@ -26,10 +26,8 @@ export function AdminAddTag({
   }, [debounced]);
 
   useEffect(() => {
-    const filtered = suggestedTagsList.filter(
-      (value) => value.toLowerCase() === currentInput.toLowerCase()
-    );
-    setDisabled(!filtered.length);
+
+    setDisabled(currentInput.length === 0);
   }, [currentInput, suggestedTagsList]);
 
   const buttonClassName = classNames(styles.Button, {
@@ -79,7 +77,7 @@ export function AdminAddTag({
           onClick={!disabled ? () => setTag(currentInput) : undefined}
           className={buttonClassName}
         >
-          {disabled ? "Выберите тег" : "Отправить"}
+          {disabled ? "Напишите тег" : "Отправить"}
         </button>
       </div>
     </div>

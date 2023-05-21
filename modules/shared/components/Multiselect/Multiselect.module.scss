@@ -28,10 +28,25 @@
     &.Blue {
         border : var(--bordersize) solid #47a5af;
     }
+
+    &.Simple {
+        border : none;
+        border-bottom: 3px solid #c5a7af;
+        border-radius: 0;
+
+        padding-bottom: 5px;
+        
+        flex-direction: row-reverse;
+    }
     
     &.Expanded {
         border-bottom: none;
         border-radius: 8px 8px 0 0;
+
+        &.Simple {
+            border-bottom: 3px solid #c5a7af;
+            border-radius: 0;
+        }
     }
 
 
@@ -49,14 +64,19 @@
     height: 80%;
     flex: 1;
     max-width: calc(100% - 1.5em - 5px);
-    border : none;
+    outline : none;
 
     font-size: 1em;
 
-    outline: none;
-
     &.Focused {
-        border: 2px solid #2f5982;
+        outline: 2px solid #2f5982;
     }
 }
 
+.ComboboxHead.Form {
+    padding : 10px 30px;
+    border : none;
+
+    background-color: #e1e3e5;
+    & * {background-color: #e1e3e5;}
+}

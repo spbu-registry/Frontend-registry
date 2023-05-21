@@ -37,3 +37,13 @@
         border: var(--bordersize) solid #2f5982;
     }
 }
+
+.ComboMenu.Simple {
+    border : none;
+    border-radius: 0;
+    height: calc(100% * var(--options) + 2px);
+}
+
+.ComboMenu.Form {
+    border : none;
+}
