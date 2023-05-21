@@ -15,18 +15,22 @@ const ResultsForm: FC<ResultsFormProps> = ({ addResult }) => {
       <button onClick={() => addResult(type, source)}>
         <Image src={addIcon} alt='Add icon' width={20} height={20} />
       </button>
-      <span>тип</span>
-      <input
-        className={styles.input}
-        placeholder='Введите тип'
-        onChange={(event) => setType(event.target.value)}
-      />
-      <span>ресурс</span>
-      <input
-        className={styles.input}
-        placeholder='Введите ресурс'
-        onChange={(event) => setSource(event.target.value)}
-      />
+      <div>
+        <span>тип</span>
+        <input
+          className={styles.input}
+          placeholder='Введите тип'
+          onChange={(event) => setType(event.target.value)}
+        />
+      </div>
+      <div>
+        <span>ресурс</span>
+        <input
+          className={styles.input}
+          placeholder='Введите ресурс'
+          onChange={(event) => setSource(event.target.value)}
+        />
+      </div>
     </div>
   );
 };
