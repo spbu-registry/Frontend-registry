@@ -1,19 +1,38 @@
-@import "../../../../../styles/library";
+@import '../../../../../styles/library';
 
 .container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  gap: 20px;
+
+  div {
     display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
+    flex-grow: 1;
+  }
+  span {
+    color: darken($color: $gray-color, $amount: 40);
+    margin-right: 10px;
+  }
 
-    span {
-        color: darken($color: $gray-color, $amount: 40)
-    }
+  input {
+    background-color: $text-forms-gray-color;
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
 
-    input {
-        width: 40%;
-        background-color: $text-forms-gray-color;
-        border-radius: 20px;
-        padding-left: 10px;
-        padding-right: 10px;
-    }
+    flex: 1 1 auto;
+  }
+  button {
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 770px) {
+  .container {
+    flex-direction: column;
+  }
+  .input {
+    max-width: 80%;
+  }
 }
