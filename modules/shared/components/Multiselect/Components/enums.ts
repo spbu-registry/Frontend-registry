@@ -3,5 +3,5 @@ export enum FocusAt {
 }
 
 export enum Theme {
-    Red, Blue
+    Red, Blue, Simple, Form
 }
