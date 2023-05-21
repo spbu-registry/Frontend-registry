@@ -32,6 +32,7 @@ const AdminSupervisors: FC<AdminSupervisorsProps> = ({ formDataRef }) => {
 
   const toggleOption = (option : string) => setOptions(prev => {
     const newMap = new Map(prev)
+    prev.forEach((val, key) => newMap.set(key, false))
     newMap.set(option, !prev.get(option))
     return newMap
   })

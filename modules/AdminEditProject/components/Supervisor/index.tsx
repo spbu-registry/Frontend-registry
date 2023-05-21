@@ -5,6 +5,10 @@ import Image from "next/image";
 import add from "../../../../public/admin-name-add.svg";
 import remove from "../../../../public/admin-name-remove.svg";
 import { IFormData } from "../../types";
+import { SuggestedSearch } from "../../../shared";
+import { supervisorMockUp } from "./supervisorMockUp";
+import { Theme } from "../../../shared/components/Multiselect/Components/enums";
+
 
 interface SupervisorProps {
   initialNames: string[];
@@ -20,52 +24,26 @@ const Supervisor: FC<SupervisorProps> = ({
   index,
   formDataRef,
 }) => {
-  const [userInput, setUserInput] = useState("");
 
-  const [names, setNames] = useState<string[]>(
-    formDataRef.current!.supervisors[index].names
+  const [input, setInput] = useState<string>('')
+
+  const [names, setNames] = useState<Map<string, boolean>>(
+    new Map(supervisorMockUp.map((name) => [name, false] as [string, boolean]))
   );
 
-  const namesRef = useRef<HTMLDivElement>(null);
-
-  const handleAdd = (value: string) => {
-    if (value) {
-      setNames([...names, value]);
-      setUserInput("");
-    }
-  };
-
-  const handleRemove = (index: number) => {
-    setNames(names.filter((name, mappedIndex) => mappedIndex != index));
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    switch (e.key) {
-      case "Enter":
-        handleAdd(userInput);
-        break;
-    }
-  };
-
-  const handleRemoveName = (e: React.MouseEvent) => {
-    /*
-    Срабатывает только если пользователь нажал на картинку крестика
-    или на контейнер для крестика (хотя по идее на контейнер он нажать не сможет,
-    но лишним не будет) и при этом элемент должен находиться внутри рефа с именами
-    */
-    if (
-      e.target instanceof HTMLElement &&
-      (e.target instanceof HTMLButtonElement ||
-        e.target.parentNode instanceof HTMLButtonElement) &&
-      e.currentTarget.contains(e.target)
-    ) {
-      handleRemove(
-        Array.from(e.currentTarget.children).findIndex((child) =>
-          child.contains(e.target as HTMLButtonElement)
-        )
-      );
-    }
-  };
+  const handleRemove = (key: string) =>
+    setNames(prev => {
+      const newMap = new Map(prev)
+      newMap.set(key, false);
+      return newMap
+    });
+  
+  const handleToggle = (key: string) =>
+    setNames(prev => {
+      const newMap = new Map(prev)
+      newMap.set(key, !prev.get(key));
+      return newMap
+    });
 
   /*
   В остальных компонентах нужно будет сделать примерно то же самое,
@@ -74,9 +52,23 @@ const Supervisor: FC<SupervisorProps> = ({
   useEffect(() => {
     formDataRef.current!.supervisors[index] = {
       ...formDataRef.current!.supervisors[index],
-      names: names,
+      names: Array.from(names.keys()),
     };
   }, [names]);
+
+  // Filter names by input
+  useEffect(() =>
+    setNames((prev) => {
+      const newMap = new Map(
+        supervisorMockUp
+        .map((name) => [name, false] as [string, boolean])
+        .filter(([name]) => name.toLowerCase().includes(input.toLowerCase()))
+      )
+      prev.forEach((value, key) => {
+        if (newMap.get(key) !== undefined) newMap.set(key, value)
+      })
+      return newMap
+    }), [input])
 
   return (
     <div className={className + " " + styles.container}>
@@ -84,32 +76,28 @@ const Supervisor: FC<SupervisorProps> = ({
         {formDataRef.current!.supervisors[index].title}
       </div>
       <div>
-        <div className={styles.names} ref={namesRef} onClick={handleRemoveName}>
-          {names.map((name) => (
+      <div className={styles.addBlock}>
+          <SuggestedSearch
+          id={`Supervisor-Select-${index}`}
+          options={names}
+          toggleOption={handleToggle}
+          lable="Выберите заказчика"
+          setOuterInput={(str) => setInput(str)}
+          theme={Theme.Simple}
+          height={3}
+          />
+        </div>
+        <div className={styles.names}>
+          {Array.from(names.keys()).map((name) => ( names.get(name) ?
             <div key={name} className={styles.name}>
               {name}
-              <button className={styles.nameRemove}>
+              <button 
+              className={styles.nameRemove} 
+              onClick={() => handleRemove(name)}>
                 <Image src={remove} alt="Удалить" />
               </button>
-            </div>
+            </div> : null
           ))}
-        </div>
-        <div className={styles.addBlock}>
-          <input
-            value={userInput}
-            onKeyDown={handleKeyDown}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setUserInput(e.target.value)
-            }
-            className={styles.addText}
-            placeholder="Введите текст..."
-          />
-          <button
-            onClick={() => handleAdd(userInput)}
-            className={styles.addButton}
-          >
-            <Image src={add} alt="Добавить" />
-          </button>
         </div>
       </div>
     </div>
