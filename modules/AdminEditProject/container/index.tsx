@@ -17,6 +17,8 @@ import {
   IAPITag,
 } from "../../../types";
 import AdminRoles from "../components/AdminRoles";
+import AdminSubmit from "../components/AdminSubmit";
+import AdminEditTitle from "../components/AdminEditTitle";
 
 interface AdminEditProjectProps {
   project: IAPIProject;
@@ -95,25 +97,22 @@ const AdminEditProject: FC<AdminEditProjectProps> = ({
             setTag={(tag: string) => {}}
             onClose={() => {}}
           /> */}
+          <AdminEditTitle projectRef={projectRef} />
+          <Spacer axis="vertical" size={30} />
           <TestAdminAddTag projectRef={projectRef} tags={tags} />
+          <Spacer axis="vertical" size={30} />
           <AdminSupervisors
             formDataRef={formDataRef}
             projectRef={projectRef}
             supervisorData={supervisorData}
           />
           <Spacer axis="vertical" size={60} />
-          <Spacer axis="vertical" size={60} />
           <LinksToPresentations
             linksAndLabels={formDataRef.current.teams}
             removeLink={removeLink}
           />
           <Spacer axis="vertical" size={40} />
-          <Results
-            initialResults={project.links || []}
-            projectRef={projectRef}
-          />
           <AdminRoles projectRef={projectRef} />
-          <Role />
           <InputTextArea
             projectRef={projectRef}
             title="Описание проекта:"
@@ -130,6 +129,11 @@ const AdminEditProject: FC<AdminEditProjectProps> = ({
             text="requirements"
           />
           <ProjectCalendar projectRef={projectRef} />
+          <Spacer axis="vertical" size={40} />
+          <Results
+            initialResults={project.links || []}
+            projectRef={projectRef}
+          />
         </Container>
       )}
 
@@ -138,6 +142,7 @@ const AdminEditProject: FC<AdminEditProjectProps> = ({
       )} */}
 
       <Spacer axis="vertical" size={40} />
+      <AdminSubmit projectRef={projectRef} />
     </>
   );
 };

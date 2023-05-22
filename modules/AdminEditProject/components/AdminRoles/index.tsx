@@ -23,6 +23,7 @@ const AdminRoles: FC<AdminRolesProps> = ({ projectRef }) => {
 
   const generateHandleRoleChange = (index: number) => {
     return (e: React.ChangeEvent) => {
+      e.preventDefault();
       setRoles(
         roles.map((role, mappedIndex) =>
           mappedIndex == index
@@ -34,11 +35,12 @@ const AdminRoles: FC<AdminRolesProps> = ({ projectRef }) => {
   };
 
   const generateHandleLeadChange = (index: number) => {
-    return () => {
+    return (e: React.MouseEvent) => {
+      e.preventDefault();
       setRoles(
         roles.map((role, mappedIndex) =>
           mappedIndex == index
-            ? { ...role, isTeamLead: true }
+            ? { ...role, isTeamLead: !role.isTeamLead }
             : { ...role, isTeamLead: false }
         )
       );
@@ -52,38 +54,43 @@ const AdminRoles: FC<AdminRolesProps> = ({ projectRef }) => {
           return { ...role, role: roles[index].roleName };
         }
       );
-      console.log(projectRef.current);
     }
   }, [roles]);
 
   return (
-    <ul>
-      {roles.map((role, index) => (
-        <li className={styles.role} key={role.studentName}>
-          <h3 className={styles.studentName}>{role.studentName}</h3>
-          <input
-            type="text"
-            value={role.roleName}
-            onChange={generateHandleRoleChange(index)}
-            className={styles.roleName}
-          />
-          <div className={styles.isTeamLeadContainer}>
+    <>
+      <h2 className={styles.title}>Роли</h2>
+      <ul>
+        {roles.map((role, index) => (
+          <li className={styles.role} key={role.studentName}>
+            <h3 className={styles.studentName}>{role.studentName}</h3>
             <input
-              type="radio"
-              name="teamlead"
-              checked={role.isTeamLead}
-              onChange={generateHandleLeadChange(index)}
-              className={styles.isTeamLead}
+              type="text"
+              value={role.roleName}
+              onChange={generateHandleRoleChange(index)}
+              className={styles.roleName}
             />
-            <Image
-              src={checkedIcon}
-              alt="Тимлид"
-              className={role.isTeamLead ? styles.active : ""}
-            />
-          </div>
-        </li>
-      ))}
-    </ul>
+            <div
+              className={styles.isTeamLeadContainer}
+              onClick={generateHandleLeadChange(index)}
+            >
+              <Image
+                src={checkedIcon}
+                alt="Тимлид"
+                className={role.isTeamLead ? styles.active : ""}
+              />
+              <input
+                type="radio"
+                name="teamlead"
+                defaultChecked={role.isTeamLead}
+                onChange={() => {}}
+                className={styles.isTeamLead}
+              />
+            </div>
+          </li>
+        ))}
+      </ul>
+    </>
   );
 };
 

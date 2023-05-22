@@ -52,7 +52,6 @@ const TestAdminAddTag: FC<AdminAddTagProps> = ({ tags, projectRef }) => {
         const tagInDB = tags.find((tag) => tag.name == tagName);
         return { id: tagInDB ? tagInDB.tagId : null, name: tagName };
       });
-      console.log(projectRef.current);
     }
   }, [activeTags]);
 

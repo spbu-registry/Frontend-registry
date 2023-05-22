@@ -1,4 +1,4 @@
-import { IAPIProject, IAPITag } from "../../../types";
+import { IAPIProject, IAPIProjectToSave, IAPITag } from "../../../types";
 
 const URL = "http://217.197.0.155/data";
 
@@ -44,4 +44,17 @@ export const getSupervisors = async () => {
     curators.map((curator: any) => curator.curator),
     supervisors.map((supervisor: any) => supervisor.supervisor),
   ];
+};
+
+export const setProject = async (project: IAPIProjectToSave) => {
+  const result = await fetch("/api/setProject", {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    method: "PUT",
+    body: JSON.stringify({ ...project }),
+  });
+
+  return result;
 };

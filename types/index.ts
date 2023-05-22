@@ -27,6 +27,31 @@ export interface IAPIProject {
   maxStudents?: number;
 }
 
+export interface IAPIProjectToSave {
+  projectId?: number;
+  name?: string;
+  tags?: IAPITag[];
+  clinicIds?: number[] | null;
+  clientsIds?: number[] | null;
+  curatorsIds?: number[] | null;
+  supervisorsIds?: number[] | null;
+  description?: string;
+  links?: IAPILink[];
+  projectRoles?: IAPIRole[];
+  requirements?: string;
+  requirementsForPerformers?: string;
+  startTime?: string;
+  startFiling?: string;
+  endFiling?: string;
+  startImplementation?: string;
+  endImplementation?: string;
+  startDefense?: string;
+  endDefense?: string;
+  status?: IAPIStatus;
+  workFormat?: IAPIWorkFormat;
+  maxStudents?: number;
+}
+
 export interface IAPIClient {
   clientId?: number;
   name?: string;

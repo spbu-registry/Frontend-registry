@@ -43,6 +43,7 @@ const Results: FC<ResultsProps> = ({ initialResults, projectRef }) => {
           linkId: result.id ? parseInt(result.id) : null,
           name: result.type,
           link: result.source,
+          projectId: projectRef.current?.projectId,
         };
       });
     }

@@ -1,51 +1,77 @@
 @import '../../../../styles/library'
 
-.stage
-    font-weight: 600
-    justify-content: center
-    margin-top: 34px
-
 .stage,
 .dateAdd,
 .applicationDeadline,
 .projectImplementationDates,
 .projectProtection,
-.projectStatus,
 .status
-    font-family: 'Open Sans'
     font-style: normal
-    font-size: 36px
-    line-height: 49px
+    font-size: 24px
     font-weight: 400
     display: flex
     flex-wrap: wrap
 
+.stage
+    font-weight: 600
+    justify-content: center
+    margin-top: 34px
+    font-size: 30px
+
 .align
     margin: 19px 0
-    width: 50%
+    min-width: 25%
+    max-width: 25%
+    font-weight: 600
+
+.dateBlock
+    display: flex
+    justify-content: center
+    align-items: center
 
 .inputField
     border: white
     border-bottom: 3px solid $pink-color
     outline: none
-    margin: auto 13px 7px 0px
+    margin-left: 20px
     width: 200px
+
+.projectStatus
+    display: flex
+    margin-top: 30px
 
 .status
     font-size: 24px
     line-height: 33px
     justify-content: space-between
-    width: 50%
+    width: 100%
 
 .state
+    font-size: 18px
+    width: 30%
+    text-align: center
+    border: 3px solid transparent
     margin: 0 5px
     padding: 5px
+    cursor: pointer
 
 .statusChange
-    background: green
+    border: 3px solid $pink-color
     border-radius: 10px
 
-@media (max-width: 1200px)
+.dateAdd
+    font-size: 20px
+    margin: 30px 0px
+
+.dateAddInput
+    margin-left: 30px
+
+.applicationDeadline, .projectImplementationDates, .projectProtection
+    font-size: 16px
+    justify-content: space-between
+
+
+@media (max-width: 768px)
     .dateAdd,
     .applicationDeadline,
     .projectImplementationDates,

@@ -117,7 +117,7 @@ const ProjectCalendar: FC<ProjectCalendarProps> = ({ projectRef }) => {
       <div className={styles.stage}>Этапы:</div>
       <div className={styles.dateAdd}>
         <div>Дата добавления:</div>
-        <div>
+        <div className={styles.dateAddInput}>
           <input
             className={styles.inputField}
             type="date"
@@ -132,7 +132,7 @@ const ProjectCalendar: FC<ProjectCalendarProps> = ({ projectRef }) => {
       </div>
       <div className={styles.applicationDeadline}>
         <div className={styles.align}>Сроки подачи заявок:</div>
-        <div>
+        <div className={styles.dateBlock}>
           от{" "}
           <input
             className={styles.inputField}
@@ -145,7 +145,7 @@ const ProjectCalendar: FC<ProjectCalendarProps> = ({ projectRef }) => {
             }}
           />
         </div>
-        <div>
+        <div className={styles.dateBlock}>
           до{" "}
           <input
             className={styles.inputField}
@@ -161,7 +161,7 @@ const ProjectCalendar: FC<ProjectCalendarProps> = ({ projectRef }) => {
       </div>
       <div className={styles.projectImplementationDates}>
         <div className={styles.align}>Сроки реализации проекта:</div>
-        <div>
+        <div className={styles.dateBlock}>
           от{" "}
           <input
             className={styles.inputField}
@@ -174,7 +174,7 @@ const ProjectCalendar: FC<ProjectCalendarProps> = ({ projectRef }) => {
             }}
           />
         </div>
-        <div>
+        <div className={styles.dateBlock}>
           до{" "}
           <input
             className={styles.inputField}
@@ -190,7 +190,7 @@ const ProjectCalendar: FC<ProjectCalendarProps> = ({ projectRef }) => {
       </div>
       <div className={styles.projectProtection}>
         <div className={styles.align}>Защита проекта:</div>
-        <div>
+        <div className={styles.dateBlock}>
           от{" "}
           <input
             className={styles.inputField}
@@ -203,7 +203,7 @@ const ProjectCalendar: FC<ProjectCalendarProps> = ({ projectRef }) => {
             }}
           />
         </div>
-        <div>
+        <div className={styles.dateBlock}>
           до{" "}
           <input
             className={styles.inputField}
