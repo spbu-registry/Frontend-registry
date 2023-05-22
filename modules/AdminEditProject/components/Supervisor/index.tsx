@@ -8,25 +8,35 @@ import { IFormData } from "../../types";
 import { SuggestedSearch } from "../../../shared";
 import { supervisorMockUp } from "./supervisorMockUp";
 import { Theme } from "../../../shared/components/Multiselect/Components/enums";
+import { IAPIClient, IAPICurator, IAPISupervisor } from "../../../../types";
 
 interface SupervisorProps {
   initialNames: string[];
   titleClass?: string;
   className?: string;
+  allNames: string[];
   index: number;
   formDataRef: React.RefObject<IFormData>;
+  onChange: (names: string[], index: number) => any;
 }
 
 const Supervisor: FC<SupervisorProps> = ({
   titleClass = "",
   className = "",
   index,
+  initialNames,
   formDataRef,
+  allNames,
+  onChange,
 }) => {
   const [input, setInput] = useState<string>("");
 
   const [names, setNames] = useState<Map<string, boolean>>(
-    new Map(supervisorMockUp.map((name) => [name, false] as [string, boolean]))
+    new Map(
+      allNames.map(
+        (name) => [name, initialNames.indexOf(name) != -1] as [string, boolean]
+      )
+    )
   );
 
   const handleRemove = (key: string) =>
@@ -52,6 +62,10 @@ const Supervisor: FC<SupervisorProps> = ({
       ...formDataRef.current!.supervisors[index],
       names: Array.from(names.keys()),
     };
+    onChange(
+      Array.from(names.keys()).filter((name) => names.get(name)),
+      index
+    );
   }, [names]);
 
   // Filter names by input
@@ -59,7 +73,7 @@ const Supervisor: FC<SupervisorProps> = ({
     () =>
       setNames((prev) => {
         const newMap = new Map(
-          supervisorMockUp
+          allNames
             .map((name) => [name, false] as [string, boolean])
             .filter(([name]) =>
               name.toLowerCase().includes(input.toLowerCase())

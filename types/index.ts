@@ -83,14 +83,14 @@ export interface IAPIClinic {
 }
 
 export interface IAPILink {
-  linkId?: number;
+  linkId?: number | null;
   name?: string;
   link?: string;
   projectId?: number;
 }
 
 export interface IAPITag {
-  tagId?: number;
+  tagId?: number | null;
   name?: string;
 }
 

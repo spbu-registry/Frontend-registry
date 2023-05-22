@@ -1,0 +1,46 @@
+.role
+    display: flex
+    align-items: center
+    margin-bottom: 20px
+
+.studentName
+    width: 30%
+    margin-right: 40px
+
+.roleName
+    width: 70%
+    margin-right: 40px
+    border-bottom: 2px solid #C5A7AF
+
+.isTeamLeadContainer
+    position: relative
+    height: 30px
+
+    & img
+        position: absolute
+        top: 0
+        left: 0
+        display: none
+        height: 80%
+        width: 80%
+        object-fit: contain
+        object-position: 0% 100%
+        margin-left: 10%
+
+        &.active
+            display: block
+
+.isTeamLead
+    margin-left: auto
+    min-height: 30px
+    max-height: 30px
+    min-width: 30px
+    max-width: 30px
+    box-sizing: border-box
+    border-offset: 0.1em
+    border-radius: 5px
+    -webkit-appearance: none
+    -moz-appearance: none
+    -o-appearance: none
+    border: 1px solid #C5A7AF
+    outline-color: #C5A7AF

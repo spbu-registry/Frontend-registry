@@ -3,19 +3,22 @@ import styles from "./InputTextArea.module.sass";
 import Image from "next/image";
 import vector from "../../../../public/Vector.svg";
 import { IFormData } from "../../types";
+import { IAPIProject } from "../../../../types";
+
+const titles = {
+  description: "Описание проекта",
+  requirements: "Требования проекта",
+  requirementsForPerformers: "Требование к исполнителю",
+};
 
 interface InputTextAreaProps {
-  formDataRef: React.RefObject<IFormData>;
+  projectRef: React.RefObject<IAPIProject>;
   title: string;
-  text: "projectDescription" | "commandRequirements" | "projectRequirements";
+  text: "description" | "requirements" | "requirementsForPerformers";
 }
 
-const InputTextArea: FC<InputTextAreaProps> = ({
-  formDataRef,
-  title,
-  text,
-}) => {
-  const [textValue, setTextValue] = useState(formDataRef.current![text]);
+const InputTextArea: FC<InputTextAreaProps> = ({ projectRef, text }) => {
+  const [textValue, setTextValue] = useState(projectRef.current![text]);
   const [textChange, setTextChange] = useState(false);
   const textField = useRef<HTMLTextAreaElement>(null);
 
@@ -33,13 +36,13 @@ const InputTextArea: FC<InputTextAreaProps> = ({
     }
 
     // сохраняем изменения
-    formDataRef.current![text] = textValue;
+    projectRef.current![text] = textValue;
   }, [textChange]);
 
   return (
     <>
       <div className={styles.head}>
-        {title}
+        {titles[text]}
         <Image
           alt=""
           className={styles.img}

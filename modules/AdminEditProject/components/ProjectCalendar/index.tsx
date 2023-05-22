@@ -3,20 +3,82 @@ import styles from "./ProjectCalendar.module.sass";
 import { IFormData } from "../../types";
 import DatePicker from "react-datepicker";
 import Image from "next/image";
+import { IAPIProject, IAPIStatus } from "../../../../types";
+
+const statusNames = {
+  OPEN_ENROLLMENT: "Набор открыт",
+  CLOSED: "Набор закрыт",
+  ACTIVE: "Активный",
+  TEST: "Тестирование",
+  DEFENSE: "Защита",
+  COMPLETE: "Завершён",
+};
 
 interface ProjectCalendarProps {
-  formDataRef: React.RefObject<IFormData>;
+  projectRef: React.RefObject<IAPIProject>;
 }
 
-const ProjectCalendar: FC<ProjectCalendarProps> = ({ formDataRef }) => {
+const formatTime = (stringTime: string | undefined) => {
+  if (!stringTime) return undefined;
+  const date = new Date(stringTime);
+  const month = date.getMonth() < 10 ? "0" + date.getMonth() : date.getMonth();
+  const day = date.getDay() < 10 ? "0" + date.getDay() : date.getDay();
+  return date.getFullYear() + "-" + month + "-" + day;
+};
+
+const ProjectCalendar: FC<ProjectCalendarProps> = ({ projectRef }) => {
   const [Timeline, setTimeline] = useState(
-    formDataRef.current!.projectTimeline
+    projectRef.current
+      ? {
+          dateAdd: formatTime(projectRef.current.startTime),
+          applicationDeadline: {
+            from: formatTime(projectRef.current.startFiling),
+            to: formatTime(projectRef.current.endFiling),
+          },
+          projectImplementationDates: {
+            from: formatTime(projectRef.current.startImplementation),
+            to: formatTime(projectRef.current.endImplementation),
+          },
+          projectProtection: {
+            from: formatTime(projectRef.current.startDefense),
+            to: formatTime(projectRef.current.endDefense),
+          },
+          projectStatus: projectRef.current.status,
+        }
+      : {
+          dateAdd: "",
+          applicationDeadline: {
+            from: "",
+            to: "",
+          },
+          projectImplementationDates: {
+            from: "",
+            to: "",
+          },
+          projectProtection: {
+            from: "",
+            to: "",
+          },
+          projectStatus: "",
+        }
   );
 
   useEffect(() => {
-    formDataRef.current!.projectTimeline = Timeline;
-    // посмотреть изменения ?
-    console.log(JSON.stringify(formDataRef.current!.projectTimeline));
+    if (projectRef.current) {
+      projectRef.current.startTime = Timeline.dateAdd;
+      projectRef.current.startFiling = Timeline.applicationDeadline.from;
+      projectRef.current.endFiling = Timeline.applicationDeadline.to;
+      projectRef.current.startImplementation =
+        Timeline.projectImplementationDates.from;
+      projectRef.current.endImplementation =
+        Timeline.projectImplementationDates.to;
+      projectRef.current.startDefense = Timeline.projectProtection.from;
+      projectRef.current.endDefense = Timeline.projectProtection.to;
+      projectRef.current.status = (Object.keys(statusNames).find(
+        (key) =>
+          statusNames[key as keyof typeof statusNames] == Timeline.projectStatus
+      ) || "OPEN_ENROLLMENT") as IAPIStatus;
+    }
   }, [Timeline]);
 
   const statusBox = useRef<HTMLDivElement>(null);
@@ -27,7 +89,8 @@ const ProjectCalendar: FC<ProjectCalendarProps> = ({ formDataRef }) => {
       statusBox.current.childNodes.forEach((el) => {
         if (el instanceof HTMLElement)
           if (
-            el.textContent == formDataRef.current!.projectTimeline.projectStatus
+            el.textContent ==
+            statusNames[projectRef.current!.status || "OPEN_ENROLLMENT"]
           ) {
             el.classList.add(styles["statusChange"]);
           }

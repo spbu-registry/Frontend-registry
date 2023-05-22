@@ -1,16 +1,30 @@
-import { useState } from 'react';
-import styles from './Results.module.scss';
-import Result from './components/Result';
-import { result } from './components/Result';
-import ResultsForm from './components/ResultsForm';
+import { FC, useEffect, useState } from "react";
+import styles from "./Results.module.scss";
+import Result from "./components/Result";
+import { result } from "./components/Result";
+import ResultsForm from "./components/ResultsForm";
+import { IAPILink, IAPIProject } from "../../../../types";
 
-const Results = () => {
-  const [results, setResults] = useState<result[]>([]);
+interface ResultsProps {
+  initialResults: IAPILink[];
+  projectRef: React.RefObject<IAPIProject>;
+}
+
+const Results: FC<ResultsProps> = ({ initialResults, projectRef }) => {
+  const [results, setResults] = useState<result[]>(
+    initialResults.map((result) => {
+      return {
+        id: "" + result.linkId,
+        type: result.name!,
+        source: result.link!,
+      };
+    })
+  );
 
   const addResult = (typeInput: string, sourceInput: string) => {
     if (typeInput && sourceInput) {
       const newResult: result = {
-        id: Math.random().toString(16).slice(2),
+        id: "",
         type: typeInput,
         source: sourceInput,
       };
@@ -21,6 +35,18 @@ const Results = () => {
   const removeResult = (id: string) => {
     setResults([...results.filter((result) => result.id !== id)]);
   };
+
+  useEffect(() => {
+    if (projectRef.current) {
+      projectRef.current.links = results.map((result) => {
+        return {
+          linkId: result.id ? parseInt(result.id) : null,
+          name: result.type,
+          link: result.source,
+        };
+      });
+    }
+  }, [results]);
 
   return (
     <div>

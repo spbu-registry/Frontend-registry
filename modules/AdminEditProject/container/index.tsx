@@ -9,10 +9,27 @@ import Role from "../components/Role";
 import InputTextArea from "../components/InputTextArea";
 import ProjectCalendar from "../components/ProjectCalendar";
 import { TestAdminAddTag } from "../components/AdminAddTag";
+import {
+  IAPIClient,
+  IAPICurator,
+  IAPIProject,
+  IAPISupervisor,
+  IAPITag,
+} from "../../../types";
+import AdminRoles from "../components/AdminRoles";
 
-interface AdminEditProjectProps { }
+interface AdminEditProjectProps {
+  project: IAPIProject;
+  tags: IAPITag[];
+  supervisorData: [IAPIClient[], IAPICurator[], IAPISupervisor[]];
+}
 
-const AdminEditProject: FC<AdminEditProjectProps> = () => {
+const AdminEditProject: FC<AdminEditProjectProps> = ({
+  project,
+  tags,
+  supervisorData,
+}) => {
+  const projectRef = useRef<IAPIProject>(project);
   const formDataRef = useRef<IFormData>({
     supervisors: [
       {
@@ -63,7 +80,7 @@ const AdminEditProject: FC<AdminEditProjectProps> = () => {
     },
   });
 
-  const removeLink = (key: string) => { };
+  const removeLink = (key: string) => {};
 
   return (
     <>
@@ -78,8 +95,12 @@ const AdminEditProject: FC<AdminEditProjectProps> = () => {
             setTag={(tag: string) => {}}
             onClose={() => {}}
           /> */}
-          <TestAdminAddTag/>
-          <AdminSupervisors formDataRef={formDataRef} />
+          <TestAdminAddTag projectRef={projectRef} tags={tags} />
+          <AdminSupervisors
+            formDataRef={formDataRef}
+            projectRef={projectRef}
+            supervisorData={supervisorData}
+          />
           <Spacer axis="vertical" size={60} />
           <Spacer axis="vertical" size={60} />
           <LinksToPresentations
@@ -87,24 +108,28 @@ const AdminEditProject: FC<AdminEditProjectProps> = () => {
             removeLink={removeLink}
           />
           <Spacer axis="vertical" size={40} />
-          <Results />
+          <Results
+            initialResults={project.links || []}
+            projectRef={projectRef}
+          />
+          <AdminRoles projectRef={projectRef} />
           <Role />
           <InputTextArea
-            formDataRef={formDataRef}
+            projectRef={projectRef}
             title="Описание проекта:"
-            text="projectDescription"
+            text="description"
           />
           <InputTextArea
-            formDataRef={formDataRef}
+            projectRef={projectRef}
             title="Требование к исполнителю:"
-            text="commandRequirements"
+            text="requirementsForPerformers"
           />
           <InputTextArea
-            formDataRef={formDataRef}
+            projectRef={projectRef}
             title="Требования проекта:"
-            text="projectRequirements"
+            text="requirements"
           />
-          <ProjectCalendar formDataRef={formDataRef} />
+          <ProjectCalendar projectRef={projectRef} />
         </Container>
       )}
 
