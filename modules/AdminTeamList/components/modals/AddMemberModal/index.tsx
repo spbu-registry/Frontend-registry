@@ -20,12 +20,14 @@ const AddMemberModal: FC<AddMemberModalProps> = ({ data, onClose }) => {
   const { teams, setTeams } = useContext(TeamsContext);
 
   // Suggested search using mockUp data
-  const [nameInput, setNameInput] = useState(data.member.name)
+  const [nameInput, setNameInput] = useState(data.member.name);
   const potentialMembers = useMemo(() => {
     return new Map(
       mockUpMembers
-      .filter((mockname) => mockname.toLowerCase().includes(nameInput.toLowerCase()))
-      .map((mockname) => [mockname, mockname === name])
+        .filter((mockname) =>
+          mockname.toLowerCase().includes(nameInput.toLowerCase())
+        )
+        .map((mockname) => [mockname, mockname === name])
     );
   }, [name, nameInput]);
 
@@ -69,14 +71,15 @@ const AddMemberModal: FC<AddMemberModalProps> = ({ data, onClose }) => {
             ФИО:
           </label>
           <SuggestedSearchSelect
-          id={"editmember-name"}
-          startingValue={name}
-          options={potentialMembers}
-          toggleOption={setName}
-          setOuterInput={setNameInput}
-          lable={name}
-          height={3}
-          theme={Theme.Form}/>
+            id={"editmember-name"}
+            startingValue={name}
+            options={potentialMembers}
+            toggleOption={setName}
+            setOuterInput={setNameInput}
+            lable={name}
+            height={3}
+            theme={Theme.Form}
+          />
         </div>
         <div className={styles.field}>
           <label htmlFor="editmember-role" className={styles.label}>

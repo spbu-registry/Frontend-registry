@@ -1,4 +1,4 @@
-import React, { FC, useRef, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import AdminSearch from "../components/AdminSearch";
 import AdminTeam from "../components/AdminTeam";
 import { Spacer } from "../../shared";
@@ -6,6 +6,7 @@ import { ITeam } from "../types";
 import { allTeams } from "../static/teams";
 import { TeamsContext } from "../context/teams";
 import AdminModal from "../components/AdminModal";
+import AdminAddTeam from "../components/AdminAddTeam";
 
 /*
 Общая идея происходящего:
@@ -25,7 +26,7 @@ const AdminTeamList: FC<AdminTeamListProps> = () => {
     <TeamsContext.Provider value={{ teams, setTeams }}>
       <div>
         <AdminSearch />
-        <Spacer axis="vertical" size={30} />
+        <AdminAddTeam />
         <div ref={teamListRef}>
           {teams.map((team) => (
             <AdminTeam team={team} key={team.id} />

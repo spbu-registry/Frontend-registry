@@ -1,9 +1,12 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import styles from "./ProjectList.module.sass";
 import ProjectCard from "./components/ProjectCard";
 import { Filters } from "./components/Filters";
 import useFilters from "./useFilters";
 import { IAPIProject } from "../../types";
+import AdminModal from "./components/DeleteProjectModal";
+import AddProject from "./components/AddProject";
+import { deleteProject, getProjects } from "../shared/lib/projects";
 
 interface ProjectListProps {
   projects: IAPIProject[];
@@ -13,6 +16,10 @@ interface ProjectListProps {
 const ProjectList: FC<ProjectListProps> = ({ projects, type }) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const keys: string[] = ["header", "clinic", "task", "status", "date"];
+
+  const [projectToDelete, setProjectToDelete] = useState<number | null>(null);
+
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const [filtersState, filtersDispatch] = useFilters();
   const [results, setResults] = useState<IAPIProject[]>(projects);
@@ -28,8 +35,9 @@ const ProjectList: FC<ProjectListProps> = ({ projects, type }) => {
       надо будет поменять и загнать туда GET-параметрами все фильтры.
       Потом сразу setResults(data)
       */
-      const response = await fetch(`http://localhost:3000/api/projects`);
-      const data = await response.json();
+      const data = await fetch("http://217.197.0.155/data/projects").then(
+        (result) => result.json()
+      );
       if (filtersState.search == "") {
         setResults(data.splice(0, 5));
       } else {
@@ -52,6 +60,29 @@ const ProjectList: FC<ProjectListProps> = ({ projects, type }) => {
     getData(filtersState);
   }, [filtersState]);
 
+  const handleDelete = (e: React.MouseEvent) => {
+    if (
+      type == "admin" &&
+      e.target instanceof HTMLElement &&
+      e.target.hasAttribute("data-delete-project") &&
+      containerRef.current
+    ) {
+      const index = Array.from(containerRef.current.children).findIndex(
+        (child) => {
+          return child.contains(e.target as HTMLElement) || child == e.target;
+        }
+      );
+
+      if (index != -1) setProjectToDelete(projects[index].projectId!);
+    }
+  };
+
+  const serverDeleteProject = async (id: number) => {
+    const res = await deleteProject(id);
+    setResults(results.filter((result) => result.projectId != id));
+    setProjectToDelete(null);
+  };
+
   return (
     <>
       <Filters
@@ -59,9 +90,13 @@ const ProjectList: FC<ProjectListProps> = ({ projects, type }) => {
         dispatch={filtersDispatch}
         n={results.length}
       />
-
-      <div className={styles.container}>
-        {results.map((project) => (
+      {type == "admin" && <AddProject />}
+      <div
+        className={styles.container}
+        onClick={handleDelete}
+        ref={containerRef}
+      >
+        {results.map((project, index) => (
           <ProjectCard
             key={project.projectId}
             project={project}
@@ -70,6 +105,13 @@ const ProjectList: FC<ProjectListProps> = ({ projects, type }) => {
           />
         ))}
       </div>
+      {projectToDelete !== null && (
+        <AdminModal
+          projectId={projectToDelete}
+          onClose={() => setProjectToDelete(null)}
+          onDelete={(id: number) => serverDeleteProject(id)}
+        />
+      )}
     </>
   );
 };

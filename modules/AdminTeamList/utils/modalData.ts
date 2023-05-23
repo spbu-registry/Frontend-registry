@@ -15,6 +15,7 @@ export const prepareOpenModalData = (
       member: {
         name: "",
         role: "",
+        isTeamLead: false,
       },
     };
     return newModalData;

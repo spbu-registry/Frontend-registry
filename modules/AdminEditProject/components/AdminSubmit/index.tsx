@@ -9,9 +9,7 @@ interface AdminSubmitProps {
 
 const AdminSubmit: FC<AdminSubmitProps> = ({ projectRef }) => {
   const save = async (projectData: IAPIProjectToSave) => {
-    console.log(projectData);
     const result = await setProject(projectData);
-    console.log(result);
   };
 
   const handleSave = () => {
@@ -32,6 +30,12 @@ const AdminSubmit: FC<AdminSubmitProps> = ({ projectRef }) => {
               (supervisor) => supervisor.supervisorId!
             )
           : null,
+        projectRoles: projectRef.current.projectRoles
+          ? projectRef.current.projectRoles.map((role) => ({
+              ...role,
+              student: { studentId: role.student!.studentId },
+            }))
+          : [],
       };
 
       save(projectToSave);

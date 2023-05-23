@@ -38,6 +38,9 @@ const AdminModal: FC<AdminModalProps> = ({ teamListRef }) => {
       и потому что надо будет в каждом eventListener'е отдельно выяснять, куда нажал пользователь,
       но он может быть лучше в плане того, что вся логика конкретной всплывашки лежит в файле этой вслывашки
       */
+
+      console.log(teamIndex);
+      console.log(teams);
       const newModalData = prepareOpenModalData(e, teams[teamIndex], modalType);
       if (newModalData) setModalData(newModalData);
     }
@@ -57,7 +60,7 @@ const AdminModal: FC<AdminModalProps> = ({ teamListRef }) => {
         teamListRef.current.removeEventListener("click", handleOpenModal);
       }
     };
-  }, [teamListRef, modalData]);
+  }, [teamListRef, modalData, teams]);
 
   /*
   Я изначально думал побольше обобщить всплывашки (удаление участника почти не отличается от удаления команды),

@@ -4,13 +4,13 @@ import { Container } from "../../../modules/shared";
 import { Footer } from "../../../modules/Footer";
 import ProjectList from "../../../modules/ProjectList";
 import { Spacer } from "../../../modules/shared";
-import { GetStaticProps, NextPage } from "next";
+import { GetServerSideProps, GetStaticProps, NextPage } from "next";
 import { IAPIProject } from "../../../types";
 import { useState } from "react";
 import { PopUp } from "../../../modules/PopUp";
 
-export const getStaticProps: GetStaticProps = async (context: any) => {
-  const projects = await fetch(`http://localhost:3000/api/projects`).then(
+export const getServerSideProps: GetServerSideProps = async (context: any) => {
+  const projects = await fetch(`http://217.197.0.155/data/projects`).then(
     (data) => data.json()
   );
 
@@ -18,7 +18,6 @@ export const getStaticProps: GetStaticProps = async (context: any) => {
     props: {
       projects,
     },
-    revalidate: 60,
   };
 };
 

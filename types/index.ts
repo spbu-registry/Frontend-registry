@@ -37,7 +37,7 @@ export interface IAPIProjectToSave {
   supervisorsIds?: number[] | null;
   description?: string;
   links?: IAPILink[];
-  projectRoles?: IAPIRole[];
+  projectRoles?: IAPIRoleToSave[];
   requirements?: string;
   requirementsForPerformers?: string;
   startTime?: string;
@@ -123,6 +123,15 @@ export interface IAPIRole {
   roleId?: number;
   role?: string;
   student?: IAPIStudent;
+  projectId?: number;
+}
+
+export interface IAPIRoleToSave {
+  roleId?: number;
+  role?: string;
+  student?: {
+    studentId?: number;
+  };
   projectId?: number;
 }
 

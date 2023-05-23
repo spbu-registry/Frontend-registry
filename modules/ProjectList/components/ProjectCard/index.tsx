@@ -1,7 +1,9 @@
 import React, { FC } from "react";
-import { Project } from "../../../../pages/api/data/projects";
 import { IAPIProject } from "../../../../types";
 import { statusNames } from "../../../shared/static/status";
+import styles from "./ProjectCard.module.sass";
+import deleteIcon from "../../../../public/admin-delete-icon.svg";
+import Image from "next/image";
 
 interface ProjectCardProps {
   project: IAPIProject;
@@ -20,7 +22,7 @@ const ProjectCard: FC<ProjectCardProps> = ({ project, className, type }) => {
   };
 
   return (
-    <div className={className}>
+    <div className={styles.card + " " + className}>
       <a
         href={
           (type == "admin" ? "/admin" : "") + "/project/" + project.projectId
@@ -28,7 +30,12 @@ const ProjectCard: FC<ProjectCardProps> = ({ project, className, type }) => {
       >
         <div>
           <h2>{project.name}</h2>
-          <p>Клиника: {project.clinics![0].name}</p>
+          <p>
+            Клиника:{" "}
+            {project.clinics && project.clinics[0]
+              ? project.clinics[0].name
+              : ""}
+          </p>
           <p>Задача: {project.description}</p>
           <p>Статус: {statusNames[project.status || "ACTIVE"]}</p>
         </div>
@@ -36,6 +43,11 @@ const ProjectCard: FC<ProjectCardProps> = ({ project, className, type }) => {
       <p>
         от {project.startTime ? formatTime(project.startTime) : "04.04.2023"}
       </p>
+      {type == "admin" && (
+        <div className={styles.delete}>
+          <Image src={deleteIcon} alt="Удалить проект" data-delete-project />
+        </div>
+      )}
     </div>
   );
 };

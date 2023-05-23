@@ -58,3 +58,29 @@ export const setProject = async (project: IAPIProjectToSave) => {
 
   return result;
 };
+
+export const createProject = async () => {
+  const result: IAPIProject = await fetch("/api/createProject", {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+    body: JSON.stringify({}),
+  }).then((data) => data.json());
+
+  return result.projectId;
+};
+
+export const deleteProject = async (id: number) => {
+  const result = await fetch("/api/deleteProject", {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    method: "DELETE",
+    body: JSON.stringify({ id: id }),
+  });
+
+  return result;
+};
