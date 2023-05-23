@@ -1,14 +1,16 @@
 import React, { FC, useEffect, useState } from "react";
-import { IAPIProject } from "../../../../types";
+import { IAPIProject, IAPIStudent } from "../../../../types";
 import styles from "./AdminRoles.module.sass";
 import checkedIcon from "../../../../public/admin-roles-checked.svg";
 import Image from "next/image";
+import AdminRole from "../AdminRole";
 
 interface AdminRolesProps {
   projectRef: React.RefObject<IAPIProject>;
+  students: IAPIStudent[];
 }
 
-const AdminRoles: FC<AdminRolesProps> = ({ projectRef }) => {
+const AdminRoles: FC<AdminRolesProps> = ({ projectRef, students }) => {
   const [roles, setRoles] = useState(
     projectRef.current
       ? projectRef.current.projectRoles!.map((role) => {
@@ -62,32 +64,13 @@ const AdminRoles: FC<AdminRolesProps> = ({ projectRef }) => {
       <h2 className={styles.title}>Роли</h2>
       <ul>
         {roles.map((role, index) => (
-          <li className={styles.role} key={role.studentName}>
-            <h3 className={styles.studentName}>{role.studentName}</h3>
-            <input
-              type="text"
-              value={role.roleName}
-              onChange={generateHandleRoleChange(index)}
-              className={styles.roleName}
-            />
-            <div
-              className={styles.isTeamLeadContainer}
-              onClick={generateHandleLeadChange(index)}
-            >
-              <Image
-                src={checkedIcon}
-                alt="Тимлид"
-                className={role.isTeamLead ? styles.active : ""}
-              />
-              <input
-                type="radio"
-                name="teamlead"
-                defaultChecked={role.isTeamLead}
-                onChange={() => {}}
-                className={styles.isTeamLead}
-              />
-            </div>
-          </li>
+          <AdminRole
+            projectRef={projectRef}
+            initialRole={role}
+            index={index}
+            onLeadChange={generateHandleLeadChange(index)}
+            students={students}
+          />
         ))}
       </ul>
     </>

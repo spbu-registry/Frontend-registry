@@ -13,6 +13,7 @@ import {
   IAPIClient,
   IAPICurator,
   IAPIProject,
+  IAPIStudent,
   IAPISupervisor,
   IAPITag,
 } from "../../../types";
@@ -24,12 +25,14 @@ interface AdminEditProjectProps {
   project: IAPIProject;
   tags: IAPITag[];
   supervisorData: [IAPIClient[], IAPICurator[], IAPISupervisor[]];
+  students: IAPIStudent[];
 }
 
 const AdminEditProject: FC<AdminEditProjectProps> = ({
   project,
   tags,
   supervisorData,
+  students,
 }) => {
   const projectRef = useRef<IAPIProject>(project);
   const formDataRef = useRef<IFormData>({
@@ -112,7 +115,7 @@ const AdminEditProject: FC<AdminEditProjectProps> = ({
             removeLink={removeLink}
           />
           <Spacer axis="vertical" size={40} />
-          <AdminRoles projectRef={projectRef} />
+          <AdminRoles projectRef={projectRef} students={students} />
           <InputTextArea
             projectRef={projectRef}
             title="Описание проекта:"

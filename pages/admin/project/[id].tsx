@@ -14,19 +14,23 @@ import {
   IAPIClient,
   IAPICurator,
   IAPIProject,
+  IAPIStudent,
   IAPISupervisor,
   IAPITag,
 } from "../../../types";
+import { getStudents } from "../../../modules/shared/lib/students";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const projectFetch = getProject(context.params.id);
   const tagsFetch = getTags();
   const supervisorFetch = getSupervisors();
+  const studentsFetch = getStudents();
 
-  const [project, tags, supervisorData] = await Promise.all([
+  const [project, tags, supervisorData, students] = await Promise.all([
     projectFetch,
     tagsFetch,
     supervisorFetch,
+    studentsFetch,
   ]);
 
   return {
@@ -34,6 +38,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
       project,
       tags,
       supervisorData,
+      students,
     },
   };
 };
@@ -42,12 +47,14 @@ interface HomeProps {
   project: IAPIProject;
   tags: IAPITag[];
   supervisorData: [IAPIClient[], IAPICurator[], IAPISupervisor[]];
+  students: IAPIStudent[];
 }
 
 const ProjectAdmin: NextPage<HomeProps> = ({
   project,
   tags,
   supervisorData,
+  students,
 }) => {
   return (
     <>
@@ -58,11 +65,14 @@ const ProjectAdmin: NextPage<HomeProps> = ({
       </Head>
       <Header logoColor="blue" />
       <Spacer axis="vertical" size={40} />
-      <AdminEditProject
-        project={project}
-        tags={tags}
-        supervisorData={supervisorData}
-      />
+      {project && (
+        <AdminEditProject
+          project={project}
+          tags={tags}
+          supervisorData={supervisorData}
+          students={students}
+        />
+      )}
       <Footer footerColor="pink" />
     </>
   );

@@ -35,9 +35,7 @@ const ProjectList: FC<ProjectListProps> = ({ projects, type }) => {
       надо будет поменять и загнать туда GET-параметрами все фильтры.
       Потом сразу setResults(data)
       */
-      const data = await fetch("http://217.197.0.155/data/projects").then(
-        (result) => result.json()
-      );
+      const data = await fetch("/api/projects").then((result) => result.json());
       if (filtersState.search == "") {
         setResults(data.splice(0, 5));
       } else {

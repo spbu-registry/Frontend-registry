@@ -30,6 +30,10 @@
     url("../public/fonts/OpenSans/OpenSans-ExtraBold.eot") format("eot");
 }
 
+html {
+  background: #fff;
+}
+
 html,
 body,
 p,
