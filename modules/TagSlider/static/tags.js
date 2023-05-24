@@ -1,66 +1,78 @@
 export const tags = [
   {
-    title: "Клиника цифрового сопровождения образовательных проектов СПбГУ",
-    url: "./projects",
+    title: 'Анализ данных',
+    url: './projects',
   },
   {
-    title: "Лингвистическая клиника",
-    url: "./projects",
+    title: 'Дискуссионный клуб',
+    url: './projects',
   },
   {
-    title: "Музейно-архитектурная клиника",
-    url: "./projects",
+    title: 'Книги',
+    url: './projects',
   },
   {
-    title: "Архивный центр",
-    url: "./projects",
+    title: 'Контрольно-надзорная деятельность',
+    url: './projects',
   },
   {
-    title: "ИТ-клиника",
-    url: "./projects",
+    title: 'Медиадискурс',
+    url: './projects',
   },
   {
-    title: "Медиацентр",
-    url: "./projects",
+    title: 'Международные отношения',
+    url: './projects',
   },
   {
-    title: "Клиника коммуникационных проектов",
-    url: "./projects",
+    title: 'Мировая энергетика',
+    url: './projects',
   },
   {
-    title: "Конфликтологическая клиника",
-    url: "./projects",
+    title: 'Образование',
+    url: './projects',
   },
   {
-    title: "Социальная клиника",
-    url: "./projects",
+    title: 'Онлайн-образование',
+    url: './projects',
   },
   {
-    title: "Психологическая клиника",
-    url: "./projects",
+    title: 'Открытые данные',
+    url: './projects',
   },
   {
-    title: "Экологическая клиника",
-    url: "./projects",
+    title: 'Перевод',
+    url: './projects',
   },
   {
-    title: "Юридичическая клиника",
-    url: "./projects",
+    title: 'Психология',
+    url: './projects',
   },
   {
-    title: "Социальный центр переводов",
-    url: "./projects",
+    title: 'СМИ',
+    url: './projects',
   },
   {
-    title: "Социологическая клиника прикладных исследований",
-    url: "./projects",
+    title: 'Социологические исследования',
+    url: './projects',
   },
   {
-    title: "Центр финансовой грамотности",
-    url: "./projects",
+    title: 'Фотография',
+    url: './projects',
   },
   {
-    title: "Центр прикладных экономических исследований СПбГУ",
-    url: "./projects",
+    title: 'Языки',
+    url: './projects',
+  },
+  {
+    title: 'Backend',
+    url: './projects',
+  },
+  {
+    title: 'Frontend',
+    url: './projects',
+  },
+  {
+    title: 'Machine learning',
+    url: './projects',
   },
 ];

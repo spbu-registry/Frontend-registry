@@ -1,25 +1,27 @@
 import React, { FC } from "react";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import styles from "./ClinicCard.module.sass";
 
-import clinicPic from "../../../../public/ClinicImage/1.jpg";
 import Link from "next/link";
+import { title } from "process";
 
 interface ClinicCardProps {
   index: number;
+  title: string;
+  image: StaticImageData;
 }
 
 const backgroundClasses = [styles.opal, styles.yellow, styles.gray];
 
-const ClinicCard: FC<ClinicCardProps> = ({ index }) => {
+const ClinicCard: FC<ClinicCardProps> = ({ index, title, image }) => {
   return (
     <div className={styles.ClinicCard + " " + backgroundClasses[index % 3]}>
       <div className={styles.workingArea}>
         <div className={styles.title}>
-          <h1>Музейно-архитектурная клиника</h1>
+          <h1>{title}</h1>
         </div>
         <div className={styles.ClinicCardImages}>
-          <Image src={clinicPic} alt="" />
+          <Image src={image} alt="" />
         </div>
         <ul className={styles.ClinicCardLinks}>
           <li>
