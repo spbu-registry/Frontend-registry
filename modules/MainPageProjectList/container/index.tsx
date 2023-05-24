@@ -2,7 +2,8 @@ import React, { FC, useEffect, useRef } from "react";
 import styles from "./MainPageProjectList.module.scss";
 import { useWindowSize } from "../../shared";
 
-interface MainPageProjectListProps {}
+interface MainPageProjectListProps {
+}
 
 const breakpoints = [
   {
@@ -101,116 +102,114 @@ const MainPageProjectList: FC<MainPageProjectListProps> = () => {
 
   return (
     <>
-      <h2 className={styles["projects_title"]}>Проекты</h2>
-      <div ref={ref} className={styles["projects_container"]}>
-        <div className={styles["project"]}>
+      <h2 className={styles['projects_title']}>Проекты</h2>
+      <div ref={ref} className={styles['projects_container']}>
+        <div className={styles['project']}>
           <h2
             className={
-              styles["project_name"] +
-              " " +
-              styles["project_1_color"] +
-              " home-project-list__project-title"
+              styles['project_name'] +
+              ' ' +
+              styles['project_1_color'] +
+              ' home-project-list__project-title'
             }
           >
-            <p>Название</p>
+            <p>Реестр проектов клинической практики СПбГУ</p>
           </h2>
           <div
             className={
-              styles["project_info"] +
-              " " +
-              styles["project_1_color"] +
-              " home-project-list__project-content"
+              styles['project_info'] +
+              ' ' +
+              styles['project_1_color'] +
+              ' home-project-list__project-content'
             }
           >
-            <p>Клиника: Цетр прикладных экономических исследований СПБГУ</p>
-            <p>Заказчик: ООО “какое то там и еще что нибудь”</p>
             <p>
-              Участники: первый участник, второй участник, третий участник,
-              четвертый участник
+              Многомодульная ИС для регистрации, отслеживания статуса и деталей
+              проектов, проводимых студентами в рамках клинической практик СПбГУ
             </p>
           </div>
         </div>
-        <div className={styles["project"]}>
+        <div className={styles['project']}>
           <h2
             className={
-              styles["project_name"] +
-              " " +
-              styles["project_2_color"] +
-              " home-project-list__project-title"
+              styles['project_name'] +
+              ' ' +
+              styles['project_2_color'] +
+              ' home-project-list__project-title'
             }
           >
-            <p>
-              Название немного подлинее и еще подлинее и еще немножко чтобы
-              наверняка
-            </p>
+            <p>Чат-бот первой линии поддержки</p>
           </h2>
           <div
             className={
-              styles["project_info"] +
-              " " +
-              styles["project_2_color"] +
-              " home-project-list__project-content"
+              styles['project_info'] +
+              ' ' +
+              styles['project_2_color'] +
+              ' home-project-list__project-content'
             }
           >
-            <p>Клиника: Цетр финансовой грамотности</p>
-            <p>Заказчик: ООО “какое то там и еще что нибудь”</p>
             <p>
-              Участники: первый участник, второй участник, третий участник,
-              четвертый участник
+              С целью повышения доступности поддержки и сокращения затрат на
+              работу сотрудников Службы технической поддержки УСИТ СПбГУ,
+              ставится задача разработки и обучения интеллектуального агента для
+              различных каналов связи.
             </p>
           </div>
         </div>
-        <div className={styles["project"]}>
+        <div className={styles['project']}>
           <h2
             className={
-              styles["project_name"] +
-              " " +
-              styles["project_3_color"] +
-              " home-project-list__project-title"
+              styles['project_name'] +
+              ' ' +
+              styles['project_3_color'] +
+              ' home-project-list__project-title'
             }
           >
-            <p>Название</p>
+            <p>Сервис по анализу городской топологии</p>
           </h2>
           <div
             className={
-              styles["project_info"] +
-              " " +
-              styles["project_3_color"] +
-              " home-project-list__project-content"
+              styles['project_info'] +
+              ' ' +
+              styles['project_3_color'] +
+              ' home-project-list__project-content'
             }
           >
-            <p>Клиника: ИТ-клиника</p>
-            <p>Заказчик: ООО “какое то там и еще что нибудь”</p>
             <p>
-              Участники: первый участник, второй участник, третий участник,
-              четвертый участник
+              Сервис должен позволять устанавливать среднее число связей в
+              топологии города для каждой улицы города со всеми остальными как в
+              городе в целом, так и по отдельным районам.
             </p>
           </div>
         </div>
-        <div className={styles["project"]}>
+        <div className={styles['project']}>
           <h2
             className={
-              styles["project_name"] +
-              " " +
-              styles["project_4_color"] +
-              " home-project-list__project-title"
+              styles['project_name'] +
+              ' ' +
+              styles['project_4_color'] +
+              ' home-project-list__project-title'
             }
           >
-            <p>Название</p>
+            <p>
+              Детектирование и анализ зон покрытия сигналов
+              спутников-ретрансляторов
+            </p>
           </h2>
           <div
             className={
-              styles["project_info"] +
-              " " +
-              styles["project_4_color"] +
-              " home-project-list__project-content"
+              styles['project_info'] +
+              ' ' +
+              styles['project_4_color'] +
+              ' home-project-list__project-content'
             }
           >
-            <p>Клиника: Цетр прикладных экономических исследований СПБГУ</p>
-            <p>Заказчик: ООО “какое то там и еще что нибудь”</p>
             <p>
-              Участники: первый участник, второй участник, третий участник,
-              четвертый участник
+              Целью проекта является накопление данных для создания
+              карты покрытия спутникового радиовещания. В ходе работы
+              потребуется выполнить поиск, разбор и сохранение информации об
+              областях охвата ориентированных в пространстве лучей
+              спутников-ретрансляторов, находящихся на геостационарной орбите.
             </p>
           </div>
         </div>
