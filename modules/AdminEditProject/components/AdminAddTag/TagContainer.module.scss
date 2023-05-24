@@ -77,3 +77,14 @@
   background-color: #e4e5e5;
   outline: 3px solid #aaabaf;
 }
+
+@media (max-width: 576px) {
+  .Tag {
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .TagName {
+    font-size: 0.9rem;
+  }
+}

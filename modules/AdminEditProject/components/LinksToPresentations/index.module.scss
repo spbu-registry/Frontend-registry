@@ -51,6 +51,23 @@ label.Row {
     gap: 15px;
   }
   label.Row {
-  font-size: 1.5rem;
+    font-size: 1.5rem;
+  }
 }
+
+@media (max-width: 768px) {
+  .Row {
+    height: auto;
+
+    & > svg {
+      height: 40px;
+      width: 40px;
+      margin-left: -40px;
+    }
+
+    & > a {
+      width: max-content;
+      font-size: 16px;
+    }
+  }
 }

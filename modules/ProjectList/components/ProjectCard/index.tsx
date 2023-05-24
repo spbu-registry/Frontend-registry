@@ -34,7 +34,7 @@ const ProjectCard: FC<ProjectCardProps> = ({ project, className, type }) => {
             Клиника:{" "}
             {project.clinics && project.clinics[0]
               ? project.clinics[0].name
-              : ""}
+              : "IT-клиника"}
           </p>
           <p>Задача: {project.description}</p>
           <p>Статус: {statusNames[project.status || "ACTIVE"]}</p>
