@@ -67,7 +67,6 @@ const AdminSupervisors: FC<AdminSupervisorsProps> = ({
       projectRef.current[
         (types[index] + "s") as "clients" | "curators" | "supervisors"
       ] = names.map((name) => {
-        console.log(supervisorData[index]);
         return (supervisorData[index] as any).find((mapped: any) => {
           return mapped.name == name;
         })!;

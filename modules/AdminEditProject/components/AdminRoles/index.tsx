@@ -4,6 +4,7 @@ import styles from "./AdminRoles.module.sass";
 import checkedIcon from "../../../../public/admin-roles-checked.svg";
 import Image from "next/image";
 import AdminRole from "../AdminRole";
+import { ILocalRole } from "../../types";
 
 interface AdminRolesProps {
   projectRef: React.RefObject<IAPIProject>;
@@ -11,30 +12,18 @@ interface AdminRolesProps {
 }
 
 const AdminRoles: FC<AdminRolesProps> = ({ projectRef, students }) => {
-  const [roles, setRoles] = useState(
+  const [roles, setRoles] = useState<ILocalRole[]>(
     projectRef.current
       ? projectRef.current.projectRoles!.map((role) => {
           return {
-            studentName: role!.student!.name,
+            roleId: role.roleId,
+            studentName: role.student ? role.student.name : "",
             roleName: role.role,
             isTeamLead: false,
           };
         })
       : []
   );
-
-  const generateHandleRoleChange = (index: number) => {
-    return (e: React.ChangeEvent) => {
-      e.preventDefault();
-      setRoles(
-        roles.map((role, mappedIndex) =>
-          mappedIndex == index
-            ? { ...role, roleName: (e.target as HTMLInputElement).value }
-            : role
-        )
-      );
-    };
-  };
 
   const generateHandleLeadChange = (index: number) => {
     return (e: React.MouseEvent) => {
@@ -49,15 +38,22 @@ const AdminRoles: FC<AdminRolesProps> = ({ projectRef, students }) => {
     };
   };
 
-  useEffect(() => {
-    if (projectRef.current && projectRef.current.projectRoles) {
-      projectRef.current.projectRoles = projectRef.current.projectRoles.map(
-        (role, index) => {
-          return { ...role, role: roles[index].roleName };
-        }
-      );
-    }
-  }, [roles]);
+  const handleAdd = () => {
+    setRoles([
+      ...roles,
+      {
+        roleId: null,
+        roleName: "",
+        studentName: "",
+        isTeamLead: false,
+      },
+    ]);
+  };
+
+  const handleDelete = (index: number) => {
+    console.log(roles[index]);
+    setRoles(roles.filter((role, mappedIndex) => index != mappedIndex));
+  };
 
   return (
     <>
@@ -65,14 +61,19 @@ const AdminRoles: FC<AdminRolesProps> = ({ projectRef, students }) => {
       <ul>
         {roles.map((role, index) => (
           <AdminRole
+            key={"" + role.roleId + index + role.roleName + role.studentName}
             projectRef={projectRef}
             initialRole={role}
             index={index}
             onLeadChange={generateHandleLeadChange(index)}
             students={students}
+            onDelete={() => handleDelete(index)}
           />
         ))}
       </ul>
+      <div className={styles.add} onClick={handleAdd}>
+        +
+      </div>
     </>
   );
 };

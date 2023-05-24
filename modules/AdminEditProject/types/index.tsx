@@ -30,3 +30,10 @@ export interface ISupervisor {
   title: string;
   names: string[];
 }
+
+export interface ILocalRole {
+  roleId: number | null | undefined;
+  studentName: string | undefined;
+  roleName: string | undefined;
+  isTeamLead: boolean | undefined;
+}

@@ -6,12 +6,8 @@ import checkedIcon from "../../../../public/admin-roles-checked.svg";
 import { mockUpMembers } from "../../../AdminTeamList/components/modals/mockUpMembers";
 import { SuggestedSearchSelect } from "../../../shared/components/Multiselect";
 import { Theme } from "../../../shared/components/Multiselect/Components/enums";
-
-interface ILocalRole {
-  studentName: string | undefined;
-  roleName: string | undefined;
-  isTeamLead: boolean | undefined;
-}
+import deleteIcon from "../../../../public/admin-delete-icon.svg";
+import { ILocalRole } from "../../types";
 
 interface AdminRoleProps {
   projectRef: React.RefObject<IAPIProject>;
@@ -19,6 +15,7 @@ interface AdminRoleProps {
   index: number;
   onLeadChange: (e: React.MouseEvent) => any;
   students: IAPIStudent[];
+  onDelete: () => any;
 }
 
 const AdminRole: FC<AdminRoleProps> = ({
@@ -27,6 +24,7 @@ const AdminRole: FC<AdminRoleProps> = ({
   index,
   onLeadChange,
   students,
+  onDelete,
 }) => {
   const [name, setName] = useState(initialRole.studentName || "");
   const [role, setRole] = useState(initialRole.roleName || "");
@@ -49,10 +47,22 @@ const AdminRole: FC<AdminRoleProps> = ({
       projectRef.current.projectRoles[index] = {
         ...projectRef.current.projectRoles[index],
         role: role,
+        roleId: initialRole.roleId,
+        projectId: projectRef.current.projectId,
         student: students.find((student) => student.name == name),
       };
     }
   }, [name, role]);
+
+  const handleDelete = () => {
+    console.log(index);
+    if (projectRef.current && projectRef.current.projectRoles) {
+      projectRef.current.projectRoles = projectRef.current.projectRoles.filter(
+        (role, mappedIndex) => mappedIndex != index
+      );
+    }
+    onDelete();
+  };
 
   return (
     <li className={styles.role} key={initialRole.studentName}>
@@ -89,6 +99,9 @@ const AdminRole: FC<AdminRoleProps> = ({
           onChange={() => {}}
           className={styles.isTeamLead}
         />
+      </div>
+      <div className={styles.delete} onClick={handleDelete}>
+        <Image src={deleteIcon} alt="Удалить участника" />
       </div>
     </li>
   );

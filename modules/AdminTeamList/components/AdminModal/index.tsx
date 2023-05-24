@@ -39,8 +39,6 @@ const AdminModal: FC<AdminModalProps> = ({ teamListRef }) => {
       но он может быть лучше в плане того, что вся логика конкретной всплывашки лежит в файле этой вслывашки
       */
 
-      console.log(teamIndex);
-      console.log(teams);
       const newModalData = prepareOpenModalData(e, teams[teamIndex], modalType);
       if (newModalData) setModalData(newModalData);
     }

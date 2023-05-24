@@ -120,7 +120,7 @@ export interface IAPITag {
 }
 
 export interface IAPIRole {
-  roleId?: number;
+  roleId?: number | null;
   role?: string;
   student?: IAPIStudent;
   projectId?: number;

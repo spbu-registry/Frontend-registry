@@ -13,7 +13,6 @@ export default async function handler(
   }
 
   jsonParser(req, res, async () => {
-    console.log(req.body);
     const result = await fetch(
       "http://217.197.0.155/data/projects/project/empty",
       {
@@ -32,7 +31,6 @@ export default async function handler(
         return response.json();
       })
       .catch(() => []);
-    console.log(result);
     res.status(200).json(result);
   });
 }
