@@ -20,6 +20,7 @@ import {
 import AdminRoles from "../components/AdminRoles";
 import AdminSubmit from "../components/AdminSubmit";
 import AdminEditTitle from "../components/AdminEditTitle";
+import NavButtons from "../components/NavButtons";
 
 interface AdminEditProjectProps {
   project: IAPIProject;
@@ -100,10 +101,12 @@ const AdminEditProject: FC<AdminEditProjectProps> = ({
             setTag={(tag: string) => {}}
             onClose={() => {}}
           /> */}
+          <NavButtons projectId={projectRef.current.projectId} />
+          <Spacer axis="vertical" size={60} />
           <AdminEditTitle projectRef={projectRef} />
-          <Spacer axis="vertical" size={30} />
+          <Spacer axis="vertical" size={60} />
           <TestAdminAddTag projectRef={projectRef} tags={tags} />
-          <Spacer axis="vertical" size={30} />
+          <Spacer axis="vertical" size={60} />
           <AdminSupervisors
             formDataRef={formDataRef}
             projectRef={projectRef}

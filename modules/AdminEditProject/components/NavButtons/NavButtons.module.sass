@@ -1,0 +1,24 @@
+@import '../../../../styles/library'
+
+.container
+    display: flex
+    justify-content: space-around
+
+.button
+    width: max-content
+    background: $easternBlue-color
+    border-radius: 15px
+    color: #fff
+
+    & a
+        display: block
+        padding: 20px 40px
+
+@media (max-width: 500px)
+    .container
+        flex-direction: column
+
+    .button
+        width: 100%
+        margin-bottom: 20px
+        text-align: center

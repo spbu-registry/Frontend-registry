@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 
 import styles from "./AdminSupervisors.module.sass";
 import Image from "next/image";
@@ -24,9 +24,6 @@ const AdminSupervisors: FC<AdminSupervisorsProps> = ({
   projectRef,
   supervisorData,
 }) => {
-  // Для дропдауна будет использоваться отдельный компонент, который ещё не сделан
-  const [clinic, setClinic] = useState("Клиника");
-
   const titleBgClasses = [styles.pink, styles.easternBlue, styles.dodgerBlue];
 
   // Для мультиселекта

@@ -37,7 +37,6 @@ const AdminSubmit: FC<AdminSubmitProps> = ({ projectRef }) => {
             }))
           : [],
       };
-
       save(projectToSave);
     }
   };

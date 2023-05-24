@@ -55,7 +55,6 @@ const AdminRole: FC<AdminRoleProps> = ({
   }, [name, role]);
 
   const handleDelete = () => {
-    console.log(index);
     if (projectRef.current && projectRef.current.projectRoles) {
       projectRef.current.projectRoles = projectRef.current.projectRoles.filter(
         (role, mappedIndex) => mappedIndex != index

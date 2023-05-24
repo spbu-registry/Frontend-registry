@@ -43,7 +43,7 @@ const ProjectCalendar: FC<ProjectCalendarProps> = ({ projectRef }) => {
             from: formatTime(projectRef.current.startDefense),
             to: formatTime(projectRef.current.endDefense),
           },
-          projectStatus: projectRef.current.status,
+          projectStatus: statusNames[projectRef.current.status || "CLOSED"],
         }
       : {
           dateAdd: "",
@@ -77,7 +77,7 @@ const ProjectCalendar: FC<ProjectCalendarProps> = ({ projectRef }) => {
       projectRef.current.status = (Object.keys(statusNames).find(
         (key) =>
           statusNames[key as keyof typeof statusNames] == Timeline.projectStatus
-      ) || "OPEN_ENROLLMENT") as IAPIStatus;
+      ) || "CLOSED") as IAPIStatus;
     }
   }, [Timeline]);
 
@@ -90,7 +90,7 @@ const ProjectCalendar: FC<ProjectCalendarProps> = ({ projectRef }) => {
         if (el instanceof HTMLElement)
           if (
             el.textContent ==
-            statusNames[projectRef.current!.status || "OPEN_ENROLLMENT"]
+            statusNames[projectRef.current!.status || "CLOSED"]
           ) {
             el.classList.add(styles["statusChange"]);
           }

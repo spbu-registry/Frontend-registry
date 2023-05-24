@@ -51,7 +51,6 @@ const AdminRoles: FC<AdminRolesProps> = ({ projectRef, students }) => {
   };
 
   const handleDelete = (index: number) => {
-    console.log(roles[index]);
     setRoles(roles.filter((role, mappedIndex) => index != mappedIndex));
   };
 

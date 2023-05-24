@@ -127,7 +127,7 @@ export interface IAPIRole {
 }
 
 export interface IAPIRoleToSave {
-  roleId?: number;
+  roleId?: number | null;
   role?: string;
   student?: {
     studentId?: number;
