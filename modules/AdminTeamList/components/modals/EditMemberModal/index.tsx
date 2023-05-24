@@ -78,7 +78,7 @@ const EditMemberModal: FC<EditMemberModalProps> = ({ data, onClose }) => {
           toggleOption={setName}
           setOuterInput={setNameInput}
           lable={name}
-          height={3}
+          height={5}
           theme={Theme.Form}
           />
         </div>

@@ -105,7 +105,7 @@ function reducer(state: FiltersState, action: FiltersAction): FiltersState {
       if (!action.payload) return state;
       return { ...state, to: action.payload };
     case Actions.SetSearch:
-      if (!action.payload) return state;
+      if (!action.payload && action.payload !== '') return state;
       return { ...state, search: action.payload };
     case Actions.SetTagSearch:
       if (!action.payload) return state;

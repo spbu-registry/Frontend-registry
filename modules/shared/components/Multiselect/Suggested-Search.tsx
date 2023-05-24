@@ -352,7 +352,7 @@ export function SuggestedSearchSelect(props: SuggestedSearchProps & {startingVal
         controller={controller}
         toggleOption={(key) => {
           toggleOption(key)
-          setInputText(viewer.indexOptions[controller.highlighted ?? 0]);
+          setInputText(key);
           inputRef.current?.blur()
         }}
         parentId={id}
