@@ -10,7 +10,7 @@ const AddProject: FC<AddProjectProps> = () => {
 
   const handleAddProject = async () => {
     const result = await createProject();
-    //router.push("/admin/project/" + result);
+    router.push("/admin/project/" + result);
   };
 
   return (
