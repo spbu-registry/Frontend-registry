@@ -135,6 +135,12 @@ export interface IAPIRoleToSave {
   projectId?: number;
 }
 
+export interface IAPICommit {
+  project_id: number;
+  author_login: string;
+  created_at: string;
+}
+
 export enum IAPIWorkFormat {
   FULL_TIME = "FULL_TIME",
   DISTANT = "DISTANT",

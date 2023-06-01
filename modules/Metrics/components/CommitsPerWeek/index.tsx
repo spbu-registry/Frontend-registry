@@ -2,11 +2,18 @@ import React, { FC, useContext, useState } from "react";
 import { BarChart, Flex, Title, Toggle, ToggleItem, Icon } from "@tremor/react";
 import { InformationCircleIcon } from "@heroicons/react/outline";
 import { DatesContext } from "../../context/dates";
-import { commits, students } from "../../static/data";
+import { students } from "../../static/data";
+import { IAPICommit } from "../../../../types";
 
-interface CommitsPerWeekProps {}
+interface CommitsPerWeekProps {
+  commits: IAPICommit[];
+}
 
-const CommitsPerWeek: FC<CommitsPerWeekProps> = () => {
+const CommitsPerWeek: FC<CommitsPerWeekProps> = ({ commits }) => {
+  const students = commits
+    .map((commit) => commit.author_login)
+    .filter((name, index, currentVal) => currentVal.indexOf(name) === index);
+
   const [selectedKpi, setSelectedKpi] = useState("Все");
 
   const { dates, setDates } = useContext(DatesContext);
@@ -14,10 +21,19 @@ const CommitsPerWeek: FC<CommitsPerWeekProps> = () => {
   const dataByDate = () => {
     if (!dates || !dates[0] || !dates[1]) return commits;
     return commits.filter(
-      (week) =>
-        new Date(week.date) > (dates[0] as Date) &&
-        new Date(week.date) < (dates[1] as Date)
+      (commit) =>
+        new Date(commit.created_at) > (dates[0] as Date) &&
+        new Date(commit.created_at) < (dates[1] as Date)
     );
+  };
+
+  const formatData = (commits: IAPICommit[]) => {
+    return commits.map((commit) => {
+      return {
+        date: commit.created_at,
+        [commit.author_login]: 1,
+      };
+    });
   };
 
   return (
@@ -43,18 +59,18 @@ const CommitsPerWeek: FC<CommitsPerWeekProps> = () => {
             defaultValue={selectedKpi}
             onValueChange={(value) => setSelectedKpi(value)}
           >
-            <ToggleItem value="Все" text="Все" />
-            <ToggleItem value="Алина" text="Алина" />
-            <ToggleItem value="Даня" text="Даня" />
-            <ToggleItem value="Денис" text="Денис" />
-            <ToggleItem value="Дима" text="Дима" />
-            <ToggleItem value="Саша" text="Саша" />
+            <>
+              <ToggleItem value={"Все"} text={"Все"} />
+              {students.map((student) => (
+                <ToggleItem key={student} value={student} text={student} />
+              ))}
+            </>
           </Toggle>
         </div>
       </div>
       <BarChart
         className="mt-6"
-        data={dataByDate()}
+        data={formatData(dataByDate())}
         index="date"
         categories={selectedKpi == "Все" ? students : [selectedKpi]}
         colors={["sky", "violet", "fuchsia", "blue", "cyan"]}

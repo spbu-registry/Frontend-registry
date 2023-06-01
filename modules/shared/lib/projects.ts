@@ -84,3 +84,17 @@ export const deleteProject = async (id: number) => {
 
   return result;
 };
+
+export const getProjectCommits = async (id: number) => {
+  const commits = await fetch("http://45.8.99.244:8080/commit/" + id).then(
+    (result) => {
+      if (result.status !== 404) {
+        return result.json();
+      } else {
+        return [];
+      }
+    }
+  );
+
+  return commits;
+};
