@@ -93,10 +93,10 @@ export const deleteProject = async (id: number) => {
 export const getProjectCommits = async (id: number) => {
   const commits = await fetch("http://45.8.99.244:8080/commit/" + id).then(
     (result) => {
-      if (result.status !== 404) {
+      if (result.status == 200) {
         return result.json();
       } else {
-        return [];
+        return null;
       }
     }
   );
@@ -107,10 +107,10 @@ export const getProjectCommits = async (id: number) => {
 export const getProjectPullRequests = async (id: number) => {
   const PRs = await fetch("http://45.8.99.244:8080/pull_request/" + id).then(
     (result) => {
-      if (result.status !== 404) {
+      if (result.status == 200) {
         return result.json();
       } else {
-        return [];
+        return null;
       }
     }
   );
