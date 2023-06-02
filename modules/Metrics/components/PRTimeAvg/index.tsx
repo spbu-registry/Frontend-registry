@@ -1,4 +1,4 @@
-import React, { FC, useContext, useEffect, useState } from "react";
+import React, { FC, useContext, useEffect, useMemo, useState } from "react";
 import {
   Flex,
   Title,
@@ -8,12 +8,14 @@ import {
   Metric,
   DateRangePickerValue,
 } from "@tremor/react";
-import { prs, students } from "../../static/data";
 import { DatesContext } from "../../context/dates";
+import { IAPIPullRequest } from "../../../../types";
 
-interface PRTimeAvgProps {}
+interface PRTimeAvgProps {
+  prs: IAPIPullRequest[];
+}
 
-const PRTimeAvg: FC<PRTimeAvgProps> = () => {
+const PRTimeAvg: FC<PRTimeAvgProps> = ({ prs }) => {
   const [data, setData] = useState<
     {
       name: string;
@@ -23,13 +25,11 @@ const PRTimeAvg: FC<PRTimeAvgProps> = () => {
 
   const { dates } = useContext(DatesContext);
 
-  const calcPrsTimeAvg = (
-    prs: {
-      start: string;
-      end: string;
-      student: string;
-    }[]
-  ) => {
+  const students = useMemo(() => {
+    return Array.from(new Set<string>(prs.map((pr) => pr.author_login)));
+  }, [prs]);
+
+  const calcPrsTimeAvg = (prs: IAPIPullRequest[]) => {
     const data: {
       name: string;
       timeDiffs: number[];
@@ -42,9 +42,9 @@ const PRTimeAvg: FC<PRTimeAvgProps> = () => {
 
     prs.forEach((pr) => {
       data.forEach((student) => {
-        if (student.name == pr.student) {
-          const start = new Date(pr.start);
-          const end = pr.end ? new Date(pr.end) : new Date();
+        if (student.name == pr.author_login) {
+          const start = new Date(pr.created_at);
+          const end = pr.closed_at ? new Date(pr.closed_at) : new Date();
           student.timeDiffs.push(end.getTime() - start.getTime());
           student.count += 1;
         }
@@ -69,8 +69,9 @@ const PRTimeAvg: FC<PRTimeAvgProps> = () => {
       if (!dates || !dates[0] || !dates[1]) return prs;
       return prs.filter(
         (pr) =>
-          new Date(pr.start) > (dates[0] as Date) &&
-          new Date(pr.end) <= (dates[1] as Date)
+          new Date(pr.created_at) > (dates[0] as Date) &&
+          pr.closed_at &&
+          new Date(pr.closed_at) <= (dates[1] as Date)
       );
     };
 

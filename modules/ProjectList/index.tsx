@@ -37,20 +37,18 @@ const ProjectList: FC<ProjectListProps> = ({ projects, type }) => {
       */
       const data = await fetch("/api/projects").then((result) => result.json());
       if (filtersState.search == "") {
-        setResults(data.splice(0, 5));
+        setResults(data);
       } else {
         setResults(
-          data
-            .filter((project: IAPIProject) =>
-              keys.some((key: string) => {
-                if (typeof project[key as keyof IAPIProject] === "string") {
-                  return project[key as keyof IAPIProject]!.toString()
-                    .toLowerCase()
-                    .includes(filtersState.search.toLowerCase());
-                } else return false;
-              })
-            )
-            .splice(0, 5)
+          data.filter((project: IAPIProject) =>
+            keys.some((key: string) => {
+              if (typeof project[key as keyof IAPIProject] === "string") {
+                return project[key as keyof IAPIProject]!.toString()
+                  .toLowerCase()
+                  .includes(filtersState.search.toLowerCase());
+              } else return false;
+            })
+          )
         );
       }
     };

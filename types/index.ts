@@ -141,6 +141,13 @@ export interface IAPICommit {
   created_at: string;
 }
 
+export interface IAPIPullRequest {
+  project_id: number;
+  author_login: string;
+  created_at: string;
+  closed_at: string | null;
+}
+
 export enum IAPIWorkFormat {
   FULL_TIME = "FULL_TIME",
   DISTANT = "DISTANT",

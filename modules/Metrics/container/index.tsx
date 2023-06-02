@@ -4,13 +4,14 @@ import { DatesContext } from "../context/dates";
 import CommitsPerWeek from "../components/CommitsPerWeek";
 import PRTimeAvg from "../components/PRTimeAvg";
 import TotalPrs from "../components/TotalPRs";
-import { IAPICommit } from "../../../types";
+import { IAPICommit, IAPIPullRequest } from "../../../types";
 
 interface MetricsProps {
   commits: IAPICommit[];
+  prs: IAPIPullRequest[];
 }
 
-const Metrics: FC<MetricsProps> = ({ commits }) => {
+const Metrics: FC<MetricsProps> = ({ commits, prs }) => {
   const [dates, setDates] = useState<DateRangePickerValue>([
     new Date(2022, 0, 1),
     new Date(),
@@ -27,9 +28,9 @@ const Metrics: FC<MetricsProps> = ({ commits }) => {
         />
         <CommitsPerWeek commits={commits} />
         <Divider />
-        <PRTimeAvg />
+        <PRTimeAvg prs={prs} />
         <Divider />
-        <TotalPrs />
+        <TotalPrs prs={prs} />
       </div>
     </DatesContext.Provider>
   );

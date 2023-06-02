@@ -13,7 +13,12 @@ export const getProjects = async () => {
 export const getProject = async (id: number) => {
   const project: IAPIProject = await fetch(
     URL + "/projects/project?id=" + id
-  ).then((data) => data.json());
+  ).then((data) => {
+    if (data.status !== 404) {
+      return data.json();
+    }
+    return null;
+  });
 
   return project;
 };
@@ -97,4 +102,18 @@ export const getProjectCommits = async (id: number) => {
   );
 
   return commits;
+};
+
+export const getProjectPullRequests = async (id: number) => {
+  const PRs = await fetch("http://45.8.99.244:8080/pull_request/" + id).then(
+    (result) => {
+      if (result.status !== 404) {
+        return result.json();
+      } else {
+        return [];
+      }
+    }
+  );
+
+  return PRs;
 };

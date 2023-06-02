@@ -19,7 +19,7 @@ const NavButtons: FC<NavButtonsProps> = ({ projectId }) => {
         </Link>
       </div>
       <div className={styles.button}>
-        <Link href="/admin/metrics">Метрики</Link>
+        <Link href={"/admin/metrics/" + projectId}>Метрики</Link>
       </div>
     </div>
   );

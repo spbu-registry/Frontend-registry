@@ -2,10 +2,13 @@ import React, { FC, useContext, useEffect, useState } from "react";
 import { Flex, Text, Card, Metric, ProgressBar } from "@tremor/react";
 import { DatesContext } from "../../context/dates";
 import { prs } from "../../static/data";
+import { IAPIPullRequest } from "../../../../types";
 
-interface TotalPrsProps {}
+interface TotalPrsProps {
+  prs: IAPIPullRequest[];
+}
 
-const TotalPrs: FC<TotalPrsProps> = () => {
+const TotalPrs: FC<TotalPrsProps> = ({ prs }) => {
   const [data, setData] = useState({
     total: 0,
     closed: 0,
@@ -13,13 +16,7 @@ const TotalPrs: FC<TotalPrsProps> = () => {
 
   const { dates } = useContext(DatesContext);
 
-  const calcData = (
-    prs: {
-      start: string;
-      end: string;
-      student: string;
-    }[]
-  ) => {
+  const calcData = (prs: IAPIPullRequest[]) => {
     const result = {
       total: 0,
       closed: 0,
@@ -28,7 +25,9 @@ const TotalPrs: FC<TotalPrsProps> = () => {
     return {
       total: prs.length,
       closed: prs.filter(
-        (pr) => !dates[1] || (dates[1] && new Date(pr.end) <= dates[1])
+        (pr) =>
+          !dates[1] ||
+          (dates[1] && pr.closed_at && new Date(pr.closed_at) <= dates[1])
       ).length,
     };
   };
@@ -38,13 +37,15 @@ const TotalPrs: FC<TotalPrsProps> = () => {
       if (!dates || !dates[0] || !dates[1]) return prs;
       return prs.filter(
         (pr) =>
-          (new Date(pr.start) > (dates[0] as Date) && !pr.end) ||
-          (new Date(pr.start) > (dates[0] as Date) &&
-            new Date(pr.start) <= (dates[1] as Date)) ||
-          (new Date(pr.end) > (dates[0] as Date) &&
-            new Date(pr.end) <= (dates[1] as Date)) ||
-          (new Date(pr.start) < (dates[0] as Date) &&
-            new Date(pr.end) > (dates[1] as Date))
+          (new Date(pr.created_at) > (dates[0] as Date) && !pr.closed_at) ||
+          (new Date(pr.created_at) > (dates[0] as Date) &&
+            new Date(pr.created_at) <= (dates[1] as Date)) ||
+          (pr.closed_at &&
+            new Date(pr.closed_at) > (dates[0] as Date) &&
+            new Date(pr.closed_at) <= (dates[1] as Date)) ||
+          (new Date(pr.created_at) < (dates[0] as Date) &&
+            pr.closed_at &&
+            new Date(pr.closed_at) > (dates[1] as Date))
       );
     };
 
